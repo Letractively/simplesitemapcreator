@@ -10,20 +10,20 @@ object frmMain: TfrmMain
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
-  LCLVersion = '0.9.28.2'
+  LCLVersion = '0.9.31'
   object labelInfo: TLabel
     Left = 248
-    Height = 14
+    Height = 22
     Top = 24
-    Width = 43
+    Width = 58
     Caption = 'labelInfo'
     ParentColor = False
   end
   object labelURL: TLabel
     Left = 8
-    Height = 14
+    Height = 22
     Top = 8
-    Width = 41
+    Width = 58
     Caption = 'Site URL'
     ParentColor = False
   end
@@ -37,7 +37,7 @@ object frmMain: TfrmMain
     OnClick = btnGoClick
     TabOrder = 0
   end
-  object textHTML: TSynEdit
+  inline textHTML: TSynEdit
     Left = 8
     Height = 288
     Top = 56
@@ -51,10 +51,33 @@ object frmMain: TfrmMain
     ParentFont = False
     PopupMenu = editMenu
     TabOrder = 1
-    BookMarkOptions.OnChange = nil
     Gutter.Visible = False
-    Gutter.Width = 0
+    Gutter.Width = 57
     Gutter.MouseActions = <    
+      item
+        Shift = []
+        ShiftMask = []
+        Button = mbLeft
+        ClickCount = ccAny
+        ClickDir = cdDown
+        Command = 13
+        MoveCaret = False
+        Option = 0
+        Priority = 0
+      end    
+      item
+        Shift = []
+        ShiftMask = []
+        Button = mbRight
+        ClickCount = ccSingle
+        ClickDir = cdUp
+        Command = 12
+        MoveCaret = False
+        Option = 0
+        Priority = 0
+      end>
+    RightGutter.Width = 0
+    RightGutter.MouseActions = <    
       item
         Shift = []
         ShiftMask = []
@@ -622,13 +645,14 @@ object frmMain: TfrmMain
         Option = 0
         Priority = 0
       end>
+    VisibleSpecialChars = [vscSpace, vscTabAtLast]
     BracketHighlightStyle = sbhsBoth
-    object TSynGutterPartList
+    inline TSynGutterPartList
       object TSynGutterMarks
-        Width = 23
+        Width = 24
       end
       object TSynGutterLineNumber
-        Width = 25
+        Width = 17
         MouseActions = <>
         MarkupInfo.Background = clBtnFace
         MarkupInfo.Foreground = clNone
@@ -793,7 +817,7 @@ object frmMain: TfrmMain
   end
   object textURL: TFilterComboBox
     Left = 8
-    Height = 21
+    Height = 33
     Top = 24
     Width = 228
     TabOrder = 6
@@ -811,6 +835,16 @@ object frmMain: TfrmMain
   object SynHTMLSyn1: TSynHTMLSyn
     DefaultFilter = 'HTML Document (*.htm,*.html)|*.htm;*.html'
     Enabled = False
+    AndAttri.FrameEdges = sfeAround
+    ASPAttri.FrameEdges = sfeAround
+    CommentAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    SymbolAttri.FrameEdges = sfeAround
+    TextAttri.FrameEdges = sfeAround
+    UndefKeyAttri.FrameEdges = sfeAround
+    ValueAttri.FrameEdges = sfeAround
     left = 72
     top = 112
   end
@@ -835,4 +869,4 @@ object frmMain: TfrmMain
       OnClick = menuClearClick
     end
   end
-end
+end

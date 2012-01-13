@@ -77,7 +77,7 @@ var
 
 const
   APPVER = '0.1a';
-  CURRVER = '24100819';
+  CURRVER = '20120113';
 
 implementation
 
