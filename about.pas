@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, {$IFDEF MSWINDOWS} ShellAPI, Windows {$ELSE} Unix {$ENDIF};
+  StdCtrls, LclIntf;
 
 type
 
@@ -42,11 +42,7 @@ end;
 
 procedure TfrmAbout.Label4Click(Sender: TObject);
 begin
-  {$IFDEF MSWINDOWS}
-  ShellExecute(handle, Nil, 'http://www.matthewhipkin.co.uk', '', '.', SW_SHOWNORMAL);
-  {$ELSE}
-  Shell('xdg-open http://www.matthewhipkin.co.uk');
-  {$ENDIF}
+  OpenURL('http://www.matthewhipkin.co.uk');
 end;
 
 initialization
