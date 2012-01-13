@@ -22,7 +22,7 @@ object frmMain: TfrmMain
   object labelURL: TLabel
     Left = 8
     Height = 22
-    Top = 8
+    Top = 0
     Width = 58
     Caption = 'Site URL'
     ParentColor = False
@@ -39,8 +39,8 @@ object frmMain: TfrmMain
   end
   inline textHTML: TSynEdit
     Left = 8
-    Height = 288
-    Top = 56
+    Height = 280
+    Top = 64
     Width = 482
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.Height = -13
