@@ -1,13 +1,13 @@
 object frmAbout: TfrmAbout
   Left = 443
-  Height = 200
+  Height = 209
   Top = 213
   Width = 275
   ActiveControl = btnOK
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'About'
-  ClientHeight = 200
+  ClientHeight = 209
   ClientWidth = 275
   Position = poMainFormCenter
   LCLVersion = '0.9.31'
@@ -25,7 +25,7 @@ object frmAbout: TfrmAbout
   end
   object Label2: TLabel
     Left = 0
-    Height = 17
+    Height = 22
     Top = 48
     Width = 275
     Alignment = taCenter
@@ -35,19 +35,19 @@ object frmAbout: TfrmAbout
   end
   object Label3: TLabel
     Left = 0
-    Height = 17
+    Height = 22
     Top = 72
     Width = 275
     Alignment = taCenter
     AutoSize = False
-    Caption = '©2010 Matthew Hipkin'
+    Caption = '©2010-2012 Matthew Hipkin'
     ParentColor = False
   end
   object Label4: TLabel
     Cursor = crHandPoint
     Left = 0
-    Height = 17
-    Top = 115
+    Height = 22
+    Top = 120
     Width = 275
     Alignment = taCenter
     AutoSize = False
@@ -60,7 +60,7 @@ object frmAbout: TfrmAbout
   end
   object Label5: TLabel
     Left = 0
-    Height = 17
+    Height = 22
     Top = 96
     Width = 275
     Alignment = taCenter
@@ -70,9 +70,9 @@ object frmAbout: TfrmAbout
   end
   object Label6: TLabel
     Left = 0
-    Height = 17
+    Height = 22
     Top = 144
-    Width = 275
+    Width = 272
     Alignment = taCenter
     AutoSize = False
     Caption = 'Or follow me on twitter @hippy2094'
@@ -81,7 +81,7 @@ object frmAbout: TfrmAbout
   object btnOK: TButton
     Left = 192
     Height = 25
-    Top = 168
+    Top = 176
     Width = 75
     Caption = 'OK'
     OnClick = btnOKClick

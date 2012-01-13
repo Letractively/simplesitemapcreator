@@ -1,6 +1,15 @@
-{$MODE Delphi}
-{ $Id: jsHTMLUtil.pas,v 1.2 2004/09/10 02:25:56 jazar Exp $ }
-unit HTMLUtil;
+{ modified from jsFastHtmlParser  for use with freepascal 
+  
+ Original Author:
+  James Azarja
+
+ Contributor:
+  Lars aka L505
+  http://z505.com 
+
+ Note: this isn't perfect, it needs to be improved.. see comments  }
+  
+unit HTMLUtil; {$ifdef fpc} {$MODE Delphi} {$H+}{$endif}
 
 interface
 
@@ -11,6 +20,8 @@ Function GetTagName(Tag:String):String;
   
 Function GetTagAttribute(Tag, Attribute: String):String;
 
+{ DOES NOT SEEM TO WORK PROPERLY: BUGGY CODE FROM JAMES: IF ATTRIB IS "id"
+  then this function finds "width", even though width <> "id" }
 Function GetTagAttributei(Tag, Attribute: String):String;
 
 Function GetAttributeValue(Attribute: String):String;
@@ -42,6 +53,7 @@ Begin
   else
    Result := '';
 End;
+
 
 Function GetTagAttribute(Tag, Attribute: String):String;
 Var
@@ -85,6 +97,8 @@ Begin
   End;
 End;
 
+{ DOES NOT SEEM TO WORK PROPERLY: BUGGY CODE FROM JAMES: IF ATTRIB IS "id"
+  then this function finds "width", even though width <> "id" }
 Function GetTagAttributei(Tag, Attribute: String):String;
 Var
   P    : Pchar;
