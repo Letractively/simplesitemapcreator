@@ -43,7 +43,7 @@
         <Filename Value="ssm.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ssm"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="21"/>
@@ -56,12 +56,14 @@
         <Filename Value="main.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmMain"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="main"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="306"/>
-        <CursorPos X="64" Y="9"/>
+        <TopLine Value="118"/>
+        <CursorPos X="22" Y="134"/>
         <UsageCount Value="28"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -85,10 +87,10 @@
         <Filename Value="about.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAbout"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="about"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="9"/>
@@ -109,12 +111,10 @@
       <Unit6>
         <Filename Value="FastHTMLParser.pas"/>
         <UnitName Value="FastHTMLParser"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="471"/>
         <CursorPos X="34" Y="100"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit6>
     </Units>
@@ -283,4 +283,5 @@
       </Item3>
     </Exceptions>
   </Debugging>
+  <EditorMacros Count="0"/>
 </CONFIG>

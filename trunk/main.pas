@@ -6,12 +6,12 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, FastHTMLParser, HTMLUtil,
-  httpsend, SynEdit, SynHighlighterHTML;
+  StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit,
+  SynHighlighterHTML, xmlparser;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
-  And TjsFastHTMLParser http://www.daniweb.com/forums/thread64972.html
+  And XMLParser http://www.mythcode.org
 }
 
 type
@@ -51,8 +51,6 @@ type
     links: TList;
     stop: boolean;
     progdir: String;
-    procedure OnTag(T: string);
-    procedure OnText(T: String);
     function getURL(url: String): String;
     procedure addLink(link: String; title: String);
     procedure positionPanel;
@@ -76,8 +74,8 @@ var
   frmMain: TfrmMain;
 
 const
-  APPVER = '0.1a';
-  CURRVER = '20120113';
+  APPVER = '0.1.1a';
+  CURRVER = '20120819';
 
 implementation
 
@@ -114,8 +112,9 @@ end;
 { GET the given link and parse the HTML for more A tags }
 procedure TfrmMain.parseLinks(link: String);
 var
-  Parser: TjsFastHTMLParser;
+  Parser: TXMLParser;
   filec: TStrings;
+  h, t: String;
 begin
   // If cancel button clicked exit procedure
   if stop = true then exit;
@@ -123,11 +122,20 @@ begin
   // Retrieve the given URL
   filec.Text := getURL(link);
   // Parse the response
-  Parser := tjsFastHTMLParser.Create(PChar(filec.Text));
-  Parser.OnFoundTag := @OnTag;
-  Parser.OnFoundText := @OnText;
-  Parser.Exec;
-  Parser.Free;
+  Parser := TXMLParser.Create(filec.Text);
+  While Parser.Next do
+  begin
+    if Parser.TagType = ttBeginTag then
+    begin
+      if Parser.Name = 'a' then
+      begin
+        h := Parser.Value['href'];
+        t := Parser.ContentCode;
+        addLink(h,t);
+        showmessage(h + ': '+t);
+      end;
+    end;
+  end;
   filec.Free;
 end;
 
@@ -185,30 +193,6 @@ begin
   end;
   http.Free;
   l.Free;
-end;
-
-{ OnTagFound event, if its an A tag grab the href value }
-procedure TfrmMain.OnTag(T: String);
-var
-  attrib: String;
-begin
-  hrefTemp := '';
-  if LowerCase(Copy(T,1,2)) = '<a' then
-  begin
-    attrib := GetTagAttribute(T,'href');
-    hrefTemp := GetAttributeValue(attrib);
-    inTag := true;
-  end;
-  if LowerCase(T) = '</a>' then inTag := false;
-end;
-
-{ OnTextFound event }
-procedure TfrmMain.OnText(T: String);
-begin
-  if inTag = true then
-  begin
-    addLink(hrefTemp,T);
-  end;
 end;
 
 { Setup stuff }
