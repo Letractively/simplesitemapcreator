@@ -5,9 +5,9 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +#5'Width'#3#243#1#13'ActiveControl'#7#7'textURL'#7'Caption'#6#7'frmMain'#12
   +'ClientHeight'#3#129#1#11'ClientWidth'#3#243#1#8'OnCreate'#7#10'FormCreate'#9
   +'OnDestroy'#7#11'FormDestroy'#8'OnResize'#7#10'FormResize'#10'LCLVersion'#6#3
-  +'1.1'#0#6'TLabel'#9'labelInfo'#4'Left'#3#248#0#6'Height'#2#21#3'Top'#2#24#5
-  +'Width'#2';'#7'Caption'#6#9'labelInfo'#11'ParentColor'#8#0#0#6'TLabel'#8'lab'
-  +'elURL'#4'Left'#2#8#6'Height'#2#21#3'Top'#2#0#5'Width'#2'9'#7'Caption'#6#8'S'
+  +'1.1'#0#6'TLabel'#9'labelInfo'#4'Left'#3#248#0#6'Height'#2#16#3'Top'#2#24#5
+  +'Width'#2'/'#7'Caption'#6#9'labelInfo'#11'ParentColor'#8#0#0#6'TLabel'#8'lab'
+  +'elURL'#4'Left'#2#8#6'Height'#2#16#3'Top'#2#0#5'Width'#2','#7'Caption'#6#8'S'
   +'ite URL'#11'ParentColor'#8#0#0#7'TButton'#5'btnGo'#4'Left'#3#159#1#6'Height'
   +#2#25#3'Top'#3'`'#1#5'Width'#2'K'#7'Anchors'#11#7'akRight'#8'akBottom'#0#7'C'
   +'aption'#6#2'Go'#7'OnClick'#7#10'btnGoClick'#8'TabOrder'#2#0#0#0#244#8'TSynE'
@@ -155,7 +155,7 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +'Copy'#4'Left'#3#178#0#6'Height'#2#25#3'Top'#3'`'#1#5'Width'#2'K'#7'Anchors'
   +#11#7'akRight'#8'akBottom'#0#7'Caption'#6#4'Copy'#7'OnClick'#7#13'menuCopyCl'
   +'ick'#8'TabOrder'#2#5#0#0#15'TFilterComboBox'#7'textURL'#4'Left'#2#8#6'Heigh'
-  +'t'#2'!'#3'Top'#2#24#5'Width'#3#228#0#8'TabOrder'#2#6#0#0#7'TButton'#8'btnAb'
+  +'t'#2#23#3'Top'#2#24#5'Width'#3#228#0#8'TabOrder'#2#6#0#0#7'TButton'#8'btnAb'
   +'out'#4'Left'#2#8#6'Height'#2#25#3'Top'#3'`'#1#5'Width'#2'K'#7'Anchors'#11#6
   +'akLeft'#8'akBottom'#0#7'Caption'#6#5'About'#7'OnClick'#7#13'btnAboutClick'#8
   +'TabOrder'#2#7#0#0#11'TSynHTMLSyn'#11'SynHTMLSyn1'#13'DefaultFilter'#6')HTML'
@@ -172,4 +172,4 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +'n'#6#4'Copy'#7'OnClick'#7#13'menuCopyClick'#0#0#9'TMenuItem'#8'menuSave'#7
   +'Caption'#6#4'Save'#7'OnClick'#7#13'menuSaveClick'#0#0#9'TMenuItem'#9'menuCl'
   +'ear'#7'Caption'#6#5'Clear'#7'OnClick'#7#14'menuClearClick'#0#0#0#0
-]);
+]);

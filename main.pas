@@ -7,11 +7,10 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit,
-  SynHighlighterHTML, xmlparser;
+  SynHighlighterHTML;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
-  And XMLParser http://www.mythcode.org
 }
 
 type
@@ -112,30 +111,48 @@ end;
 { GET the given link and parse the HTML for more A tags }
 procedure TfrmMain.parseLinks(link: String);
 var
-  Parser: TXMLParser;
   filec: TStrings;
-  h, t: String;
+  h: String;
+  t: String;
+  i: integer;
+  hrefs: TStrings;
+  html: String;
+  openTag: Boolean;
+  inhref: Boolean;
+  lastChar: String;
 begin
   // If cancel button clicked exit procedure
   if stop = true then exit;
   filec := TStringList.Create;
+  hrefs := TStringList.Create;
+  openTag := false;
+  inhref := false;
   // Retrieve the given URL
-  filec.Text := getURL(link);
-  // Parse the response
-  Parser := TXMLParser.Create(filec.Text);
-  While Parser.Next do
+  html := getURL(link);
+  // Extract any <a></a> tags
+  h := '';
+  for i := 1 to Length(html) do
   begin
-    if Parser.TagType = ttBeginTag then
+    if (html[i] = '<') and (Lowercase(html[i+1]) = 'a') then
     begin
-      if Parser.Name = 'a' then
-      begin
-        h := Parser.Value['href'];
-        t := Parser.ContentCode;
-        addLink(h,t);
-        showmessage(h + ': '+t);
-      end;
+      h := '';
+      inhref := true;
     end;
+    if Copy(html,i,4) = '</a>' then
+    begin
+      inhref := false;
+      h := h + '</a>';
+      hrefs.Add(h);
+    end;
+    if inhref = true then h := h + html[i];
   end;
+  showmessage(hrefs.Text);
+  // Process tags before adding to list
+  for i := 0 to hrefs.Count -1 do
+  begin
+
+  end;
+  hrefs.Free;
   filec.Free;
 end;
 

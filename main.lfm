@@ -13,17 +13,17 @@ object frmMain: TfrmMain
   LCLVersion = '1.1'
   object labelInfo: TLabel
     Left = 248
-    Height = 21
+    Height = 16
     Top = 24
-    Width = 59
+    Width = 47
     Caption = 'labelInfo'
     ParentColor = False
   end
   object labelURL: TLabel
     Left = 8
-    Height = 21
+    Height = 16
     Top = 0
-    Width = 57
+    Width = 44
     Caption = 'Site URL'
     ParentColor = False
   end
@@ -716,7 +716,7 @@ object frmMain: TfrmMain
   end
   object textURL: TFilterComboBox
     Left = 8
-    Height = 33
+    Height = 23
     Top = 24
     Width = 228
     TabOrder = 6
@@ -769,4 +769,4 @@ object frmMain: TfrmMain
       OnClick = menuClearClick
     end
   end
-end
+end
