@@ -27,16 +27,6 @@ object frmMain: TfrmMain
     Caption = 'Site URL'
     ParentColor = False
   end
-  object btnGo: TButton
-    Left = 415
-    Height = 25
-    Top = 352
-    Width = 75
-    Anchors = [akRight, akBottom]
-    Caption = 'Go'
-    OnClick = btnGoClick
-    TabOrder = 0
-  end
   inline textHTML: TSynEdit
     Left = 8
     Height = 280
@@ -46,11 +36,11 @@ object frmMain: TfrmMain
     Font.Height = -13
     Font.Name = 'Courier New'
     Font.Pitch = fpFixed
-    Font.Quality = fqNonAntialiased
+    Font.Quality = fqCleartype
     ParentColor = False
     ParentFont = False
     PopupMenu = editMenu
-    TabOrder = 1
+    TabOrder = 0
     Gutter.Visible = False
     Gutter.Width = 57
     Gutter.MouseActions = <    
@@ -656,13 +646,13 @@ object frmMain: TfrmMain
   end
   object panelWork: TPanel
     Left = 136
-    Height = 90
+    Height = 96
     Top = 136
     Width = 170
     Caption = 'Please wait'
-    ClientHeight = 90
+    ClientHeight = 96
     ClientWidth = 170
-    TabOrder = 2
+    TabOrder = 1
     Visible = False
     object labelCount: TLabel
       Left = 0
@@ -674,62 +664,13 @@ object frmMain: TfrmMain
       Caption = ' '
       ParentColor = False
     end
-    object btnCancel: TButton
-      Left = 48
-      Height = 25
-      Top = 56
-      Width = 75
-      Caption = 'Cancel'
-      OnClick = btnCancelClick
-      TabOrder = 0
-    end
-  end
-  object btnSave: TButton
-    Left = 338
-    Height = 25
-    Top = 352
-    Width = 75
-    Anchors = [akRight, akBottom]
-    Caption = 'Save'
-    OnClick = menuSaveClick
-    TabOrder = 3
-  end
-  object btnClear: TButton
-    Left = 258
-    Height = 25
-    Top = 352
-    Width = 75
-    Anchors = [akRight, akBottom]
-    Caption = 'Clear'
-    OnClick = menuClearClick
-    TabOrder = 4
-  end
-  object btnCopy: TButton
-    Left = 178
-    Height = 25
-    Top = 352
-    Width = 75
-    Anchors = [akRight, akBottom]
-    Caption = 'Copy'
-    OnClick = menuCopyClick
-    TabOrder = 5
   end
   object textURL: TFilterComboBox
     Left = 8
     Height = 23
     Top = 24
     Width = 228
-    TabOrder = 6
-  end
-  object btnAbout: TButton
-    Left = 8
-    Height = 25
-    Top = 352
-    Width = 75
-    Anchors = [akLeft, akBottom]
-    Caption = 'About'
-    OnClick = btnAboutClick
-    TabOrder = 7
+    TabOrder = 2
   end
   object SynHTMLSyn1: TSynHTMLSyn
     DefaultFilter = 'HTML Document (*.htm,*.html)|*.htm;*.html'
@@ -738,12 +679,16 @@ object frmMain: TfrmMain
     ASPAttri.FrameEdges = sfeAround
     CDATAAttri.FrameEdges = sfeAround
     CommentAttri.FrameEdges = sfeAround
+    IdentifierAttri.Foreground = clGreen
     IdentifierAttri.FrameEdges = sfeAround
+    IdentifierAttri.Style = []
+    KeyAttri.Foreground = clBlack
     KeyAttri.FrameEdges = sfeAround
     SpaceAttri.FrameEdges = sfeAround
     SymbolAttri.FrameEdges = sfeAround
     TextAttri.FrameEdges = sfeAround
     UndefKeyAttri.FrameEdges = sfeAround
+    ValueAttri.Foreground = 170
     ValueAttri.FrameEdges = sfeAround
     left = 72
     top = 112
@@ -754,8 +699,8 @@ object frmMain: TfrmMain
     top = 112
   end
   object editMenu: TPopupMenu
-    left = 211
-    top = 254
+    left = 104
+    top = 72
     object menuCopy: TMenuItem
       Caption = 'Copy'
       OnClick = menuCopyClick

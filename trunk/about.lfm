@@ -3,14 +3,14 @@ object frmAbout: TfrmAbout
   Height = 209
   Top = 213
   Width = 275
-  ActiveControl = btnOK
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'About'
   ClientHeight = 209
   ClientWidth = 275
+  OnCreate = FormCreate
   Position = poMainFormCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object Label1: TLabel
     Left = 0
     Height = 38
@@ -77,14 +77,5 @@ object frmAbout: TfrmAbout
     AutoSize = False
     Caption = 'Or follow me on twitter @hippy2094'
     ParentColor = False
-  end
-  object btnOK: TButton
-    Left = 192
-    Height = 25
-    Top = 176
-    Width = 75
-    Caption = 'OK'
-    OnClick = btnOKClick
-    TabOrder = 0
   end
 end
