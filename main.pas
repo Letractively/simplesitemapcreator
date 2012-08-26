@@ -75,8 +75,8 @@ var
   frmMain: TfrmMain;
 
 const
-  APPVER = '0.1.2';
-  CURRVER = '20120820';
+  APPVER = '0.1.3';
+  CURRVER = '20120826';
 
 implementation
 
@@ -136,7 +136,7 @@ begin
   html := getURL(url);
   // Set up variables;
   badChars := [#10,#13];
-  breakChars := [' ','>'];
+  breakChars := [' ','>','#','?'];
   inhref := false;
   hrefs := TStringList.Create;
   // Extract any <a></a> tags
