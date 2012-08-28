@@ -1,5 +1,21 @@
 unit main;
+(*
+Simple Sitemap Creator
+Copyright (C) 2010-2012 Matthew Hipkin <http://www.matthewhipkin.co.uk>
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*)
 {$mode objfpc}{$H+}
 
 interface
@@ -11,6 +27,7 @@ uses
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
+  And XiControls http://www.matthewhipkin.co.uk/codelib/xicontrols/
 }
 
 type
@@ -76,7 +93,7 @@ var
 
 const
   APPVER = '0.1.3';
-  CURRVER = '20120826';
+  CURRVER = '20120828';
 
 implementation
 
@@ -194,7 +211,7 @@ begin
     // There are tags inside
     if PosSet(['<','>'],title) > 0 then
     begin
-
+      // Try and just extract an alt or title attribute
     end
     // If the title is empty just set it to the link
     else if title = '' then title := link;
@@ -267,7 +284,7 @@ var
 begin
   http := THTTPSend.Create;
   l := TStringList.Create;
-  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+';' + OS + '; '+CURRVER+')';
+  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+';' + OS + '; '+CURRVER+'; +http://www.matthewhipkin.co.uk/)';
   Application.ProcessMessages;
   if not HTTP.HTTPMethod('GET', url) then Result := ''
   else
@@ -499,6 +516,7 @@ begin
   panelWork.Caption := 'Stopping';
 end;
 
+{ Show about dialog }
 procedure TfrmMain.btnAboutClick(Sender: TObject);
 begin
   frmAbout.ShowModal;
