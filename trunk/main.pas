@@ -212,6 +212,23 @@ begin
     if PosSet(['<','>'],title) > 0 then
     begin
       // Try and just extract an alt or title attribute
+      if Pos('alt=',title) > 0 then
+      begin
+        title := Copy(title,Pos('alt=',title)+4,PosSet(breakChars,title));
+      end
+      else if Pos('title=',title) > 0 then
+      begin
+        title := Copy(title,Pos('title=',title)+6,PosSet(breakChars,title));
+      end;
+      // No alt or title tags, try and grab an image filename
+      {else if Pos('<img',title) > 0 then
+      begin
+        for x := 1 to Length(title) do
+        begin
+
+        end;
+      end;}
+      title := TrimSet(title,[' ','"','''']);
     end
     // If the title is empty just set it to the link
     else if title = '' then title := link;
