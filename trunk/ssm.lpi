@@ -29,25 +29,28 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="SynEdit"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="SynEdit"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
     </RequiredPackages>
-    <Units Count="9">
+    <Units Count="10">
       <Unit0>
         <Filename Value="ssm.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ssm"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="21"/>
-        <UsageCount Value="38"/>
+        <CursorPos X="1" Y="22"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -62,9 +65,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="289"/>
-        <CursorPos X="68" Y="30"/>
-        <UsageCount Value="38"/>
+        <TopLine Value="250"/>
+        <CursorPos X="1" Y="2"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -73,14 +76,14 @@
         <Filename Value="..\synapse\source\lib\synacode.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="synacode"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="40"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\synapse\source\lib\httpsend.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="httpsend"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="40"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit3>
       <Unit4>
@@ -90,11 +93,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="about"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="29"/>
-        <CursorPos X="32" Y="71"/>
-        <UsageCount Value="30"/>
+        <TopLine Value="1"/>
+        <CursorPos X="5" Y="18"/>
+        <UsageCount Value="32"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -129,127 +132,141 @@
       <Unit8>
         <Filename Value="xicontrols\XiPanel.pas"/>
         <UnitName Value="XiPanel"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="58" Y="17"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit8>
+      <Unit9>
+        <Filename Value="alphaw.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAlphaWarning"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="alphaw"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="45" Y="22"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit9>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="main.pas"/>
-        <Caret Line="321" Column="35" TopLine="302"/>
+        <Caret Line="432" Column="40" TopLine="424"/>
       </Position1>
       <Position2>
         <Filename Value="main.pas"/>
-        <Caret Line="270" Column="32" TopLine="242"/>
+        <Caret Line="457" Column="19" TopLine="449"/>
       </Position2>
       <Position3>
         <Filename Value="main.pas"/>
-        <Caret Line="324" Column="63" TopLine="281"/>
+        <Caret Line="449" Column="46" TopLine="446"/>
       </Position3>
       <Position4>
         <Filename Value="main.pas"/>
-        <Caret Line="323" Column="63" TopLine="291"/>
+        <Caret Line="318" Column="48" TopLine="309"/>
       </Position4>
       <Position5>
         <Filename Value="main.pas"/>
-        <Caret Line="336" Column="3" TopLine="318"/>
+        <Caret Line="448" Column="3" TopLine="437"/>
       </Position5>
       <Position6>
-        <Filename Value="main.pas"/>
-        <Caret Line="348" Column="29" TopLine="325"/>
+        <Filename Value="alphaw.pas"/>
+        <Caret Line="20" Column="23" TopLine="12"/>
       </Position6>
       <Position7>
-        <Filename Value="main.pas"/>
-        <Caret Line="347" Column="29" TopLine="324"/>
+        <Filename Value="alphaw.pas"/>
+        <Caret Line="36" Column="30" TopLine="17"/>
       </Position7>
       <Position8>
         <Filename Value="main.pas"/>
-        <Caret Line="46" Column="5" TopLine="25"/>
+        <Caret Line="1" Column="11" TopLine="1"/>
       </Position8>
       <Position9>
         <Filename Value="main.pas"/>
-        <Caret Line="462" Column="5" TopLine="432"/>
+        <Caret Line="449" Column="18" TopLine="442"/>
       </Position9>
       <Position10>
-        <Filename Value="main.pas"/>
-        <Caret Line="354" Column="23" TopLine="330"/>
+        <Filename Value="alphaw.pas"/>
+        <Caret Line="28" Column="3" TopLine="27"/>
       </Position10>
       <Position11>
-        <Filename Value="main.pas"/>
-        <Caret Line="353" Column="23" TopLine="329"/>
+        <Filename Value="alphaw.pas"/>
+        <Caret Line="47" Column="39" TopLine="38"/>
       </Position11>
       <Position12>
         <Filename Value="main.pas"/>
-        <Caret Line="45" Column="1" TopLine="33"/>
+        <Caret Line="452" Column="27" TopLine="520"/>
       </Position12>
       <Position13>
         <Filename Value="main.pas"/>
-        <Caret Line="364" Column="21" TopLine="344"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position13>
       <Position14>
         <Filename Value="main.pas"/>
-        <Caret Line="363" Column="21" TopLine="343"/>
+        <Caret Line="64" Column="12" TopLine="46"/>
       </Position14>
       <Position15>
         <Filename Value="main.pas"/>
-        <Caret Line="371" Column="35" TopLine="25"/>
+        <Caret Line="327" Column="10" TopLine="309"/>
       </Position15>
       <Position16>
         <Filename Value="main.pas"/>
-        <Caret Line="384" Column="27" TopLine="353"/>
+        <Caret Line="329" Column="53" TopLine="311"/>
       </Position16>
       <Position17>
         <Filename Value="main.pas"/>
-        <Caret Line="377" Column="20" TopLine="366"/>
+        <Caret Line="331" Column="81" TopLine="313"/>
       </Position17>
       <Position18>
         <Filename Value="main.pas"/>
-        <Caret Line="376" Column="20" TopLine="365"/>
+        <Caret Line="437" Column="35" TopLine="419"/>
       </Position18>
       <Position19>
-        <Filename Value="about.pas"/>
-        <Caret Line="9" Column="34" TopLine="8"/>
+        <Filename Value="main.pas"/>
+        <Caret Line="458" Column="41" TopLine="446"/>
       </Position19>
       <Position20>
         <Filename Value="main.pas"/>
-        <Caret Line="385" Column="23" TopLine="362"/>
+        <Caret Line="455" Column="52" TopLine="444"/>
       </Position20>
       <Position21>
         <Filename Value="main.pas"/>
-        <Caret Line="384" Column="23" TopLine="361"/>
+        <Caret Line="232" Column="24" TopLine="138"/>
       </Position21>
       <Position22>
-        <Filename Value="about.pas"/>
-        <Caret Line="68" Column="23" TopLine="46"/>
+        <Filename Value="main.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position22>
       <Position23>
-        <Filename Value="about.pas"/>
-        <Caret Line="29" Column="5" TopLine="13"/>
+        <Filename Value="main.pas"/>
+        <Caret Line="64" Column="12" TopLine="46"/>
       </Position23>
       <Position24>
-        <Filename Value="about.pas"/>
-        <Caret Line="28" Column="5" TopLine="13"/>
+        <Filename Value="alphaw.pas"/>
+        <Caret Line="41" Column="33" TopLine="32"/>
       </Position24>
       <Position25>
-        <Filename Value="main.pas"/>
-        <Caret Line="338" Column="28" TopLine="314"/>
+        <Filename Value="alphaw.pas"/>
+        <Caret Line="68" Column="1" TopLine="57"/>
       </Position25>
       <Position26>
-        <Filename Value="main.pas"/>
-        <Caret Line="361" Column="53" TopLine="257"/>
+        <Filename Value="alphaw.pas"/>
+        <Caret Line="9" Column="29" TopLine="2"/>
       </Position26>
       <Position27>
-        <Filename Value="main.pas"/>
-        <Caret Line="471" Column="45" TopLine="453"/>
+        <Filename Value="alphaw.pas"/>
+        <Caret Line="68" Column="15" TopLine="57"/>
       </Position27>
       <Position28>
         <Filename Value="main.pas"/>
-        <Caret Line="472" Column="30" TopLine="454"/>
+        <Caret Line="390" Column="63" TopLine="378"/>
       </Position28>
       <Position29>
         <Filename Value="main.pas"/>
@@ -257,7 +274,7 @@
       </Position29>
       <Position30>
         <Filename Value="main.pas"/>
-        <Caret Line="124" Column="8" TopLine="106"/>
+        <Caret Line="206" Column="22" TopLine="188"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -268,11 +285,6 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value="synapse;xicontrols"/>
     </SearchPaths>
-    <Parsing>
-      <SyntaxOptions>
-        <SyntaxMode Value="Delphi"/>
-      </SyntaxOptions>
-    </Parsing>
     <Linking>
       <Debugging>
         <GenerateDebugInfo Value="False"/>
