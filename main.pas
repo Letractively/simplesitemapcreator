@@ -53,6 +53,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure menuClearClick(Sender: TObject);
     procedure menuCopyClick(Sender: TObject);
     procedure menuSaveClick(Sender: TObject);
@@ -97,7 +98,7 @@ const
 
 implementation
 
-uses about;
+uses about, alphaw;
 
 { TfrmMain }
 
@@ -251,7 +252,7 @@ var
 begin
   add := true;
   // Check for a valid URL before adding
-  if (AnsiLeftStr(link,7) = 'http://') and (Pos(textURL.Text,link) = 0) then add := false;
+  if ((AnsiLeftStr(link,7) = 'http://') or (AnsiLeftStr(link,8) = 'https://')) and (Pos(textURL.Text,link) = 0) then add := false;
   if Pos('mailto:',link) > 0 then add := false;
   if link = '' then add := false;
   if (AnsiLeftStr(link,1) = '/') and (link <> '/') then link := Copy(link,2,Length(link)-1);
@@ -323,7 +324,7 @@ begin
   frmMain.Caption := 'Simple Sitemap Creator '+APPVER;
   Application.Title := frmMain.Caption;
   labelInfo.Caption := '';
-  progdir := GetEnvironmentVariable('HOME')+'/.ssm/';
+  progdir := GetUserDir + '.ssm' + PathDelim;
   // Check for program settings directory, if it doesn't exist create it
   if not DirectoryExists(progdir) then mkdir(progdir);
   // Load the URL history into the URL field
@@ -441,6 +442,23 @@ end;
 procedure TfrmMain.FormResize(Sender: TObject);
 begin
   positionPanel;
+end;
+
+procedure TfrmMain.FormShow(Sender: TObject);
+var
+  s: TStrings;
+begin
+  if FileExists(progdir + 'alpha.txt') then exit;
+  s := TStringList.Create;
+  if frmAlphaWarning.ShowModal = mrOK then
+  begin
+    if frmAlphaWarning.checkDontShow.Checked = true then
+    begin
+      s.Add('dontshow');
+      s.SaveToFile(progdir + 'alpha.txt');
+    end;
+  end;
+  s.Free;
 end;
 
 { Clear button/menu click event }

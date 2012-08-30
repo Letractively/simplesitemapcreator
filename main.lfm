@@ -10,6 +10,7 @@ object frmMain: TfrmMain
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
+  OnShow = FormShow
   LCLVersion = '1.1'
   object labelInfo: TLabel
     Left = 248
