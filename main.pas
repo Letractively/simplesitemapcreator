@@ -22,7 +22,7 @@ interface
 // Lazarus svn 37902
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit,
+  StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
   SynHighlighterHTML, XiPanel, XiButton;
 
 {
@@ -35,6 +35,7 @@ type
   { TfrmMain }
 
   TfrmMain = class(TForm)
+    labelUpdate: TLabel;
     labelURL: TLabel;
     textURL: TFilterComboBox;
     labelInfo: TLabel;
@@ -47,6 +48,7 @@ type
     SaveDialog1: TSaveDialog;
     SynHTMLSyn1: TSynHTMLSyn;
     textHTML: TSynEdit;
+    updatesTimer: TTimer;
     procedure btnAboutClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnGoClick(Sender: TObject);
@@ -54,9 +56,11 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure labelUpdateClick(Sender: TObject);
     procedure menuClearClick(Sender: TObject);
     procedure menuCopyClick(Sender: TObject);
     procedure menuSaveClick(Sender: TObject);
+    procedure updatesTimerTimer(Sender: TObject);
   private
     { private declarations }
     links: TList;
@@ -70,6 +74,7 @@ type
     btnSave: TXiButton;
     btnGo: TXiButton;
     btnCancel: TXiButton;
+    updatePanel: TXiPanel;
     function getURL(url: String): String;
     procedure addLink(link: String; title: String);
     procedure positionPanel;
@@ -94,7 +99,7 @@ var
 
 const
   APPVER = '0.1.3';
-  CURRVER = '20120828';
+  CURRVER = 20120905;
 
 implementation
 
@@ -126,6 +131,8 @@ begin
     Left := (frmMain.Width div 2) - (Width div 2);
     Top := (frmMain.Height div 2) - (Height div 2);
   end;
+  if updatePanel.Visible then
+    updatePanel.Left := (frmMain.ClientWidth - updatePanel.Width) - 5;
 end;
 
 { GET the given link and parse the HTML for more A tags }
@@ -144,6 +151,7 @@ var
   title: String;
   ls: integer;
   add: Boolean;
+  s, e: integer;
 begin
   // If cancel button clicked exit procedure
   if stop = true then exit;
@@ -203,7 +211,6 @@ begin
         link := Copy(h,6,Length(h)-6);
         link := TrimSet(link,[' ','"','''']);
         ls := x+1;
-//        showmessage(link);
       end;
       if inhref = true then h := h + t[x];
     end;
@@ -215,20 +222,23 @@ begin
       // Try and just extract an alt or title attribute
       if Pos('alt=',title) > 0 then
       begin
-        title := Copy(title,Pos('alt=',title)+4,PosSet(breakChars,title));
+        s := Pos('alt=',title)+4;
+        e := PosSetEx(['"',''''],title,s+1);
+        title := Copy(title,s,e-s);
       end
       else if Pos('title=',title) > 0 then
       begin
-        title := Copy(title,Pos('title=',title)+6,PosSet(breakChars,title));
-      end;
+        s := Pos('title=',title)+7;
+        e := PosSetEx(['"',''''],title,s+1);
+        title := Copy(title,s,e-s);
+      end
       // No alt or title tags, try and grab an image filename
-      {else if Pos('<img',title) > 0 then
+      else if Pos('<img',title) > 0 then
       begin
-        for x := 1 to Length(title) do
-        begin
-
-        end;
-      end;}
+        s := Pos('src=',title)+4;
+        e := PosSetEx(['"',''''],title,s+1);
+        title := Copy(title,s,e-s);
+      end;
       title := TrimSet(title,[' ','"','''']);
     end
     // If the title is empty just set it to the link
@@ -253,7 +263,7 @@ begin
   add := true;
   // Check for a valid URL before adding
   if ((AnsiLeftStr(link,7) = 'http://') or (AnsiLeftStr(link,8) = 'https://')) and (Pos(textURL.Text,link) = 0) then add := false;
-  if Pos('mailto:',link) > 0 then add := false;
+  if (Pos('mailto:',link) > 0) or (Pos('javascript:',link) > 0) then add := false;
   if link = '' then add := false;
   if (AnsiLeftStr(link,1) = '/') and (link <> '/') then link := Copy(link,2,Length(link)-1);
   // Make sure link is not already in the list
@@ -302,7 +312,7 @@ var
 begin
   http := THTTPSend.Create;
   l := TStringList.Create;
-  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+';' + OS + '; '+CURRVER+'; +http://www.matthewhipkin.co.uk/)';
+  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+';' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/)';
   Application.ProcessMessages;
   if not HTTP.HTTPMethod('GET', url) then Result := ''
   else
@@ -338,6 +348,7 @@ begin
   ignoreFiles.Add('.mp3');
   ignoreFiles.Add('.wav');
   ignoreFiles.Add('.exe');
+  ignoreFiles.Add('.bin');
   ignoreFiles.Add('.zip');
   ignoreFiles.Add('.gz');
   ignoreFiles.Add('.bz2');
@@ -428,6 +439,20 @@ begin
   btnCancel.Visible := true;
   btnCancel.BringToFront;
   btnCancel.OnClick := @btnCancelClick;
+  updatePanel := TXiPanel.Create(self);
+  updatePanel.Parent := bgPanel;
+  updatePanel.Top := 8;
+  updatePanel.Height := 50;
+  updatePanel.Width := 170;
+  updatePanel.Left := 318;
+  updatePanel.ColorScheme := XiPanel.csRose;
+  labelUpdate.Parent := upDatePanel;
+  labelUpdate.Align := alClient;
+  labelUpdate.Alignment := taCenter;
+  labelUpdate.Layout := tlCenter;
+  labelUpdate.Caption := 'A new version is available';
+  updatePanel.Visible := false;
+  updatesTimer.Enabled := true;
 end;
 
 { Stuff to do on program close }
@@ -461,6 +486,11 @@ begin
   s.Free;
 end;
 
+procedure TfrmMain.labelUpdateClick(Sender: TObject);
+begin
+  OpenURL('http://www.matthewhipkin.co.uk');
+end;
+
 { Clear button/menu click event }
 procedure TfrmMain.menuClearClick(Sender: TObject);
 begin
@@ -483,6 +513,27 @@ begin
   begin
     textHTML.Lines.SaveToFile(SaveDialog1.FileName);
     labelInfo.Caption := 'Saved to ' + SaveDialog1.FileName + '.';
+  end;
+end;
+
+procedure TfrmMain.updatesTimerTimer(Sender: TObject);
+var
+  response: String;
+  newVer: Boolean;
+begin
+  updatesTimer.Enabled := false;
+  // Check for a new version comparing the CURRVER variable to the value returned
+  newVer := false;
+  try
+    response := getURL('http://www.matthewhipkin.co.uk/ssmc.txt');
+    response := trim(response);
+    if CURRVER < StrToInt(response) then newVer := true;
+  except
+    newVer := false;
+  end;
+  if newVer then
+  begin
+    updatePanel.Visible := true;
   end;
 end;
 
