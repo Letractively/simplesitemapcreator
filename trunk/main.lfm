@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 290
+  Left = 769
   Height = 385
-  Top = 172
+  Top = 184
   Width = 499
   ActiveControl = textURL
   Caption = 'frmMain'
@@ -673,6 +673,19 @@ object frmMain: TfrmMain
     Width = 228
     TabOrder = 2
   end
+  object labelUpdate: TLabel
+    Cursor = crHandPoint
+    Left = 254
+    Height = 16
+    Top = 43
+    Width = 64
+    Caption = 'labelUpdate'
+    Font.Color = clNavy
+    Font.Style = [fsUnderline]
+    ParentColor = False
+    ParentFont = False
+    OnClick = labelUpdateClick
+  end
   object SynHTMLSyn1: TSynHTMLSyn
     DefaultFilter = 'HTML Document (*.htm,*.html)|*.htm;*.html'
     Enabled = False
@@ -714,5 +727,12 @@ object frmMain: TfrmMain
       Caption = 'Clear'
       OnClick = menuClearClick
     end
+  end
+  object updatesTimer: TTimer
+    Enabled = False
+    Interval = 6000
+    OnTimer = updatesTimerTimer
+    left = 184
+    top = 88
   end
 end
