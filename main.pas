@@ -546,6 +546,7 @@ begin
   // Reset variables;
   stop := false;
   labelInfo.Caption := '';
+  panelWork.Caption := 'Please wait';
   // Show and position the status panel
   panelWork.Visible := true;
   positionPanel;
