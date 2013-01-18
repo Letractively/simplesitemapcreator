@@ -312,7 +312,7 @@ var
 begin
   http := THTTPSend.Create;
   l := TStringList.Create;
-  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+';' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/)';
+  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+'; ' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/)';
   Application.ProcessMessages;
   if not HTTP.HTTPMethod('GET', url) then Result := ''
   else
