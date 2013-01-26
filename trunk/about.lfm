@@ -40,7 +40,7 @@ object frmAbout: TfrmAbout
     Width = 275
     Alignment = taCenter
     AutoSize = False
-    Caption = '©2010-2012 Matthew Hipkin'
+    Caption = '©2010-2013 Matthew Hipkin'
     ParentColor = False
   end
   object Label4: TLabel

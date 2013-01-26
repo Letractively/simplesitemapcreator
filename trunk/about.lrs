@@ -12,7 +12,7 @@ LazarusResources.Add('TfrmAbout','FORMDATA',[
   +'h'#3#19#1#9'Alignment'#7#8'taCenter'#8'AutoSize'#8#7'Caption'#6'(A simple t'
   +'ool for creating HTML sitemaps'#11'ParentColor'#8#0#0#6'TLabel'#6'Label3'#4
   +'Left'#2#0#6'Height'#2#22#3'Top'#2'H'#5'Width'#3#19#1#9'Alignment'#7#8'taCen'
-  +'ter'#8'AutoSize'#8#7'Caption'#6#26#194#169'2010-2012 Matthew Hipkin'#11'Par'
+  +'ter'#8'AutoSize'#8#7'Caption'#6#26#194#169'2010-2013 Matthew Hipkin'#11'Par'
   +'entColor'#8#0#0#6'TLabel'#6'Label4'#6'Cursor'#7#11'crHandPoint'#4'Left'#2#0
   +#6'Height'#2#22#3'Top'#2'x'#5'Width'#3#19#1#9'Alignment'#7#8'taCenter'#8'Aut'
   +'oSize'#8#7'Caption'#6#30'http://www.matthewhipkin.co.uk'#10'Font.Color'#7#5

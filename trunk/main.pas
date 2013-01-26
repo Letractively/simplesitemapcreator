@@ -1,7 +1,7 @@
 unit main;
 (*
 Simple Sitemap Creator
-Copyright (C) 2010-2012 Matthew Hipkin <http://www.matthewhipkin.co.uk>
+Copyright (C) 2010 Matthew Hipkin <http://www.matthewhipkin.co.uk>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,11 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 {$mode objfpc}{$H+}
 
 interface
-// Lazarus svn 37902
+
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
-  SynHighlighterHTML, XiPanel, XiButton;
+  ComCtrls{$IFDEF MSWINDOWS}, Windows{$ENDIF}, SynHighlighterHTML,
+  SynHighlighterXML, XiPanel, XiButton;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
@@ -37,6 +38,12 @@ type
   TfrmMain = class(TForm)
     labelUpdate: TLabel;
     labelURL: TLabel;
+    PageControl1: TPageControl;
+    SynXMLSyn1: TSynXMLSyn;
+    textXML: TSynEdit;
+    textHTML: TSynEdit;
+    tabHTML: TTabSheet;
+    tabGoogle: TTabSheet;
     textURL: TFilterComboBox;
     labelInfo: TLabel;
     labelCount: TLabel;
@@ -47,7 +54,6 @@ type
     editMenu: TPopupMenu;
     SaveDialog1: TSaveDialog;
     SynHTMLSyn1: TSynHTMLSyn;
-    textHTML: TSynEdit;
     updatesTimer: TTimer;
     procedure btnAboutClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -98,12 +104,23 @@ var
   frmMain: TfrmMain;
 
 const
-  APPVER = '0.1.3';
-  CURRVER = 20120905;
+  APPVER = '0.1.4';
+  CURRVER = 20130126;
 
 implementation
 
 uses about, alphaw;
+
+{$IFDEF MSWINDOWS}
+function getWinVer: String;
+var
+  VerInfo: TOSVersioninfo;
+begin
+  VerInfo.dwOSVersionInfoSize := SizeOf(TOSVersionInfo);
+  GetVersionEx(VerInfo);
+  Result := 'Windows '+IntToStr(VerInfo.dwMajorVersion) + '.' + IntToStr(VerInfo.dwMinorVersion)
+end;
+{$ENDIF}
 
 { TfrmMain }
 
@@ -293,23 +310,23 @@ end;
 
 { Get the contents of specified link }
 function TfrmMain.getURL(url: String): String;
-const
-  {$ifdef Windows}
-    OS = 'Windows';
-  {$endif}
-  {$ifdef Linux}
-    OS = 'Linux';
-  {$endif}
-  {$ifdef FreeBSD}
-    OS = 'FreeBSD';
-  {$endif}
-  {$ifdef Darwin}
-    OS = 'Mac OSX';
-  {$endif}
 var
   http: THTTPSend;
   l: TStrings;
+  OS: String;
 begin
+  {$ifdef Windows}
+  OS := getWinVer;
+  {$endif}
+  {$ifdef Linux}
+  OS := 'Linux';
+  {$endif}
+  {$ifdef FreeBSD}
+  OS := 'FreeBSD';
+  {$endif}
+  {$ifdef Darwin}
+  OS := 'OSX';
+  {$endif}
   http := THTTPSend.Create;
   l := TStringList.Create;
   http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+'; ' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/)';
@@ -453,6 +470,9 @@ begin
   labelUpdate.Caption := 'A new version is available';
   updatePanel.Visible := false;
   updatesTimer.Enabled := true;
+  textHTML.Font := textXML.Font;
+  textHTML.Lines.Clear;
+  textXML.Lines.Clear;
 end;
 
 { Stuff to do on program close }
@@ -495,24 +515,47 @@ end;
 procedure TfrmMain.menuClearClick(Sender: TObject);
 begin
   textHTML.Lines.Clear;
+  textXML.Lines.Clear;
   labelInfo.Caption := '';
 end;
 
 { Copy button/menu click event }
 procedure TfrmMain.menuCopyClick(Sender: TObject);
 begin
-  textHTML.SelectAll;
-  textHTML.CopyToClipboard;
-  labelInfo.Caption := 'Copied to clipboard.';
+  if PageControl1.ActivePage = tabHTML then
+  begin
+    textHTML.SelectAll;
+    textHTML.CopyToClipboard;
+    labelInfo.Caption := 'Copied to clipboard.';
+  end;
+  if PageControl1.ActivePage = tabGoogle then
+  begin
+    textXML.SelectAll;
+    textXML.CopyToClipboard;
+    labelInfo.Caption := 'Copied to clipboard.';
+  end;
 end;
 
 { Save button/menu click event }
 procedure TfrmMain.menuSaveClick(Sender: TObject);
 begin
-  if (SaveDialog1.Execute) and (SaveDialog1.FileName <> '') then
+  if PageControl1.ActivePage = tabHTML then
   begin
-    textHTML.Lines.SaveToFile(SaveDialog1.FileName);
-    labelInfo.Caption := 'Saved to ' + SaveDialog1.FileName + '.';
+    SaveDialog1.Filter := 'HTML Files (*.html)|*.html|All Files (*.*)|*.*';
+    if (SaveDialog1.Execute) and (SaveDialog1.FileName <> '') then
+    begin
+      textHTML.Lines.SaveToFile(SaveDialog1.FileName);
+      labelInfo.Caption := 'Saved to ' + SaveDialog1.FileName + '.';
+    end;
+  end;
+  if PageControl1.ActivePage = tabGoogle then
+  begin
+    SaveDialog1.Filter := 'XML Files (*.xml)|*.xml|All Files (*.*)|*.*';
+    if (SaveDialog1.Execute) and (SaveDialog1.FileName <> '') then
+    begin
+      textXML.Lines.SaveToFile(SaveDialog1.FileName);
+      labelInfo.Caption := 'Saved to ' + SaveDialog1.FileName + '.';
+    end;
   end;
 end;
 
@@ -542,11 +585,13 @@ procedure TfrmMain.btnGoClick(Sender: TObject);
 var
   x: integer;
   l: ^TLinkItem;
+  today: String;
 begin
   // Reset variables;
   stop := false;
   labelInfo.Caption := '';
   panelWork.Caption := 'Please wait';
+  DateTimeToString(today,'yyyy-mm-dd',Now);
   // Show and position the status panel
   panelWork.Visible := true;
   positionPanel;
@@ -567,6 +612,14 @@ begin
   textHTML.Lines.Clear;
   // Create an unordered list
   textHTML.Lines.Add('<ul>');
+  // Clear the XML editor
+  textXML.Lines.Clear;
+  // Create XML header
+  textXML.Lines.Add('<?xml version="1.0" encoding="UTF-8"?>');
+  textXML.Lines.Add('<urlset xmlns="http://www.google.com/schemas/sitemap/0.84"');
+  textXML.Lines.Add('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"');
+  textXML.Lines.Add('xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84');
+  textXML.Lines.Add('http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">');
   // Loops through the links
   for x := 0 to links.Count -1 do
   begin
@@ -577,12 +630,19 @@ begin
     l := links[x];
     // Add a bullet item with the current link info
     textHTML.Lines.Add('  <li><a href="'+l^.link+'">'+l^.title+'</a></li>');
+    // Add an XML item
+    textXML.Lines.Add('  <url>');
+    textXML.Lines.Add('    <loc>'+l^.link+'</loc>');
+    textXML.Lines.Add('    <lastmod>'+today+'</lastmod>');
+    textXML.Lines.Add('  </url>');
   end;
   // Set info caption
   labelInfo.Caption := IntToStr(links.Count) + ' links found.';
   if stop then labelInfo.Caption := 'Cancelled.';
   // Close list tag
   textHTML.Lines.Add('</ul>');
+  // End XML
+  textXML.Lines.Add('</urlset>');
   // Clear list of links
   links.Clear;
   // Hide the status panel
