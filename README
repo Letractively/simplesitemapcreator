@@ -1,6 +1,6 @@
 Simple Sitemap Creator
 
-A simple app that scans a website and creates a HTML sitemap. 
+A simple app that crawls a website and creates HTML and Google Sitemaps compatible XML sitemap.
 
 !!!!This program is still very much in Alpha stage, use at your own risk!!!!
 
