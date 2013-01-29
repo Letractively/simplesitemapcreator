@@ -85,8 +85,8 @@ type
     procedure MouseMove (Shift: TShiftState; X, Y: Integer); override;
     procedure WMSetFocus(var msg: TWMSetFocus); message WM_SETFOCUS;
     procedure WMKillFocus(var msg: TWMKillFocus); message WM_KILLFOCUS;
-    procedure WMKeyUp(var msg: TLMKeyUp); message WM_KEYUP;
-    procedure WMKeyDown(var msg: TLMKeyDown); message WM_KEYDOWN;
+    procedure WMKeyUp(var msg: TLMKeyUp); message LM_KEYUP;
+    procedure WMKeyDown(var msg: TLMKeyDown); message LM_KEYDOWN;
     procedure CMDialogKey(var msg: TCMDialogKey); message CM_DIALOGKEY;
     procedure CMDialogChar(var msg: TCMDialogChar); message CM_DIALOGCHAR;
     procedure CMTextChanged (var msg: TMessage); message CM_TEXTCHANGED;
@@ -983,4 +983,4 @@ begin
   end;
 end;
 
-end.
+end.

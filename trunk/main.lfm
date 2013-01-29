@@ -16,7 +16,7 @@ object frmMain: TfrmMain
     Left = 248
     Height = 15
     Top = 24
-    Width = 46
+    Width = 53
     Caption = 'labelInfo'
     ParentColor = False
   end
@@ -24,44 +24,23 @@ object frmMain: TfrmMain
     Left = 8
     Height = 15
     Top = 0
-    Width = 43
+    Width = 52
     Caption = 'Site URL'
     ParentColor = False
-  end
-  object panelWork: TPanel
-    Left = 136
-    Height = 96
-    Top = 136
-    Width = 170
-    Caption = 'Please wait'
-    ClientHeight = 96
-    ClientWidth = 170
-    TabOrder = 0
-    Visible = False
-    object labelCount: TLabel
-      Left = 0
-      Height = 14
-      Top = 16
-      Width = 168
-      Alignment = taCenter
-      AutoSize = False
-      Caption = ' '
-      ParentColor = False
-    end
   end
   object textURL: TFilterComboBox
     Left = 8
     Height = 23
     Top = 24
     Width = 228
-    TabOrder = 1
+    TabOrder = 0
   end
   object labelUpdate: TLabel
     Cursor = crHandPoint
     Left = 254
     Height = 15
     Top = 43
-    Width = 63
+    Width = 74
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -82,14 +61,14 @@ object frmMain: TfrmMain
     Font.Quality = fqDraft
     ParentFont = False
     TabIndex = 0
-    TabOrder = 2
+    TabOrder = 1
     object tabHTML: TTabSheet
       Caption = 'HTML'
-      ClientHeight = 250
+      ClientHeight = 248
       ClientWidth = 480
       inline textHTML: TSynEdit
         Left = 0
-        Height = 250
+        Height = 248
         Top = 0
         Width = 480
         Align = alClient
@@ -533,6 +512,12 @@ object frmMain: TfrmMain
           'textHTML'
         )
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
+        SelectedColor.BackPriority = 50
+        SelectedColor.ForePriority = 50
+        SelectedColor.FramePriority = 50
+        SelectedColor.BoldPriority = 50
+        SelectedColor.ItalicPriority = 50
+        SelectedColor.UnderlinePriority = 50
         BracketHighlightStyle = sbhsBoth
         BracketMatchColor.Background = clNone
         BracketMatchColor.Foreground = clNone
@@ -1029,6 +1014,12 @@ object frmMain: TfrmMain
           'textXML'
         )
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
+        SelectedColor.BackPriority = 50
+        SelectedColor.ForePriority = 50
+        SelectedColor.FramePriority = 50
+        SelectedColor.BoldPriority = 50
+        SelectedColor.ItalicPriority = 50
+        SelectedColor.UnderlinePriority = 50
         BracketHighlightStyle = sbhsBoth
         BracketMatchColor.Background = clNone
         BracketMatchColor.Foreground = clNone
@@ -1076,12 +1067,23 @@ object frmMain: TfrmMain
       end
     end
   end
+  object labelCount: TLabel
+    Left = 0
+    Height = 14
+    Top = 16
+    Width = 168
+    Alignment = taCenter
+    AutoSize = False
+    Caption = ' '
+    ParentColor = False
+  end
   object SynHTMLSyn1: TSynHTMLSyn
     DefaultFilter = 'HTML Document (*.htm,*.html)|*.htm;*.html'
     Enabled = False
     AndAttri.FrameEdges = sfeAround
     ASPAttri.FrameEdges = sfeAround
     CDATAAttri.FrameEdges = sfeAround
+    DOCTYPEAttri.FrameEdges = sfeAround
     CommentAttri.FrameEdges = sfeAround
     IdentifierAttri.Foreground = clGreen
     IdentifierAttri.FrameEdges = sfeAround
@@ -1145,4 +1147,4 @@ object frmMain: TfrmMain
     left = 211
     top = 221
   end
-end
+end
