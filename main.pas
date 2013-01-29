@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
   ComCtrls{$IFDEF MSWINDOWS}, Windows{$ENDIF}, SynHighlighterHTML,
-  SynHighlighterXML, XiPanel, XiButton;
+  SynHighlighterXML, XiPanel, XiButton, xmlparser;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
@@ -50,7 +50,6 @@ type
     menuCopy: TMenuItem;
     menuClear: TMenuItem;
     menuSave: TMenuItem;
-    panelWork: TPanel;
     editMenu: TPopupMenu;
     SaveDialog1: TSaveDialog;
     SynHTMLSyn1: TSynHTMLSyn;
@@ -81,6 +80,7 @@ type
     btnGo: TXiButton;
     btnCancel: TXiButton;
     updatePanel: TXiPanel;
+    workPanel: TXiPanel;
     function getURL(url: String): String;
     procedure addLink(link: String; title: String);
     procedure positionPanel;
@@ -104,8 +104,8 @@ var
   frmMain: TfrmMain;
 
 const
-  APPVER = '0.1.4';
-  CURRVER = 20130126;
+  APPVER = '0.1.5';
+  CURRVER = 20130128;
 
 implementation
 
@@ -143,17 +143,57 @@ end;
 { Position the status panel at the centre of the form }
 procedure TfrmMain.positionPanel;
 begin
-  with panelWork do
+  if updatePanel.Visible then
+    updatePanel.Left := (frmMain.ClientWidth - updatePanel.Width) - 5;
+  with workPanel do
   begin
     Left := (frmMain.Width div 2) - (Width div 2);
     Top := (frmMain.Height div 2) - (Height div 2);
   end;
-  if updatePanel.Visible then
-    updatePanel.Left := (frmMain.ClientWidth - updatePanel.Width) - 5;
+end;
+
+procedure TfrmMain.parseLinks(url: String);
+var
+  Parser: TXMLParser;
+  hrefs: TStrings;
+  html: String;
+  link: String;
+  title: String;
+  add: Boolean;
+  x: integer;
+begin
+  // If cancel button clicked exit procedure
+  if stop = true then exit;
+  // Ignore certain filetypes
+  for x := 0 to ignoreFiles.Count -1 do
+    if LowerCase(ExtractFileExt(url)) = ignoreFiles[x] then exit;
+  // Retrieve the given URL
+  html := getURL(url);
+  // Set up variables
+  hrefs := TStringList.Create;
+  Parser := TXMLParser.Create(html);
+  while Parser.Next do
+  begin
+    if Parser.TagType = ttBeginTag then
+    begin
+      if Parser.Name = 'a' then
+      begin
+        link := trim(Parser.Value['href']);
+        title := Parser.ContentSpaceTrimText;
+        if title = '' then title := link;
+      end;
+    end;
+    add := true;
+    for x := 0 to ignoreFiles.Count -1 do
+      if Lowercase(ExtractFileExt(link)) = ignoreFiles[x] then add := false;
+    if add = true then addLink(link,title);
+  end;
+  hrefs.Free;
+  Parser.Free;
 end;
 
 { GET the given link and parse the HTML for more A tags }
-procedure TfrmMain.parseLinks(url: String);
+{procedure TfrmMain.parseLinks(url: String);
 var
   h: String;
   t: String;
@@ -174,7 +214,7 @@ begin
   if stop = true then exit;
   // Ignore certain filetypes
   for x := 0 to ignoreFiles.Count -1 do
-    if ExtractFileExt(url) = ignoreFiles[x] then exit;
+    if LowerCase(ExtractFileExt(url)) = ignoreFiles[x] then exit;
   // Retrieve the given URL
   html := getURL(url);
   // Set up variables;
@@ -263,11 +303,11 @@ begin
     // Ignore certain filetypes
     add := true;
     for x := 0 to ignoreFiles.Count -1 do
-      if ExtractFileExt(link) = ignoreFiles[x] then add := false;
+      if Lowercase(ExtractFileExt(link)) = ignoreFiles[x] then add := false;
     if add = true then addLink(link,title);
   end;
   hrefs.Free;
-end;
+end;       }
 
 { Attempt to add a link to the parse list, checking to see if it's a local link
   and whether the link is already there }
@@ -374,7 +414,7 @@ begin
   ignoreFiles.Add('.7z');
   ignoreFiles.Add('.arj');
   // UI tweaks
-  textHTML.Font.Name := 'Consolas';
+//  textHTML.Font.Name := 'Consolas';
   bgPanel := TXiPanel.Create(Self);
   bgPanel.Parent := frmMain;
   bgPanel.Align := alClient;
@@ -445,8 +485,18 @@ begin
   btnGo.BringToFront;
   btnGo.Anchors:=[akBottom,akRight];
   btnGo.OnClick := @btnGoClick;
+  workPanel := TXiPanel.Create(Self);
+  workPanel.Parent := frmMain;
+  workPanel.Width := 170;
+  workPanel.Height := 96;
+  workPanel.Top := 0;
+  workPanel.Left := 0;
+  workPanel.ColorScheme := XiPanel.csGrass;
+  workPanel.Visible := false;
+//  workPanel.BringToFront;
+  labelCount.Parent := workPanel;
   btnCancel := TXiButton.Create(Self);
-  btnCancel.Parent := panelWork;
+  btnCancel.Parent := workPanel;
   btnCancel.Top := 64;
   btnCancel.Left := 48;
   btnCancel.Width := 75;
@@ -470,7 +520,7 @@ begin
   labelUpdate.Caption := 'A new version is available';
   updatePanel.Visible := false;
   updatesTimer.Enabled := true;
-  textHTML.Font := textXML.Font;
+//  textHTML.Font := textXML.Font;
   textHTML.Lines.Clear;
   textXML.Lines.Clear;
 end;
@@ -590,10 +640,11 @@ begin
   // Reset variables;
   stop := false;
   labelInfo.Caption := '';
-  panelWork.Caption := 'Please wait';
+  workPanel.Caption := 'Please wait';
   DateTimeToString(today,'yyyy-mm-dd',Now);
   // Show and position the status panel
-  panelWork.Visible := true;
+  workPanel.Visible := true;
+  workPanel.BringToFront;
   positionPanel;
   // Disable all but the Cancel button
   textURL.Enabled := false;
@@ -602,6 +653,7 @@ begin
   btnSave.Enabled := false;
   btnClear.Enabled := false;
   btnCopy.Enabled := false;
+  PageControl1.Enabled := false;
   // If the entered URL doesn't have a trailing / add one
   if AnsiRightStr(textURL.Text,1) <> '/' then textURL.Text := textURL.Text + '/';
   // Add the URL to the history dropdown
@@ -646,7 +698,7 @@ begin
   // Clear list of links
   links.Clear;
   // Hide the status panel
-  panelWork.Visible := false;
+  workPanel.Visible := false;
   // Re-enable the standard controls
   textURL.Enabled := true;
   textHTML.Enabled := true;
@@ -654,13 +706,14 @@ begin
   btnSave.Enabled := true;
   btnClear.Enabled := true;
   btnCopy.Enabled := true;
+  PageControl1.Enabled := true;
 end;
 
 { Cancel button/menu click event }
 procedure TfrmMain.btnCancelClick(Sender: TObject);
 begin
   stop := true;
-  panelWork.Caption := 'Stopping';
+  workPanel.Caption := 'Stopping';
 end;
 
 { Show about dialog }
