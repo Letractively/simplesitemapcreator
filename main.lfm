@@ -1083,7 +1083,6 @@ object frmMain: TfrmMain
     AndAttri.FrameEdges = sfeAround
     ASPAttri.FrameEdges = sfeAround
     CDATAAttri.FrameEdges = sfeAround
-    DOCTYPEAttri.FrameEdges = sfeAround
     CommentAttri.FrameEdges = sfeAround
     IdentifierAttri.Foreground = clGreen
     IdentifierAttri.FrameEdges = sfeAround
@@ -1147,4 +1146,4 @@ object frmMain: TfrmMain
     left = 211
     top = 221
   end
-end
+end
