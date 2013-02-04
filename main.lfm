@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 602
+  Left = 604
   Height = 385
-  Top = 194
+  Top = 197
   Width = 499
   ActiveControl = textURL
   Caption = 'frmMain'
@@ -16,7 +16,7 @@ object frmMain: TfrmMain
     Left = 248
     Height = 15
     Top = 24
-    Width = 46
+    Width = 53
     Caption = 'labelInfo'
     ParentColor = False
   end
@@ -24,7 +24,7 @@ object frmMain: TfrmMain
     Left = 8
     Height = 15
     Top = 0
-    Width = 43
+    Width = 52
     Caption = 'Site URL'
     ParentColor = False
   end
@@ -40,7 +40,7 @@ object frmMain: TfrmMain
     Left = 254
     Height = 15
     Top = 43
-    Width = 63
+    Width = 74
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -53,24 +53,24 @@ object frmMain: TfrmMain
     Height = 280
     Top = 72
     Width = 488
-    ActivePage = tabHTML
+    ActivePage = tabGoogle
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.CharSet = ANSI_CHARSET
     Font.Height = -13
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     object tabHTML: TTabSheet
       Caption = 'HTML'
-      ClientHeight = 250
+      ClientHeight = 248
       ClientWidth = 480
       inline textHTML: TSynEdit
         Left = 0
-        Height = 250
+        Height = 888
         Top = 0
-        Width = 480
+        Width = 1901
         Align = alClient
         Font.Height = -13
         Font.Name = 'Courier New'
@@ -566,11 +566,11 @@ object frmMain: TfrmMain
     end
     object tabGoogle: TTabSheet
       Caption = 'Google Sitemap'
-      ClientHeight = 250
+      ClientHeight = 248
       ClientWidth = 480
       inline textXML: TSynEdit
         Left = 0
-        Height = 250
+        Height = 248
         Top = 0
         Width = 480
         Align = alClient
@@ -1083,6 +1083,7 @@ object frmMain: TfrmMain
     AndAttri.FrameEdges = sfeAround
     ASPAttri.FrameEdges = sfeAround
     CDATAAttri.FrameEdges = sfeAround
+    DOCTYPEAttri.FrameEdges = sfeAround
     CommentAttri.FrameEdges = sfeAround
     IdentifierAttri.Foreground = clGreen
     IdentifierAttri.FrameEdges = sfeAround
@@ -1146,4 +1147,4 @@ object frmMain: TfrmMain
     left = 211
     top = 221
   end
-end
+end
