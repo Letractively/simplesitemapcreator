@@ -104,8 +104,8 @@ var
   frmMain: TfrmMain;
 
 const
-  APPVER = '0.1.5';
-  CURRVER = 20130128;
+  APPVER = '0.1.6';
+  CURRVER = 20130204;
 
 implementation
 
@@ -321,6 +321,7 @@ begin
   // Check for a valid URL before adding
   if ((AnsiLeftStr(link,7) = 'http://') or (AnsiLeftStr(link,8) = 'https://')) and (Pos(textURL.Text,link) = 0) then add := false;
   if (Pos('mailto:',link) > 0) or (Pos('javascript:',link) > 0) then add := false;
+  if AnsiLeftStr(link,1) = '#' then add := false;
   if link = '' then add := false;
   if (AnsiLeftStr(link,1) = '/') and (link <> '/') then link := Copy(link,2,Length(link)-1);
   // Make sure link is not already in the list

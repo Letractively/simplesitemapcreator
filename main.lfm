@@ -16,7 +16,7 @@ object frmMain: TfrmMain
     Left = 248
     Height = 15
     Top = 24
-    Width = 53
+    Width = 46
     Caption = 'labelInfo'
     ParentColor = False
   end
@@ -24,7 +24,7 @@ object frmMain: TfrmMain
     Left = 8
     Height = 15
     Top = 0
-    Width = 52
+    Width = 43
     Caption = 'Site URL'
     ParentColor = False
   end
@@ -40,7 +40,7 @@ object frmMain: TfrmMain
     Left = 254
     Height = 15
     Top = 43
-    Width = 74
+    Width = 63
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -64,11 +64,11 @@ object frmMain: TfrmMain
     TabOrder = 1
     object tabHTML: TTabSheet
       Caption = 'HTML'
-      ClientHeight = 248
+      ClientHeight = 250
       ClientWidth = 480
       inline textHTML: TSynEdit
         Left = 0
-        Height = 248
+        Height = 250
         Top = 0
         Width = 480
         Align = alClient
