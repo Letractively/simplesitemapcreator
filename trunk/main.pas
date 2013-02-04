@@ -24,10 +24,11 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
   ComCtrls{$IFDEF MSWINDOWS}, Windows{$ENDIF}, SynHighlighterHTML,
-  SynHighlighterXML, XiPanel, XiButton, xmlparser;
+  SynHighlighterXML, IpHtml, XiPanel, XiButton, xmlparser;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
+  Mythcode XML Parser http://www.mythcode.org
   And XiControls http://www.matthewhipkin.co.uk/codelib/xicontrols/
 }
 
@@ -152,6 +153,7 @@ begin
   end;
 end;
 
+{ GET the given link and parse the HTML for more A tags }
 procedure TfrmMain.parseLinks(url: String);
 var
   Parser: TXMLParser;
@@ -180,8 +182,11 @@ begin
       begin
         link := trim(Parser.Value['href']);
         title := Parser.ContentSpaceTrimText;
-        if title = '' then title := link;
+        if title = '' then
+          title := Parser.Value['title'];
       end;
+      if (Parser.Name = 'img') and (title = '') then
+        title := Parser.Value['src'];
     end;
     add := true;
     for x := 0 to ignoreFiles.Count -1 do
@@ -192,7 +197,6 @@ begin
   Parser.Free;
 end;
 
-{ GET the given link and parse the HTML for more A tags }
 {procedure TfrmMain.parseLinks(url: String);
 var
   h: String;
@@ -307,7 +311,7 @@ begin
     if add = true then addLink(link,title);
   end;
   hrefs.Free;
-end;       }
+end;}
 
 { Attempt to add a link to the parse list, checking to see if it's a local link
   and whether the link is already there }
@@ -316,8 +320,10 @@ var
   x: integer;
   l: ^TLinkItem;
   add: Boolean;
+  edit: Boolean;
 begin
   add := true;
+  edit := false;
   // Check for a valid URL before adding
   if ((AnsiLeftStr(link,7) = 'http://') or (AnsiLeftStr(link,8) = 'https://')) and (Pos(textURL.Text,link) = 0) then add := false;
   if (Pos('mailto:',link) > 0) or (Pos('javascript:',link) > 0) then add := false;
@@ -328,9 +334,13 @@ begin
   for x := 0 to links.Count -1 do
   begin
     l := links[x];
-    if l^.link = link then add := false;
+    if l^.link = link then
+    begin
+      add := false;
+      if l^.title = '' then edit := true;
+    end;
   end;
-  if add then
+  if (add = true) and (edit = false) then
   begin
     // Add the link info to the list of links to be parsed
     new(l);
@@ -346,6 +356,11 @@ begin
       parseLinks(textURL.Text + l^.link)
     else
       parseLinks(l^.link)
+  end;
+  // Edit link that has a blank title
+  if (edit = true) and (add = false) then
+  begin
+    l^.title := title;
   end;
 end;
 

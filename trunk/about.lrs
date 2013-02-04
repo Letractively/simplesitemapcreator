@@ -23,4 +23,4 @@ LazarusResources.Add('TfrmAbout','FORMDATA',[
   +'el'#6'Label6'#4'Left'#2#0#6'Height'#2#22#3'Top'#3#144#0#5'Width'#3#16#1#9'A'
   +'lignment'#7#8'taCenter'#8'AutoSize'#8#7'Caption'#6'"Or follow me on twitter'
   +' @hippy2094'#11'ParentColor'#8#0#0#0
-]);
+]);
