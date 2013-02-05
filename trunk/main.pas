@@ -106,7 +106,7 @@ var
 
 const
   APPVER = '0.1.6';
-  CURRVER = 20130204;
+  CURRVER = 20130205;
 
 implementation
 
@@ -119,7 +119,7 @@ var
 begin
   VerInfo.dwOSVersionInfoSize := SizeOf(TOSVersionInfo);
   GetVersionEx(VerInfo);
-  Result := 'Windows '+IntToStr(VerInfo.dwMajorVersion) + '.' + IntToStr(VerInfo.dwMinorVersion)
+  Result := 'Windows NT '+IntToStr(VerInfo.dwMajorVersion) + '.' + IntToStr(VerInfo.dwMinorVersion)
 end;
 {$ENDIF}
 
@@ -157,7 +157,6 @@ end;
 procedure TfrmMain.parseLinks(url: String);
 var
   Parser: TXMLParser;
-  hrefs: TStrings;
   html: String;
   link: String;
   title: String;
@@ -172,7 +171,6 @@ begin
   // Retrieve the given URL
   html := getURL(url);
   // Set up variables
-  hrefs := TStringList.Create;
   Parser := TXMLParser.Create(html);
   while Parser.Next do
   begin
@@ -186,6 +184,10 @@ begin
           title := Parser.Value['title'];
       end;
       if (Parser.Name = 'img') and (title = '') then
+        title := Parser.Value['alt'];
+      if (Parser.Name = 'img') and (title = '') then
+        title := Parser.Value['title'];
+      if (Parser.Name = 'img') and (title = '') then
         title := Parser.Value['src'];
     end;
     add := true;
@@ -193,125 +195,8 @@ begin
       if Lowercase(ExtractFileExt(link)) = ignoreFiles[x] then add := false;
     if add = true then addLink(link,title);
   end;
-  hrefs.Free;
   Parser.Free;
 end;
-
-{procedure TfrmMain.parseLinks(url: String);
-var
-  h: String;
-  t: String;
-  i: integer;
-  x: integer;
-  hrefs: TStrings;
-  html: String;
-  inhref: Boolean;
-  badChars: set of char;
-  breakChars: set of char;
-  link: String;
-  title: String;
-  ls: integer;
-  add: Boolean;
-  s, e: integer;
-begin
-  // If cancel button clicked exit procedure
-  if stop = true then exit;
-  // Ignore certain filetypes
-  for x := 0 to ignoreFiles.Count -1 do
-    if LowerCase(ExtractFileExt(url)) = ignoreFiles[x] then exit;
-  // Retrieve the given URL
-  html := getURL(url);
-  // Set up variables;
-  badChars := [#10,#13];
-  breakChars := [' ','>','#','?'];
-  inhref := false;
-  hrefs := TStringList.Create;
-  // Extract any <a></a> tags
-  h := '';
-  for i := 1 to Length(html) do
-  begin
-    //if (html[i] = '<') and (Lowercase(html[i+1]) = 'a') then
-    if Lowercase(Copy(html,i,3)) = '<a ' then
-    begin
-      h := '';
-      inhref := true;
-    end;
-    if Copy(html,i,4) = '</a>' then
-    begin
-      inhref := false;
-      h := h + '</a>';
-      hrefs.Add(h);
-    end;
-    if (inhref = true) and (html[i] in badChars = false) then h := h + html[i];
-  end;
-  // Process tags before adding to list
-  for i := 0 to hrefs.Count -1 do
-  begin
-    (* If there is just plain text between the opening and closing tags just add
-       the text, otherwise check for a title or alt attribute, if niether of
-       those exist, we'll look for an <img> tag and take the title, alt or src
-       to use *)
-    t := hrefs[i];
-    inhref := false;
-    h := '';
-    link := '';
-    title := '';
-    // Step 1: Retrieve link from href
-    for x := 1 to Length(t) do
-    begin
-      (* HTML is a pain in the arse as attributes can be enclosed in quotes,
-         apostrophes or nothing! *)
-      if Copy(t,x,5) = 'href=' then
-      begin
-        h := '';
-        inhref := true;
-      end;
-      if (t[x] in breakChars) and (inhref = true) then
-      begin
-        inhref := false;
-        link := Copy(h,6,Length(h)-6);
-        link := TrimSet(link,[' ','"','''']);
-        ls := x+1;
-      end;
-      if inhref = true then h := h + t[x];
-    end;
-    // Step 2: Get text between <a></a> tags
-    title := Copy(t,ls,(Length(t)-ls)-3);
-    // There are tags inside
-    if PosSet(['<','>'],title) > 0 then
-    begin
-      // Try and just extract an alt or title attribute
-      if Pos('alt=',title) > 0 then
-      begin
-        s := Pos('alt=',title)+4;
-        e := PosSetEx(['"',''''],title,s+1);
-        title := Copy(title,s,e-s);
-      end
-      else if Pos('title=',title) > 0 then
-      begin
-        s := Pos('title=',title)+7;
-        e := PosSetEx(['"',''''],title,s+1);
-        title := Copy(title,s,e-s);
-      end
-      // No alt or title tags, try and grab an image filename
-      else if Pos('<img',title) > 0 then
-      begin
-        s := Pos('src=',title)+4;
-        e := PosSetEx(['"',''''],title,s+1);
-        title := Copy(title,s,e-s);
-      end;
-      title := TrimSet(title,[' ','"','''']);
-    end
-    // If the title is empty just set it to the link
-    else if title = '' then title := link;
-    // Ignore certain filetypes
-    add := true;
-    for x := 0 to ignoreFiles.Count -1 do
-      if Lowercase(ExtractFileExt(link)) = ignoreFiles[x] then add := false;
-    if add = true then addLink(link,title);
-  end;
-  hrefs.Free;
-end;}
 
 { Attempt to add a link to the parse list, checking to see if it's a local link
   and whether the link is already there }
@@ -338,6 +223,7 @@ begin
     begin
       add := false;
       if l^.title = '' then edit := true;
+      break;
     end;
   end;
   if (add = true) and (edit = false) then
@@ -360,7 +246,10 @@ begin
   // Edit link that has a blank title
   if (edit = true) and (add = false) then
   begin
-    l^.title := title;
+    if (title <> '') and (l^.title = '') then
+    begin
+      l^.title := title;
+    end;
   end;
 end;
 
@@ -385,7 +274,7 @@ begin
   {$endif}
   http := THTTPSend.Create;
   l := TStringList.Create;
-  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+'; ' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/)';
+  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+'; ' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/apps/simplesitemapcreator/)';
   Application.ProcessMessages;
   if not HTTP.HTTPMethod('GET', url) then Result := ''
   else

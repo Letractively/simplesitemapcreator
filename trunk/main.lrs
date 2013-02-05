@@ -6,12 +6,12 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +'ClientHeight'#3#129#1#11'ClientWidth'#3#243#1#8'OnCreate'#7#10'FormCreate'#9
   +'OnDestroy'#7#11'FormDestroy'#8'OnResize'#7#10'FormResize'#6'OnShow'#7#8'For'
   +'mShow'#10'LCLVersion'#6#3'1.1'#0#6'TLabel'#9'labelInfo'#4'Left'#3#248#0#6'H'
-  +'eight'#2#15#3'Top'#2#24#5'Width'#2'5'#7'Caption'#6#9'labelInfo'#11'ParentCo'
+  +'eight'#2#15#3'Top'#2#24#5'Width'#2'.'#7'Caption'#6#9'labelInfo'#11'ParentCo'
   +'lor'#8#0#0#6'TLabel'#8'labelURL'#4'Left'#2#8#6'Height'#2#15#3'Top'#2#0#5'Wi'
-  +'dth'#2'4'#7'Caption'#6#8'Site URL'#11'ParentColor'#8#0#0#15'TFilterComboBox'
+  +'dth'#2'+'#7'Caption'#6#8'Site URL'#11'ParentColor'#8#0#0#15'TFilterComboBox'
   +#7'textURL'#4'Left'#2#8#6'Height'#2#23#3'Top'#2#24#5'Width'#3#228#0#8'TabOrd'
   +'er'#2#0#0#0#6'TLabel'#11'labelUpdate'#6'Cursor'#7#11'crHandPoint'#4'Left'#3
-  +#254#0#6'Height'#2#15#3'Top'#2'+'#5'Width'#2'J'#7'Caption'#6#11'labelUpdate'
+  +#254#0#6'Height'#2#15#3'Top'#2'+'#5'Width'#2'?'#7'Caption'#6#11'labelUpdate'
   +#10'Font.Color'#7#6'clNavy'#10'Font.Style'#11#11'fsUnderline'#0#11'ParentCol'
   +'or'#8#10'ParentFont'#8#7'OnClick'#7#16'labelUpdateClick'#0#0#12'TPageContro'
   +'l'#12'PageControl1'#4'Left'#2#8#6'Height'#3#24#1#3'Top'#2'H'#5'Width'#3#232
@@ -122,9 +122,9 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +#21'TSynGutterCodeFolding'#21'SynGutterCodeFolding1'#12'MouseActions'#14#0#21
   +'MarkupInfo.Background'#7#6'clNone'#21'MarkupInfo.Foreground'#7#6'clGray'#20
   +'MouseActionsExpanded'#14#0#21'MouseActionsCollapsed'#14#0#0#0#0#0#0#9'TTabS'
-  +'heet'#9'tabGoogle'#7'Caption'#6#14'Google Sitemap'#12'ClientHeight'#3#248#0
+  +'heet'#9'tabGoogle'#7'Caption'#6#14'Google Sitemap'#12'ClientHeight'#3#250#0
   +#11'ClientWidth'#3#224#1#0#244#8'TSynEdit'#7'textXML'#4'Left'#2#0#6'Height'#3
-  +#248#0#3'Top'#2#0#5'Width'#3#224#1#5'Align'#7#8'alClient'#11'Font.Height'#2
+  +#250#0#3'Top'#2#0#5'Width'#3#224#1#5'Align'#7#8'alClient'#11'Font.Height'#2
   +#243#9'Font.Name'#6#11'Courier New'#10'Font.Pitch'#7#7'fpFixed'#12'Font.Qual'
   +'ity'#7#13'fqAntialiased'#11'ParentColor'#8#10'ParentFont'#8#8'TabOrder'#2#0
   +#14'Gutter.Visible'#8#12'Gutter.Width'#2'9'#19'Gutter.MouseActions'#14#0#17
@@ -230,30 +230,30 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +'toSize'#8#7'Caption'#6#1' '#11'ParentColor'#8#0#0#11'TSynHTMLSyn'#11'SynHTM'
   +'LSyn1'#13'DefaultFilter'#6')HTML Document (*.htm,*.html)|*.htm;*.html'#7'En'
   +'abled'#8#19'AndAttri.FrameEdges'#7#9'sfeAround'#19'ASPAttri.FrameEdges'#7#9
-  +'sfeAround'#21'CDATAAttri.FrameEdges'#7#9'sfeAround'#23'DOCTYPEAttri.FrameEd'
-  +'ges'#7#9'sfeAround'#23'CommentAttri.FrameEdges'#7#9'sfeAround'#26'Identifie'
-  +'rAttri.Foreground'#7#7'clGreen'#26'IdentifierAttri.FrameEdges'#7#9'sfeAroun'
-  +'d'#21'IdentifierAttri.Style'#11#0#19'KeyAttri.Foreground'#7#7'clBlack'#19'K'
-  +'eyAttri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeAround'
-  +#22'SymbolAttri.FrameEdges'#7#9'sfeAround'#20'TextAttri.FrameEdges'#7#9'sfeA'
-  +'round'#24'UndefKeyAttri.FrameEdges'#7#9'sfeAround'#21'ValueAttri.Foreground'
-  +#3#170#0#21'ValueAttri.FrameEdges'#7#9'sfeAround'#4'left'#2'H'#3'top'#2'p'#0
-  +#0#11'TSaveDialog'#11'SaveDialog1'#6'Filter'#6'.HTML Files (*.html)|*.html|A'
-  +'ll Files (*.*)|*.*'#4'left'#3#128#0#3'top'#2'p'#0#0#10'TPopupMenu'#8'editMe'
-  +'nu'#4'left'#2'h'#3'top'#2'H'#0#9'TMenuItem'#8'menuCopy'#7'Caption'#6#4'Copy'
-  +#7'OnClick'#7#13'menuCopyClick'#0#0#9'TMenuItem'#8'menuSave'#7'Caption'#6#4
-  +'Save'#7'OnClick'#7#13'menuSaveClick'#0#0#9'TMenuItem'#9'menuClear'#7'Captio'
-  +'n'#6#5'Clear'#7'OnClick'#7#14'menuClearClick'#0#0#0#6'TTimer'#12'updatesTim'
-  +'er'#7'Enabled'#8#8'Interval'#3'p'#23#7'OnTimer'#7#17'updatesTimerTimer'#4'l'
-  +'eft'#3#184#0#3'top'#2'X'#0#0#10'TSynXMLSyn'#10'SynXMLSyn1'#13'DefaultFilter'
-  +#6'LXML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*'
-  +'.dtd'#7'Enabled'#8#23'ElementAttri.FrameEdges'#7#9'sfeAround'#25'AttributeA'
-  +'ttri.FrameEdges'#7#9'sfeAround"NamespaceAttributeAttri.FrameEdges'#7#9'sfeA'
-  +'round'#30'AttributeValueAttri.FrameEdges'#7#9'sfeAround''NamespaceAttribute'
-  +'ValueAttri.FrameEdges'#7#9'sfeAround'#20'TextAttri.FrameEdges'#7#9'sfeAroun'
-  +'d'#21'CDATAAttri.FrameEdges'#7#9'sfeAround'#25'EntityRefAttri.FrameEdges'#7
-  +#9'sfeAround%ProcessingInstructionAttri.FrameEdges'#7#9'sfeAround'#23'Commen'
-  +'tAttri.FrameEdges'#7#9'sfeAround'#23'DocTypeAttri.FrameEdges'#7#9'sfeAround'
-  +#21'SpaceAttri.FrameEdges'#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7#9'sfe'
-  +'Around'#16'WantBracesParsed'#8#4'left'#3#211#0#3'top'#3#221#0#0#0#0
-]);
+  +'sfeAround'#21'CDATAAttri.FrameEdges'#7#9'sfeAround'#23'CommentAttri.FrameEd'
+  +'ges'#7#9'sfeAround'#26'IdentifierAttri.Foreground'#7#7'clGreen'#26'Identifi'
+  +'erAttri.FrameEdges'#7#9'sfeAround'#21'IdentifierAttri.Style'#11#0#19'KeyAtt'
+  +'ri.Foreground'#7#7'clBlack'#19'KeyAttri.FrameEdges'#7#9'sfeAround'#21'Space'
+  +'Attri.FrameEdges'#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7#9'sfeAround'
+  +#20'TextAttri.FrameEdges'#7#9'sfeAround'#24'UndefKeyAttri.FrameEdges'#7#9'sf'
+  +'eAround'#21'ValueAttri.Foreground'#3#170#0#21'ValueAttri.FrameEdges'#7#9'sf'
+  +'eAround'#4'left'#2'H'#3'top'#2'p'#0#0#11'TSaveDialog'#11'SaveDialog1'#6'Fil'
+  +'ter'#6'.HTML Files (*.html)|*.html|All Files (*.*)|*.*'#4'left'#3#128#0#3't'
+  +'op'#2'p'#0#0#10'TPopupMenu'#8'editMenu'#4'left'#2'h'#3'top'#2'H'#0#9'TMenuI'
+  +'tem'#8'menuCopy'#7'Caption'#6#4'Copy'#7'OnClick'#7#13'menuCopyClick'#0#0#9
+  +'TMenuItem'#8'menuSave'#7'Caption'#6#4'Save'#7'OnClick'#7#13'menuSaveClick'#0
+  +#0#9'TMenuItem'#9'menuClear'#7'Caption'#6#5'Clear'#7'OnClick'#7#14'menuClear'
+  +'Click'#0#0#0#6'TTimer'#12'updatesTimer'#7'Enabled'#8#8'Interval'#3'p'#23#7
+  +'OnTimer'#7#17'updatesTimerTimer'#4'left'#3#184#0#3'top'#2'X'#0#0#10'TSynXML'
+  +'Syn'#10'SynXMLSyn1'#13'DefaultFilter'#6'LXML Document (*.xml,*.xsd,*.xsl,*.'
+  +'xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd'#7'Enabled'#8#23'ElementAttri.Fr'
+  +'ameEdges'#7#9'sfeAround'#25'AttributeAttri.FrameEdges'#7#9'sfeAround"Namesp'
+  +'aceAttributeAttri.FrameEdges'#7#9'sfeAround'#30'AttributeValueAttri.FrameEd'
+  +'ges'#7#9'sfeAround''NamespaceAttributeValueAttri.FrameEdges'#7#9'sfeAround'
+  +#20'TextAttri.FrameEdges'#7#9'sfeAround'#21'CDATAAttri.FrameEdges'#7#9'sfeAr'
+  +'ound'#25'EntityRefAttri.FrameEdges'#7#9'sfeAround%ProcessingInstructionAttr'
+  +'i.FrameEdges'#7#9'sfeAround'#23'CommentAttri.FrameEdges'#7#9'sfeAround'#23
+  +'DocTypeAttri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeAr'
+  +'ound'#22'SymbolAttri.FrameEdges'#7#9'sfeAround'#16'WantBracesParsed'#8#4'le'
+  +'ft'#3#211#0#3'top'#3#221#0#0#0#0
+]);
