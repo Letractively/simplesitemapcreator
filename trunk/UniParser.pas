@@ -1,5 +1,5 @@
 unit UniParser;
-
+{$mode delphi}{$H+}
 // Version 2.0
 //
 // License: http://www.mozilla.org/MPL/
