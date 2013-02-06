@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
-{$mode objfpc}{$H+}
+{$mode delphi}{$H+}
 
 interface
 
@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
   ComCtrls{$IFDEF MSWINDOWS}, Windows{$ENDIF}, SynHighlighterHTML,
-  SynHighlighterXML, IpHtml, XiPanel, XiButton, xmlparser;
+  SynHighlighterXML, XiPanel, XiButton, xmlparser;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
@@ -106,11 +106,11 @@ var
 
 const
   APPVER = '0.1.6';
-  CURRVER = 20130205;
+  CURRVER = 20130206;
 
 implementation
 
-uses about, alphaw;
+uses about;
 
 {$IFDEF MSWINDOWS}
 function getWinVer: String;
@@ -330,6 +330,7 @@ begin
   bgPanel.SendToBack;
   labelURL.Parent := bgPanel;
   labelInfo.Parent := bgPanel;
+//  PageControl1.Parent := bgPanel;
   btnAbout := TXiButton.Create(Self);
   btnAbout.Parent := frmMain;
   btnAbout.Top := 352;
@@ -341,7 +342,7 @@ begin
   btnAbout.Visible := true;
   btnAbout.BringToFront;
   btnAbout.Anchors := [akBottom,akLeft];
-  btnAbout.OnClick := @btnAboutClick;
+  btnAbout.OnClick := btnAboutClick;
   btnCopy := TXiButton.Create(Self);
   btnCopy.Parent := frmMain;
   btnCopy.Top := 352;
@@ -353,7 +354,7 @@ begin
   btnCopy.Visible := true;
   btnCopy.BringToFront;
   btnCopy.Anchors:=[akBottom,akRight];
-  btnCopy.OnClick := @menuCopyClick;
+  btnCopy.OnClick := menuCopyClick;
   btnClear := TXiButton.Create(Self);
   btnClear.Parent := frmMain;
   btnClear.Top := 352;
@@ -365,7 +366,7 @@ begin
   btnClear.Visible := true;
   btnClear.BringToFront;
   btnClear.Anchors:=[akBottom,akRight];
-  btnClear.OnClick := @menuClearClick;
+  btnClear.OnClick := menuClearClick;
   btnSave := TXiButton.Create(Self);
   btnSave.Parent := frmMain;
   btnSave.Top := 352;
@@ -377,7 +378,7 @@ begin
   btnSave.Visible := true;
   btnSave.BringToFront;
   btnSave.Anchors:=[akBottom,akRight];
-  btnSave.OnClick := @menuSaveClick;
+  btnSave.OnClick := menuSaveClick;
   btnGo := TXiButton.Create(Self);
   btnGo.Parent := frmMain;
   btnGo.Top := 352;
@@ -389,7 +390,7 @@ begin
   btnGo.Visible := true;
   btnGo.BringToFront;
   btnGo.Anchors:=[akBottom,akRight];
-  btnGo.OnClick := @btnGoClick;
+  btnGo.OnClick := btnGoClick;
   workPanel := TXiPanel.Create(Self);
   workPanel.Parent := frmMain;
   workPanel.Width := 170;
@@ -410,7 +411,7 @@ begin
   btnCancel.ColorScheme := csNeoRose;
   btnCancel.Visible := true;
   btnCancel.BringToFront;
-  btnCancel.OnClick := @btnCancelClick;
+  btnCancel.OnClick := btnCancelClick;
   updatePanel := TXiPanel.Create(self);
   updatePanel.Parent := bgPanel;
   updatePanel.Top := 8;
@@ -445,20 +446,8 @@ begin
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
-var
-  s: TStrings;
 begin
-  if FileExists(progdir + 'alpha.txt') then exit;
-  s := TStringList.Create;
-  if frmAlphaWarning.ShowModal = mrOK then
-  begin
-    if frmAlphaWarning.checkDontShow.Checked = true then
-    begin
-      s.Add('dontshow');
-      s.SaveToFile(progdir + 'alpha.txt');
-    end;
-  end;
-  s.Free;
+
 end;
 
 procedure TfrmMain.labelUpdateClick(Sender: TObject);
