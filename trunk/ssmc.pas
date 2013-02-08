@@ -54,8 +54,8 @@ type
   end;
 
 const
-  APPVER = '0.1.6';
-  CURRVER = 20130206;
+  APPVER = '0.1.7';
+  CURRVER = 20130208;
 
 var
   Application: THApplication;
@@ -116,7 +116,8 @@ var
   link: String;
   title: String;
   add: Boolean;
-  x: integer;
+  x,i: integer;
+  tmp: String;
 begin
   // If cancel button clicked exit procedure
 //  if stop = true then exit;
@@ -148,7 +149,19 @@ begin
     add := true;
     for x := 0 to ignoreFiles.Count -1 do
       if Lowercase(ExtractFileExt(link)) = ignoreFiles[x] then add := false;
-    if add = true then addLink(link,title);
+    if add = true then
+    begin
+      // Trim links of anchors etc
+      x := Pos('#',link);
+      if x > 0 then
+      begin
+        tmp := '';
+        for i := 1 to x do
+          tmp := tmp + link[x];
+        link := tmp;
+      end;
+      addLink(link,title);
+    end;
   end;
   Parser.Free;
 end;
