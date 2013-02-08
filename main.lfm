@@ -16,7 +16,7 @@ object frmMain: TfrmMain
     Left = 248
     Height = 15
     Top = 24
-    Width = 53
+    Width = 46
     Caption = 'labelInfo'
     ParentColor = False
   end
@@ -24,7 +24,7 @@ object frmMain: TfrmMain
     Left = 8
     Height = 15
     Top = 0
-    Width = 52
+    Width = 43
     Caption = 'Site URL'
     ParentColor = False
   end
@@ -40,7 +40,7 @@ object frmMain: TfrmMain
     Left = 254
     Height = 15
     Top = 43
-    Width = 74
+    Width = 63
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -80,7 +80,7 @@ object frmMain: TfrmMain
         ParentFont = False
         TabOrder = 0
         Gutter.Visible = False
-        Gutter.Width = 57
+        Gutter.Width = 0
         Gutter.MouseActions = <>
         RightGutter.Width = 0
         RightGutter.MouseActions = <>
@@ -530,47 +530,16 @@ object frmMain: TfrmMain
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
         inline SynLeftGutterPartList1: TSynGutterPartList
-          object SynGutterMarks1: TSynGutterMarks
-            Width = 24
-            MouseActions = <>
-          end
-          object SynGutterLineNumber1: TSynGutterLineNumber
-            Width = 17
-            MouseActions = <>
-            MarkupInfo.Background = clBtnFace
-            MarkupInfo.Foreground = clNone
-            DigitCount = 2
-            ShowOnlyLineNumbersMultiplesOf = 1
-            ZeroStart = False
-            LeadingZeros = False
-          end
-          object SynGutterChanges1: TSynGutterChanges
-            Width = 4
-            MouseActions = <>
-            ModifiedColor = 59900
-            SavedColor = clGreen
-          end
-          object SynGutterSeparator1: TSynGutterSeparator
-            Width = 2
-            MouseActions = <>
-          end
-          object SynGutterCodeFolding1: TSynGutterCodeFolding
-            MouseActions = <>
-            MarkupInfo.Background = clNone
-            MarkupInfo.Foreground = clGray
-            MouseActionsExpanded = <>
-            MouseActionsCollapsed = <>
-          end
         end
       end
     end
     object tabGoogle: TTabSheet
       Caption = 'Google Sitemap'
-      ClientHeight = 248
+      ClientHeight = 250
       ClientWidth = 480
       inline textXML: TSynEdit
         Left = 0
-        Height = 248
+        Height = 250
         Top = 0
         Width = 480
         Align = alClient
@@ -582,7 +551,7 @@ object frmMain: TfrmMain
         ParentFont = False
         TabOrder = 0
         Gutter.Visible = False
-        Gutter.Width = 57
+        Gutter.Width = 0
         Gutter.MouseActions = <>
         RightGutter.Width = 0
         RightGutter.MouseActions = <>
@@ -1032,37 +1001,6 @@ object frmMain: TfrmMain
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
         inline SynLeftGutterPartList1: TSynGutterPartList
-          object SynGutterMarks1: TSynGutterMarks
-            Width = 24
-            MouseActions = <>
-          end
-          object SynGutterLineNumber1: TSynGutterLineNumber
-            Width = 17
-            MouseActions = <>
-            MarkupInfo.Background = clBtnFace
-            MarkupInfo.Foreground = clNone
-            DigitCount = 2
-            ShowOnlyLineNumbersMultiplesOf = 1
-            ZeroStart = False
-            LeadingZeros = False
-          end
-          object SynGutterChanges1: TSynGutterChanges
-            Width = 4
-            MouseActions = <>
-            ModifiedColor = 59900
-            SavedColor = clGreen
-          end
-          object SynGutterSeparator1: TSynGutterSeparator
-            Width = 2
-            MouseActions = <>
-          end
-          object SynGutterCodeFolding1: TSynGutterCodeFolding
-            MouseActions = <>
-            MarkupInfo.Background = clNone
-            MarkupInfo.Foreground = clGray
-            MouseActionsExpanded = <>
-            MouseActionsCollapsed = <>
-          end
         end
       end
     end
@@ -1083,7 +1021,6 @@ object frmMain: TfrmMain
     AndAttri.FrameEdges = sfeAround
     ASPAttri.FrameEdges = sfeAround
     CDATAAttri.FrameEdges = sfeAround
-    DOCTYPEAttri.FrameEdges = sfeAround
     CommentAttri.FrameEdges = sfeAround
     IdentifierAttri.Foreground = clGreen
     IdentifierAttri.FrameEdges = sfeAround
@@ -1147,4 +1084,4 @@ object frmMain: TfrmMain
     left = 211
     top = 221
   end
-end
+end

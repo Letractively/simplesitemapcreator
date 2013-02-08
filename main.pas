@@ -23,8 +23,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
-  ComCtrls{$IFDEF MSWINDOWS}, Windows{$ENDIF}, SynHighlighterHTML,
-  SynHighlighterXML, XiPanel, XiButton, xmlparser;
+  ComCtrls, Windows, SynHighlighterHTML, SynHighlighterXML, SynGutterBase,
+  SynGutterMarks, SynGutterLineNumber, SynGutterChanges, SynGutter,
+  SynGutterCodeFolding, XiPanel, XiButton, xmlparser;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
@@ -429,6 +430,7 @@ begin
   btnCancel.Visible := true;
   btnCancel.BringToFront;
   btnCancel.OnClick := btnCancelClick;
+  PageControl1.parent := bgPanel;
   updatePanel := TXiPanel.Create(self);
   updatePanel.Parent := bgPanel;
   updatePanel.Top := 8;
