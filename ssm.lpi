@@ -38,7 +38,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="11">
+    <Units Count="12">
       <Unit0>
         <Filename Value="ssm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -46,7 +46,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="22"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="70"/>
       </Unit0>
       <Unit1>
         <Filename Value="main.pas"/>
@@ -58,9 +58,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="440"/>
-        <CursorPos X="46" Y="448"/>
-        <UsageCount Value="66"/>
+        <TopLine Value="151"/>
+        <CursorPos X="17" Y="170"/>
+        <UsageCount Value="70"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -68,13 +68,13 @@
         <Filename Value="..\synapse\source\lib\synacode.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="synacode"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="70"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\synapse\source\lib\httpsend.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="httpsend"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="70"/>
       </Unit3>
       <Unit4>
         <Filename Value="about.pas"/>
@@ -87,7 +87,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="54"/>
         <CursorPos X="19" Y="4"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit4>
@@ -141,6 +141,16 @@
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit10>
+      <Unit11>
+        <Filename Value="ssmc.pas"/>
+        <UnitName Value="ssmc"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="145"/>
+        <CursorPos X="21" Y="58"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit11>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
