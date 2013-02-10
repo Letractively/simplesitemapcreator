@@ -10,3 +10,4 @@
  * links in output are not sorted
  * link text uses last found occurance of link
  * ignores robots.txt (should it?)
+ * Needs to be multi-threaded?
