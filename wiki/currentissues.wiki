@@ -1,0 +1,9 @@
+#summary Current known issues
+#labels Phase-QA,Featured,Phase-Requirements
+
+= List of current known issues =
+
+== 0.1.6 ==
+ * parsing links with anchors as seperate pages
+ * not ignoring skype: links
+ * possible character encoding issues in saved files
