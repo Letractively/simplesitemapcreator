@@ -6,6 +6,6 @@
 == 0.1.6 ==
  * parsing links with anchors as seperate pages
  * not ignoring skype: links
- * character encoding issues in saved files (UTF8/16)
+ * ~~character encoding issues in saved files (UTF8/16)~~ this is a font issue on Windows (see these [http://code.google.com/p/simplesitemapcreator/issues/detail?id=2#c4 screenshots])
  * links in output are not sorted
  * link text uses last found occurance of link
