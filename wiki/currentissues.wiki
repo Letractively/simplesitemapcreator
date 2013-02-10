@@ -6,4 +6,6 @@
 == 0.1.6 ==
  * parsing links with anchors as seperate pages
  * not ignoring skype: links
- * possible character encoding issues in saved files
+ * character encoding issues in saved files (UTF8/16)
+ * links in output are not sorted
+ * link text uses last found occurance of link
