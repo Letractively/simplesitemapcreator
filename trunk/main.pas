@@ -61,6 +61,7 @@ type
     procedure btnGoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure labelUpdateClick(Sender: TObject);
@@ -74,7 +75,6 @@ type
     stop: boolean;
     progdir: String;
     ignoreFiles: TStrings;
-    bgPanel: TXiPanel;
     btnAbout: TXiButton;
     btnCopy: TXiButton;
     btnClear: TXiButton;
@@ -86,6 +86,8 @@ type
     function getURL(url: String): String;
     procedure addLink(link: String; title: String);
     procedure positionPanel;
+    procedure GradientFillRect(Canvas: TCanvas; Rect: TRect;
+                    StartColor, EndColor: TColor; Direction: TFillDirection);
   public
     { public declarations }
     inTag: Boolean;
@@ -180,6 +182,7 @@ begin
   Parser := TXMLParser.Create(html);
   while Parser.Next do
   begin
+    Application.ProcessMessages;
     if Parser.TagType = ttBeginTag then
     begin
       if Parser.Name = 'a' then
@@ -338,17 +341,6 @@ begin
   ignoreFiles.Add('.arj');
   // UI tweaks
 //  textHTML.Font.Name := 'Consolas';
-  bgPanel := TXiPanel.Create(Self);
-  bgPanel.Parent := frmMain;
-  bgPanel.Align := alClient;
-  bgPanel.BorderStyle := bsNone;
-  bgPanel.BevelInner := bvNone;
-  bgPanel.BevelOuter := bvNone;
-  bgPanel.ColorScheme := XiPanel.csSky;
-  bgPanel.SendToBack;
-  labelURL.Parent := bgPanel;
-  labelInfo.Parent := bgPanel;
-//  PageControl1.Parent := bgPanel;
   btnAbout := TXiButton.Create(Self);
   btnAbout.Parent := frmMain;
   btnAbout.Top := 352;
@@ -430,9 +422,7 @@ begin
   btnCancel.Visible := true;
   btnCancel.BringToFront;
   btnCancel.OnClick := btnCancelClick;
-  PageControl1.parent := bgPanel;
   updatePanel := TXiPanel.Create(self);
-  updatePanel.Parent := bgPanel;
   updatePanel.Top := 8;
   updatePanel.Height := 50;
   updatePanel.Width := 170;
@@ -456,6 +446,13 @@ begin
   // Save URL history to file
   textURL.Items.SaveToFile(progdir + 'history.txt');
   ignoreFiles.Free;
+end;
+
+procedure TfrmMain.FormPaint(Sender: TObject);
+begin
+  GradientFillRect(frmMain.Canvas,
+                   Classes.Rect(0, 0, frmMain.ClientWidth, frmMain.ClientHeight),
+                   clWhite, $00FFE0C1, fdVertical);
 end;
 
 { Form resize }
@@ -627,6 +624,7 @@ procedure TfrmMain.btnCancelClick(Sender: TObject);
 begin
   stop := true;
   workPanel.Caption := 'Stopping';
+  Application.ProcessMessages;
 end;
 
 { Show about dialog }
@@ -634,6 +632,60 @@ procedure TfrmMain.btnAboutClick(Sender: TObject);
 begin
   frmAbout.ShowModal;
 end;
+
+{ Taken from XiPanel.pas
+  due to an incompatibility with Lazarus/FreePascal its better to paint the
+  gradient directly onto the form's canvas }
+
+procedure TfrmMain.GradientFillRect(Canvas: TCanvas; Rect: TRect;
+                StartColor, EndColor: TColor; Direction: TFillDirection);
+var
+  Steps: Integer;
+  StartR, StartG, StartB, EndR, EndG, EndB: Byte;
+  CrrR, CrrG, CrrB: Double;
+  IncR, IncG, incB: Double;
+  i: integer;
+begin
+  case Direction of
+    fdVertical:   Steps:= Rect.Bottom - Rect.Top;
+    fdHorizontal: Steps:= Rect.Right - Rect.Left;
+    fdDiagonal:   Steps:= Rect.Bottom - Rect.Top + Rect.Right - Rect.Left;
+  end;
+
+  StartR:= GetRValue(StartColor);  EndR:= GetRValue(EndColor);
+  StartG:= GetGValue(StartColor);  EndG:= GetGValue(EndColor);
+  StartB:= GetBValue(StartColor);  EndB:= GetBValue(EndColor);
+
+  IncR:= (EndR - StartR) / steps;
+  IncG:= (EndG - StartG) / steps;
+  IncB:= (EndB - StartB) / steps;
+
+  CrrR:= StartR;
+  CrrG:= StartG;
+  CrrB:= StartB;
+
+  for i:= 0 to Steps do begin
+    Canvas.Pen.Color:= RGB(Round(CrrR), Round(CrrG), Round(CrrB));
+    case Direction of
+      fdVertical:   begin
+                      Canvas.MoveTo(Rect.Left, i);
+                      Canvas.LineTo(Rect.Right + Rect.Left, i);
+                    end;
+      fdHorizontal: begin
+                      Canvas.MoveTo(i, Rect.Top);
+                      Canvas.LineTo(i, Rect.Top + Rect.Bottom);
+                    end;
+      fdDiagonal:   begin
+                      Canvas.MoveTo(i, Rect.Top);
+                      Canvas.LineTo(Rect.Left, i);
+                    end;
+    end;
+    CrrR:= CrrR + IncR;
+    CrrG:= CrrG + IncG;
+    CrrB:= CrrB + IncB;
+  end;
+end;
+
 
 initialization
   {$I main.lrs}

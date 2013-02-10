@@ -9,6 +9,7 @@ object frmMain: TfrmMain
   ClientWidth = 499
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnPaint = FormPaint
   OnResize = FormResize
   OnShow = FormShow
   LCLVersion = '1.1'
@@ -53,24 +54,24 @@ object frmMain: TfrmMain
     Height = 280
     Top = 72
     Width = 488
-    ActivePage = tabGoogle
+    ActivePage = tabHTML
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.CharSet = ANSI_CHARSET
     Font.Height = -13
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     ParentFont = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     object tabHTML: TTabSheet
       Caption = 'HTML'
-      ClientHeight = 248
+      ClientHeight = 250
       ClientWidth = 480
       inline textHTML: TSynEdit
         Left = 0
-        Height = 888
+        Height = 250
         Top = 0
-        Width = 1901
+        Width = 480
         Align = alClient
         Font.Height = -13
         Font.Name = 'Courier New'
