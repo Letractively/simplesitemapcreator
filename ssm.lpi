@@ -58,8 +58,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="3" Y="491"/>
+        <TopLine Value="259"/>
+        <CursorPos X="29" Y="269"/>
         <UsageCount Value="79"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -306,6 +306,7 @@
     </CodeGeneration>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
         <StripSymbols Value="True"/>
       </Debugging>
       <Options>
