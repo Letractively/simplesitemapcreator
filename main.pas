@@ -23,9 +23,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
-  ComCtrls, Windows, SynHighlighterHTML, SynHighlighterXML, SynGutterBase,
-  SynGutterMarks, SynGutterLineNumber, SynGutterChanges, SynGutter,
-  SynGutterCodeFolding, XiPanel, XiButton, xmlparser;
+  ComCtrls, {$IFDEF Windows}Windows,{$ENDIF} SynHighlighterHTML, SynGutterBase,
+  SynHighlighterXML, SynGutterMarks, SynGutterLineNumber, SynGutterChanges,
+  SynGutter, SynGutterCodeFolding, XiPanel, XiButton, xmlparser;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
@@ -94,6 +94,7 @@ type
     hrefTemp: String;
     procedure parseLinks(url: String);
     procedure addURL(url: String);
+    procedure setTitle(url: String; title: String);
   end;
 
 { Simple type to store links }
@@ -126,6 +127,28 @@ begin
 end;
 {$ENDIF}
 
+function sortLinks(Item1, Item2: Pointer): Integer;
+var
+  Comp1: ^TLinkItem absolute Item1;
+  Comp2: ^TLinkItem absolute Item2;
+begin
+  { This needs to be more complex if I am to sort by subdirectory }
+  Result := CompareText(Comp1^.link,Comp2^.link);
+end;
+
+procedure saveDebug(s: String);
+var
+  dFile: TStrings;
+  f: String;
+begin
+  f := '/tmp/debug.txt';
+  dFile := TStringList.Create;
+  if FileExists(f) then dFile.LoadFromFile(f);
+  dFile.Add(s);
+  dFile.SaveToFile(f);
+  dFile.Free;
+end;
+
 { TfrmMain }
 
 { Add URL to the drop down list }
@@ -153,6 +176,22 @@ begin
   begin
     Left := (frmMain.Width div 2) - (Width div 2);
     Top := (frmMain.Height div 2) - (Height div 2);
+  end;
+end;
+
+procedure TfrmMain.setTitle(url: String; title: String);
+var
+  i: integer;
+  l: ^TLinkItem;
+begin
+  if links.Count > 0 then
+  begin
+    for i := 0 to links.Count -1 do
+    begin
+      l := links[i];
+      if l^.link = url then break;
+    end;
+    l^.title := title;
   end;
 end;
 
@@ -188,18 +227,18 @@ begin
       if Parser.Name = 'a' then
       begin
         link := trim(Parser.Value['href']);
-        title := Parser.ContentSpaceTrimText;
-        if title = '' then
-          title := Parser.Value['title'];
       end;
-      if (Parser.Name = 'img') and (title = '') then
+      if Parser.Name = 'title' then
+        title := Parser.ContentSpaceTrimText;
+{      if (Parser.Name = 'img') and (title = '') then
         title := Parser.Value['alt'];
       if (Parser.Name = 'img') and (title = '') then
         title := Parser.Value['title'];
       if (Parser.Name = 'img') and (title = '') then
-        title := Parser.Value['src'];
+        title := Parser.Value['src'];}
     end;
     add := true;
+    setTitle(url,title);
     for x := 0 to ignoreFiles.Count -1 do
       if Lowercase(ExtractFileExt(link)) = ignoreFiles[x] then add := false;
     if add = true then
@@ -225,53 +264,44 @@ procedure TfrmMain.addLink(link: String; title: String);
 var
   x: integer;
   l: ^TLinkItem;
-  add: Boolean;
-  edit: Boolean;
 begin
-  add := true;
-  edit := false;
-  // Check for a valid URL before adding
-  if ((AnsiLeftStr(link,7) = 'http://') or (AnsiLeftStr(link,8) = 'https://')) and (Pos(textURL.Text,link) = 0) then add := false;
-  if (Pos('mailto:',link) > 0) or (Pos('javascript:',link) > 0) then add := false;
-  if AnsiLeftStr(link,1) = '#' then add := false;
-  if link = '' then add := false;
-  if (AnsiLeftStr(link,1) = '/') and (link <> '/') then link := Copy(link,2,Length(link)-1);
+  // URL methods we're not interested in
+  if AnsiStartsStr('mailto:',link) then exit;
+  if AnsiStartsStr('javascript:',link) then exit;
+  if AnsiStartsStr('skype:',link) then exit;
+  // Not interested in anchors
+  if AnsiStartsStr('#',link) then exit;
+  // Not interested in blank links
+  if link = '' then exit;
+  // Clean up any possible occurances of ../ or ./
+  link := AnsiReplaceStr(link,'../','/');
+  link := AnsiReplaceStr(link,'./','/');
+  // Does the link start with http:// or https://
+  if (AnsiStartsStr('http://',link) = true) or (AnsiStartsStr('https://',link) = true) then
+  begin
+    // If so, is it the same URL as is specified in textURL.Text?
+    if AnsiStartsStr(textURL.Text,link) = false then exit;
+  end
+  // It doesn't start with http:// or https:// but is a local link
+  else link := textURL.Text + link;
   // Make sure link is not already in the list
   for x := 0 to links.Count -1 do
   begin
     l := links[x];
-    if l^.link = link then
-    begin
-      add := false;
-      if l^.title = '' then edit := true;
-      break;
-    end;
+    if l^.link = link then exit;
   end;
-  if (add = true) and (edit = false) then
-  begin
-    // Add the link info to the list of links to be parsed
-    new(l);
-    l^.title := title;
-    l^.link := link;
-    l^.parsed := false;
-    links.Add(l);
-    Application.ProcessMessages;
-    // Set status caption to show number of links found
-    labelCount.Caption := IntToStr(links.Count) + ' links found';
-    // Parse link
-    if Copy(l^.link,1,Length(textURL.Text)) <> textURL.Text then
-      parseLinks(textURL.Text + l^.link)
-    else
-      parseLinks(l^.link)
-  end;
-  // Edit link that has a blank title
-  if (edit = true) and (add = false) then
-  begin
-    if (title <> '') and (l^.title = '') then
-    begin
-      l^.title := title;
-    end;
-  end;
+  // Add the link info to the list of links to be parsed
+  new(l);
+  l^.title := title;
+  l^.link := link;
+  l^.parsed := false;
+  saveDebug('link='+link);
+  links.Add(l);
+  Application.ProcessMessages;
+  // Set status caption to show number of links found
+  labelCount.Caption := IntToStr(links.Count) + ' links found';
+  // Parse link
+  parseLinks(l^.link);
 end;
 
 { Get the contents of specified link }
@@ -570,6 +600,7 @@ begin
   addURL(textURL.Text);
   // Process the site
   parseLinks(textURL.Text);
+  links.Sort(@sortLinks);
   // Clear the HTML editor
   textHTML.Lines.Clear;
   // Create an unordered list
