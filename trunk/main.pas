@@ -265,6 +265,8 @@ var
   x: integer;
   l: ^TLinkItem;
 begin
+  // Are we supposed to have stopped?
+  if stop = true then exit;
   // URL methods we're not interested in
   if AnsiStartsStr('mailto:',link) then exit;
   if AnsiStartsStr('javascript:',link) then exit;
@@ -273,9 +275,10 @@ begin
   if AnsiStartsStr('#',link) then exit;
   // Not interested in blank links
   if link = '' then exit;
-  // Clean up any possible occurances of ../ or ./
+  // Clean up any possible occurances of ../ ./ or //
   link := AnsiReplaceStr(link,'../','/');
   link := AnsiReplaceStr(link,'./','/');
+  link := AnsiReplaceStr(link,'//','/');
   // Does the link start with http:// or https://
   if (AnsiStartsStr('http://',link) = true) or (AnsiStartsStr('https://',link) = true) then
   begin
@@ -295,7 +298,7 @@ begin
   l^.title := title;
   l^.link := link;
   l^.parsed := false;
-  saveDebug('link='+link);
+  //saveDebug('link='+link);
   links.Add(l);
   Application.ProcessMessages;
   // Set status caption to show number of links found
