@@ -275,10 +275,6 @@ begin
   if AnsiStartsStr('#',link) then exit;
   // Not interested in blank links
   if link = '' then exit;
-  // Clean up any possible occurances of ../ ./ or //
-  link := AnsiReplaceStr(link,'../','/');
-  link := AnsiReplaceStr(link,'./','/');
-  link := AnsiReplaceStr(link,'//','/');
   // Does the link start with http:// or https://
   if (AnsiStartsStr('http://',link) = true) or (AnsiStartsStr('https://',link) = true) then
   begin
@@ -287,6 +283,10 @@ begin
   end
   // It doesn't start with http:// or https:// but is a local link
   else link := textURL.Text + link;
+  // Clean up any possible occurances of ../ ./ or //
+  link := AnsiReplaceStr(link,'../','/');
+  link := AnsiReplaceStr(link,'./','/');
+//  link := AnsiReplaceStr(Copy(link,8,Length(link)-8),'//','/');
   // Make sure link is not already in the list
   for x := 0 to links.Count -1 do
   begin
