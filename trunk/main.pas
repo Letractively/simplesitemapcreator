@@ -105,12 +105,15 @@ type
     parsed: Boolean;
   end;
 
+type
+  TArray = array of string;
+
 var
   frmMain: TfrmMain;
 
 const
   APPVER = '0.1.7';
-  CURRVER = 20130208;
+  CURRVER = 20130213;
 
 implementation
 
@@ -126,6 +129,28 @@ begin
   Result := 'Windows NT '+IntToStr(VerInfo.dwMajorVersion) + '.' + IntToStr(VerInfo.dwMinorVersion)
 end;
 {$ENDIF}
+
+function explode(cDelimiter,  sValue : string; iCount : integer) : TArray;
+var
+  s : string; i,p : integer;
+begin
+  s := sValue; i := 0;
+  while length(s) > 0 do
+  begin
+    inc(i);
+    SetLength(result, i);
+    p := pos(cDelimiter,s);
+    if ( p > 0 ) and ( ( i < iCount ) OR ( iCount = 0) ) then
+    begin
+      result[i - 1] := copy(s,0,p-1);
+      s := copy(s,p + length(cDelimiter),length(s));
+    end else
+    begin
+      result[i - 1] := s;
+      s :=  '';
+    end;
+  end;
+end;
 
 function sortLinks(Item1, Item2: Pointer): Integer;
 var
@@ -264,6 +289,9 @@ procedure TfrmMain.addLink(link: String; title: String);
 var
   x: integer;
   l: ^TLinkItem;
+  tmp: TArray;
+  proto: String;
+  tmps: String;
 begin
   // Are we supposed to have stopped?
   if stop = true then exit;
@@ -286,7 +314,16 @@ begin
   // Clean up any possible occurances of ../ ./ or //
   link := AnsiReplaceStr(link,'../','/');
   link := AnsiReplaceStr(link,'./','/');
-//  link := AnsiReplaceStr(Copy(link,8,Length(link)-8),'//','/');
+  // Nasty way to clean up double slashes
+  proto := Copy(link,1,Pos('://',link)+2);
+  tmp := explode('/',link,0);
+  tmps := proto;
+  for x := 1 to High(tmp) do
+  begin
+    if tmp[x] <> '' then tmps := tmps + tmp[x] + '/';
+  end;
+  if not AnsiEndsStr('/',link) then tmps := Copy(tmps,1,Length(tmps)-1);
+  link := tmps;
   // Make sure link is not already in the list
   for x := 0 to links.Count -1 do
   begin
@@ -372,6 +409,7 @@ begin
   ignoreFiles.Add('.rar');
   ignoreFiles.Add('.7z');
   ignoreFiles.Add('.arj');
+  ignoreFiles.Add('.tar');
   // UI tweaks
 //  textHTML.Font.Name := 'Consolas';
   btnAbout := TXiButton.Create(Self);
@@ -471,6 +509,7 @@ begin
 //  textHTML.Font := textXML.Font;
   textHTML.Lines.Clear;
   textXML.Lines.Clear;
+  PageControl1.ActivePage := tabHTML;
 end;
 
 { Stuff to do on program close }

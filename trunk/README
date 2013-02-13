@@ -15,6 +15,10 @@ Or find me on twitter @hippy2094
 Changelog
 ---------
 
+0.1.7   Fixed problem of parsing links that contain anchors
+        Added ignore for skype: links
+        Added simple sort
+        Now uses <title></title> tag content for link content
 0.1.6	Fixed inclusion of lone anchors in output
 	Fixed last known HTML parsing bugs
 	Removed alpha status
