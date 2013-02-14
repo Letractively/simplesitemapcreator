@@ -3,6 +3,10 @@
 
 = List of current known issues =
 
+== 0.1.7 ==
+ * Cannot use URLs that start with a filename (a forward slash is automatically added)
+
+
 == 0.1.6 ==
  * ~~parsing links with anchors as seperate pages~~
  * ~~not ignoring skype: links~~
