@@ -83,7 +83,6 @@ type
     btnCancel: TXiButton;
     updatePanel: TXiPanel;
     workPanel: TXiPanel;
-    function getURL(url: String): String;
     procedure addLink(link: String; title: String);
     procedure positionPanel;
     procedure GradientFillRect(Canvas: TCanvas; Rect: TRect;
@@ -130,6 +129,7 @@ begin
 end;
 {$ENDIF}
 
+
 function explode(cDelimiter,  sValue : string; iCount : integer) : TArray;
 var
   s : string; i,p : integer;
@@ -172,6 +172,40 @@ begin
   dFile.Add(s);
   dFile.SaveToFile(f);
   dFile.Free;
+end;
+
+{ Get the contents of specified link }
+procedure getURL(url: String; var response: String; headers: String);
+var
+  http: THTTPSend;
+  l: TStrings;
+  OS: String;
+begin
+  {$ifdef Windows}
+  OS := getWinVer;
+  {$endif}
+  {$ifdef Linux}
+  OS := 'Linux';
+  {$endif}
+  {$ifdef FreeBSD}
+  OS := 'FreeBSD';
+  {$endif}
+  {$ifdef Darwin}
+  OS := 'OSX';
+  {$endif}
+  http := THTTPSend.Create;
+  l := TStringList.Create;
+  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+'; ' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/apps/simplesitemapcreator/)';
+  Application.ProcessMessages;
+  if not HTTP.HTTPMethod('GET', url) then response := ''
+  else
+  begin
+    l.LoadFromStream(Http.Document);
+    response := l.Text;
+    headers := http.Headers.Text;
+  end;
+  http.Free;
+  l.Free;
 end;
 
 { TfrmMain }
@@ -225,6 +259,7 @@ procedure TfrmMain.parseLinks(url: String);
 var
   Parser: TXMLParser;
   html: String;
+  header: String;
   link: String;
   title: String;
   add: Boolean;
@@ -241,7 +276,7 @@ begin
   for x := 0 to ignoreFiles.Count -1 do
     if LowerCase(ExtractFileExt(url)) = ignoreFiles[x] then exit;
   // Retrieve the given URL
-  html := getURL(url);
+  getURL(url,html,header);
   // Set up variables
   Parser := TXMLParser.Create(html);
   while Parser.Next do
@@ -342,39 +377,6 @@ begin
   labelCount.Caption := IntToStr(links.Count) + ' links found';
   // Parse link
   parseLinks(l^.link);
-end;
-
-{ Get the contents of specified link }
-function TfrmMain.getURL(url: String): String;
-var
-  http: THTTPSend;
-  l: TStrings;
-  OS: String;
-begin
-  {$ifdef Windows}
-  OS := getWinVer;
-  {$endif}
-  {$ifdef Linux}
-  OS := 'Linux';
-  {$endif}
-  {$ifdef FreeBSD}
-  OS := 'FreeBSD';
-  {$endif}
-  {$ifdef Darwin}
-  OS := 'OSX';
-  {$endif}
-  http := THTTPSend.Create;
-  l := TStringList.Create;
-  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+'; ' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/apps/simplesitemapcreator/)';
-  Application.ProcessMessages;
-  if not HTTP.HTTPMethod('GET', url) then Result := ''
-  else
-  begin
-    l.LoadFromStream(Http.Document);
-    Result := l.Text;
-  end;
-  http.Free;
-  l.Free;
 end;
 
 { Setup stuff }
@@ -594,13 +596,14 @@ end;
 procedure TfrmMain.updatesTimerTimer(Sender: TObject);
 var
   response: String;
+  header: String;
   newVer: Boolean;
 begin
   updatesTimer.Enabled := false;
   // Check for a new version comparing the CURRVER variable to the value returned
   newVer := false;
   try
-    response := getURL('http://www.matthewhipkin.co.uk/ssmc.txt');
+    getURL('http://www.matthewhipkin.co.uk/ssmc.txt',response,header);
     response := trim(response);
     if CURRVER < StrToInt(response) then newVer := true;
   except
