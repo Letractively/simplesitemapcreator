@@ -23,9 +23,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
-  ComCtrls, {$IFDEF Windows}Windows,{$ENDIF} SynHighlighterHTML, SynGutterBase,
-  SynHighlighterXML, SynGutterMarks, SynGutterLineNumber, SynGutterChanges,
-  SynGutter, SynGutterCodeFolding, XiPanel, XiButton, xmlparser;
+  ComCtrls, SynHighlighterHTML, SynGutterBase, SynHighlighterXML,
+  SynGutterMarks, SynGutterLineNumber, SynGutterChanges, SynGutter,
+  SynGutterCodeFolding, SynMemo, XiPanel, XiButton, xmlparser, resolve;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
@@ -41,7 +41,9 @@ type
     labelUpdate: TLabel;
     labelURL: TLabel;
     PageControl1: TPageControl;
+    textCSV: TSynEdit;
     SynXMLSyn1: TSynXMLSyn;
+    tabCSV: TTabSheet;
     textXML: TSynEdit;
     textHTML: TSynEdit;
     tabHTML: TTabSheet;
@@ -83,7 +85,7 @@ type
     btnCancel: TXiButton;
     updatePanel: TXiPanel;
     workPanel: TXiPanel;
-    procedure addLink(link: String; title: String);
+    procedure addLink(link: String; title: String; ref: String; header: String);
     procedure positionPanel;
     procedure GradientFillRect(Canvas: TCanvas; Rect: TRect;
                     StartColor, EndColor: TColor; Direction: TFillDirection);
@@ -101,6 +103,8 @@ type
   TLinkItem = record
     title: String;
     link: String;
+    referrer: String;
+    modtime: String;
     parsed: Boolean;
   end;
 
@@ -111,8 +115,8 @@ var
   frmMain: TfrmMain;
 
 const
-  APPVER = '0.1.7';
-  CURRVER = 20130213;
+  APPVER = '0.1.8';
+  CURRVER = 20130215;
 
 implementation
 
@@ -284,11 +288,11 @@ begin
     Application.ProcessMessages;
     if Parser.TagType = ttBeginTag then
     begin
-      if Parser.Name = 'a' then
+      if Lowercase(Parser.Name) = 'a' then
       begin
         link := trim(Parser.Value['href']);
       end;
-      if Parser.Name = 'title' then
+      if Lowercase(Parser.Name) = 'title' then
         title := Parser.ContentSpaceTrimText;
 {      if (Parser.Name = 'img') and (title = '') then
         title := Parser.Value['alt'];
@@ -312,21 +316,25 @@ begin
           tmp := tmp + link[x];
         link := tmp;
       end;
-      addLink(link,title);
+      addLink(link,title,url,header);
     end;
   end;
   Parser.Free;
 end;
 
 { Attempt to add a link to the parse list, checking to see if it's a local link
-  and whether the link is already there }
-procedure TfrmMain.addLink(link: String; title: String);
+  and whether the link is already there
+
+  We pass the referring URL in the hope of being able to calculate the path to
+  the file }
+procedure TfrmMain.addLink(link: String; title: String; ref: String; header: String);
 var
   x: integer;
   l: ^TLinkItem;
   tmp: TArray;
   proto: String;
   tmps: String;
+  U: TURIParser;
 begin
   // Are we supposed to have stopped?
   if stop = true then exit;
@@ -345,7 +353,17 @@ begin
     if AnsiStartsStr(textURL.Text,link) = false then exit;
   end
   // It doesn't start with http:// or https:// but is a local link
-  else link := textURL.Text + link;
+  else
+  begin
+    // TODO: Make more use of this TURIParser class
+    U:=TURIParser.Create(Nil);
+    U.ParseURI(textURL.Text);
+    if U.Document <> '' then
+      tmps := AnsiReplaceStr(textURL.Text,U.Document,'')
+    else tmps := textURL.Text;
+    link := tmps + link;
+    U.Free;
+  end;
   // Clean up any possible occurances of ../ ./ or //
   link := AnsiReplaceStr(link,'../','/');
   link := AnsiReplaceStr(link,'./','/');
@@ -369,8 +387,8 @@ begin
   new(l);
   l^.title := title;
   l^.link := link;
+  l^.referrer := ref;
   l^.parsed := false;
-  //saveDebug('link='+link);
   links.Add(l);
   Application.ProcessMessages;
   // Set status caption to show number of links found
@@ -413,13 +431,12 @@ begin
   ignoreFiles.Add('.arj');
   ignoreFiles.Add('.tar');
   // UI tweaks
-//  textHTML.Font.Name := 'Consolas';
   btnAbout := TXiButton.Create(Self);
   btnAbout.Parent := frmMain;
-  btnAbout.Top := 352;
   btnAbout.Left := 8;
   btnAbout.Width := 75;
   btnAbout.Height := 25;
+  btnAbout.Top := frmMain.ClientHeight - btnAbout.Height - 5;
   btnAbout.Caption := 'About';
   btnAbout.ColorScheme := csNeoSky;
   btnAbout.Visible := true;
@@ -428,10 +445,10 @@ begin
   btnAbout.OnClick := btnAboutClick;
   btnCopy := TXiButton.Create(Self);
   btnCopy.Parent := frmMain;
-  btnCopy.Top := 352;
   btnCopy.Left := 178;
   btnCopy.Width := 75;
   btnCopy.Height := 25;
+  btnCopy.Top := frmMain.ClientHeight - btnCopy.Height - 5;
   btnCopy.Caption := 'Copy';
   btnCopy.ColorScheme := csNeoSky;
   btnCopy.Visible := true;
@@ -440,10 +457,10 @@ begin
   btnCopy.OnClick := menuCopyClick;
   btnClear := TXiButton.Create(Self);
   btnClear.Parent := frmMain;
-  btnClear.Top := 352;
   btnClear.Left := 258;
   btnClear.Width := 75;
   btnClear.Height := 25;
+  btnClear.Top := frmMain.ClientHeight - btnClear.Height - 5;
   btnClear.Caption := 'Clear';
   btnClear.ColorScheme := csNeoSky;
   btnClear.Visible := true;
@@ -452,10 +469,10 @@ begin
   btnClear.OnClick := menuClearClick;
   btnSave := TXiButton.Create(Self);
   btnSave.Parent := frmMain;
-  btnSave.Top := 352;
   btnSave.Left := 338;
   btnSave.Width := 75;
   btnSave.Height := 25;
+  btnSave.Top := frmMain.ClientHeight - btnSave.Height - 5;
   btnSave.Caption := 'Save';
   btnSave.ColorScheme := csNeoSky;
   btnSave.Visible := true;
@@ -464,10 +481,10 @@ begin
   btnSave.OnClick := menuSaveClick;
   btnGo := TXiButton.Create(Self);
   btnGo.Parent := frmMain;
-  btnGo.Top := 352;
   btnGo.Left := 415;
   btnGo.Width := 75;
   btnGo.Height := 25;
+  btnGo.Top := frmMain.ClientHeight - btnGo.Height - 5;
   btnGo.Caption := 'Go';
   btnGo.ColorScheme := csNeoGrass;
   btnGo.Visible := true;
@@ -482,7 +499,6 @@ begin
   workPanel.Left := 0;
   workPanel.ColorScheme := XiPanel.csGrass;
   workPanel.Visible := false;
-//  workPanel.BringToFront;
   labelCount.Parent := workPanel;
   btnCancel := TXiButton.Create(Self);
   btnCancel.Parent := workPanel;
@@ -508,7 +524,6 @@ begin
   labelUpdate.Caption := 'A new version is available';
   updatePanel.Visible := false;
   updatesTimer.Enabled := true;
-//  textHTML.Font := textXML.Font;
   textHTML.Lines.Clear;
   textXML.Lines.Clear;
   PageControl1.ActivePage := tabHTML;
@@ -621,8 +636,17 @@ var
   x: integer;
   l: ^TLinkItem;
   today: String;
+  U: TURIParser;
+  commentText: TStrings;
+  startTime: TDateTime;
+  endTime: TDateTime;
+  ss: String;
+  tmp: String;
 begin
+  // Start the clock!
+  startTime := Now;
   // Reset variables;
+  commentText := TStringList.Create;
   stop := false;
   labelInfo.Caption := '';
   workPanel.Caption := 'Please wait';
@@ -640,20 +664,42 @@ begin
   btnCopy.Enabled := false;
   PageControl1.Enabled := false;
   // If the entered URL doesn't have a trailing / add one
-  if AnsiRightStr(textURL.Text,1) <> '/' then textURL.Text := textURL.Text + '/';
+  if (AnsiRightStr(textURL.Text,1) <> '/') then
+  begin
+    U:=TURIParser.Create(Nil);
+    U.ParseURI(textURL.Text);
+    if U.Document = '' then textURL.Text := textURL.Text + '/';
+    U.Free;
+  end;
   // Add the URL to the history dropdown
   addURL(textURL.Text);
   // Process the site
   parseLinks(textURL.Text);
+  // Stop the clock!
+  endTime := Now;
+  // Sort links
   links.Sort(@sortLinks);
+  // Generate comments text header
+  DateTimeToString(ss,'yyyy-mm-dd hh:nn',startTime);
+  commentText.Add('<!-- Sitemap for '+textURL.Text+' generated at ' + ss + '-->');
+  tmp := '';
+  DateTimeToString(ss,'hh',(endTime-startTime));
+  tmp := tmp + ss + 'h ';
+  DateTimeToString(ss,'nn',(endTime-startTime));
+  tmp := tmp + ss + 'm ';
+  DateTimeToString(ss,'ss',(endTime-startTime));
+  tmp := tmp + ss + 's';
+  commentText.Add('<!-- ' + IntToStr(links.Count) + ' links discovered, runtime '+tmp+' -->');
   // Clear the HTML editor
   textHTML.Lines.Clear;
+  textHTML.Lines.AddStrings(commentText);
   // Create an unordered list
   textHTML.Lines.Add('<ul>');
   // Clear the XML editor
   textXML.Lines.Clear;
   // Create XML header
   textXML.Lines.Add('<?xml version="1.0" encoding="UTF-8"?>');
+  textXML.Lines.AddStrings(commentText);
   textXML.Lines.Add('<urlset xmlns="http://www.google.com/schemas/sitemap/0.84"');
   textXML.Lines.Add('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"');
   textXML.Lines.Add('xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84');
@@ -693,6 +739,7 @@ begin
   btnClear.Enabled := true;
   btnCopy.Enabled := true;
   PageControl1.Enabled := true;
+  commentText.Free;
 end;
 
 { Cancel button/menu click event }
