@@ -13,5 +13,4 @@
  * ~~character encoding issues in saved files (UTF8/16)~~ this seems to be an issue with specific editors (see these [http://code.google.com/p/simplesitemapcreator/issues/detail?id=2#c4 screenshots])
  * ~~links in output are not sorted~~
  * ~~link text uses last found occurance of link~~
- * ignores robots.txt (should it?)
  * Needs to be multi-threaded?
