@@ -23,9 +23,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
-  ComCtrls, SynHighlighterHTML, SynGutterBase, SynHighlighterXML,
-  SynGutterMarks, SynGutterLineNumber, SynGutterChanges, SynGutter,
-  SynGutterCodeFolding, SynMemo, XiPanel, XiButton, xmlparser, resolve;
+  ComCtrls, SynHighlighterHTML, SynHighlighterXML, XiPanel, XiButton, xmlparser,
+  {$IFDEF MSWINDOWS} Windows,{$ENDIF}resolve;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
@@ -335,6 +334,7 @@ var
   proto: String;
   tmps: String;
   U: TURIParser;
+  refU: TURiParser;
 begin
   // Are we supposed to have stopped?
   if stop = true then exit;
@@ -356,13 +356,18 @@ begin
   else
   begin
     // TODO: Make more use of this TURIParser class
-    U:=TURIParser.Create(Nil);
+    U := TURIParser.Create(Nil);
+    refU := TURIParser.Create(nil);
     U.ParseURI(textURL.Text);
+    refU.ParseURI(ref);
+    { TODO: Compare path of referrer URL with path of link, rebuild link path
+      if they do not match }
     if U.Document <> '' then
       tmps := AnsiReplaceStr(textURL.Text,U.Document,'')
     else tmps := textURL.Text;
     link := tmps + link;
     U.Free;
+    refU.Free;
   end;
   // Clean up any possible occurances of ../ ./ or //
   link := AnsiReplaceStr(link,'../','/');

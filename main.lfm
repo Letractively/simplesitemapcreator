@@ -17,7 +17,7 @@ object frmMain: TfrmMain
     Left = 440
     Height = 15
     Top = 24
-    Width = 53
+    Width = 46
     Caption = 'labelInfo'
     ParentColor = False
   end
@@ -25,7 +25,7 @@ object frmMain: TfrmMain
     Left = 8
     Height = 15
     Top = 0
-    Width = 52
+    Width = 43
     Caption = 'Site URL'
     ParentColor = False
   end
@@ -41,7 +41,7 @@ object frmMain: TfrmMain
     Left = 576
     Height = 15
     Top = 40
-    Width = 74
+    Width = 63
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -1007,11 +1007,11 @@ object frmMain: TfrmMain
     end
     object tabCSV: TTabSheet
       Caption = 'CSV'
-      ClientHeight = 325
+      ClientHeight = 327
       ClientWidth = 688
       inline textCSV: TSynEdit
         Left = 0
-        Height = 325
+        Height = 327
         Top = 0
         Width = 688
         Align = alClient
@@ -1023,7 +1023,7 @@ object frmMain: TfrmMain
         ParentFont = False
         TabOrder = 0
         Gutter.Visible = False
-        Gutter.Width = 57
+        Gutter.Width = 55
         Gutter.MouseActions = <>
         RightGutter.Width = 0
         RightGutter.MouseActions = <>
@@ -1474,7 +1474,7 @@ object frmMain: TfrmMain
             MouseActions = <>
           end
           object SynGutterLineNumber1: TSynGutterLineNumber
-            Width = 17
+            Width = 15
             MouseActions = <>
             MarkupInfo.Background = clBtnFace
             MarkupInfo.Foreground = clNone
@@ -1492,6 +1492,8 @@ object frmMain: TfrmMain
           object SynGutterSeparator1: TSynGutterSeparator
             Width = 2
             MouseActions = <>
+            MarkupInfo.Background = clWhite
+            MarkupInfo.Foreground = clGray
           end
           object SynGutterCodeFolding1: TSynGutterCodeFolding
             MouseActions = <>
@@ -1586,4 +1588,4 @@ object frmMain: TfrmMain
     left = 600
     top = 336
   end
-end
+end
