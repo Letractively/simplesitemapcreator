@@ -360,12 +360,15 @@ begin
     refU := TURIParser.Create(nil);
     U.ParseURI(textURL.Text);
     refU.ParseURI(ref);
-    { TODO: Compare path of referrer URL with path of link, rebuild link path
-      if they do not match }
     if U.Document <> '' then
       tmps := AnsiReplaceStr(textURL.Text,U.Document,'')
     else tmps := textURL.Text;
     link := tmps + link;
+    if Pos('/',link) < 1 then
+    begin
+      { TODO: Compare path of referrer URL with path of link, rebuild link path
+        if they do not match }
+    end;
     U.Free;
     refU.Free;
   end;
