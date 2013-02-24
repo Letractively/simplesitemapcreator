@@ -27,7 +27,7 @@ uses
   {$IFDEF MSWINDOWS} Windows,{$ENDIF}resolve;
 
 {
-  Makes use of Ararat Synapse http://www.ararat.cz/synapse/doku.php/start
+  Makes use of Ararat Synapse http://www.ararat.cz/synapse/
   Mythcode XML Parser http://www.mythcode.org
   And XiControls http://www.matthewhipkin.co.uk/codelib/xicontrols/
 }
@@ -115,7 +115,7 @@ var
 
 const
   APPVER = '0.1.8';
-  CURRVER = 20130215;
+  CURRVER = 20130224;
 
 implementation
 
@@ -169,7 +169,11 @@ var
   dFile: TStrings;
   f: String;
 begin
+  {$IFDEF MSWINDOWS}
+  f := 'C:\tmp\debug.txt';
+  {$ELSE}
   f := '/tmp/debug.txt';
+  {$ENDIF}
   dFile := TStringList.Create;
   if FileExists(f) then dFile.LoadFromFile(f);
   dFile.Add(s);
@@ -178,7 +182,7 @@ begin
 end;
 
 { Get the contents of specified link }
-procedure getURL(url: String; var response: String; headers: String);
+procedure getURL(url: String; var response: String; var headers: String);
 var
   http: THTTPSend;
   l: TStrings;
@@ -209,6 +213,63 @@ begin
   end;
   http.Free;
   l.Free;
+end;
+
+function getDate(header: String): String;
+var
+  lines: TStrings;
+  x: integer;
+  modline: String;
+  tmps: String;
+  ele: TArray;
+  today: String;
+  m: Array[1..12] of String[3];
+begin
+  //showmessage(header);
+  //saveDebug(header);
+  m[1] := 'Jan';
+  m[2] := 'Feb';
+  m[3] := 'Mar';
+  m[4] := 'Apr';
+  m[5] := 'May';
+  m[6] := 'Jun';
+  m[7] := 'Jul';
+  m[8] := 'Aug';
+  m[9] := 'Sep';
+  m[10] := 'Oct';
+  m[11] := 'Nov';
+  m[12] := 'Dec';
+  DateTimeToString(today,'yyyy-mm-dd',Now);
+  lines := TStringList.Create;
+  lines.Text := header;
+  modline := '';
+  for x := 0 to lines.Count -1 do
+  begin
+    if AnsiStartsStr('Last-Modified',lines[x]) then
+    begin
+      modline := lines[x];
+      break;
+    end;
+  end;
+  if modline <> '' then
+  begin
+    // Last-Modified: Sun, 17 Feb 2013 13:04:46 GMT
+    x := Pos(': ',modline) + 2;
+    tmps := Trim(Copy(modline,x,Length(modline) - x + 1));
+    ele := explode(' ',tmps,0);
+    // year at 3, month at 2, day at 1
+    for x := 1 to 12 do
+      if m[x] = ele[2] then
+      begin
+        if x < 10 then ele[2] := '0' + IntToStr(x)
+        else ele[2] := IntToStr(x);
+        break;
+      end;
+    Result := ele[3] + '-' + ele[2] + '-' + ele[1];
+    //showmessage(tmps);
+  end
+  else Result := today;
+  lines.Free;
 end;
 
 { TfrmMain }
@@ -367,7 +428,15 @@ begin
     if Pos('/',link) < 1 then
     begin
       { TODO: Compare path of referrer URL with path of link, rebuild link path
-        if they do not match }
+        if they do not match
+
+          referrer: http://www.melnikovitch.com/en/index.php
+          a href: ikony_so_Skanju.php
+
+          simple str replace?
+      }
+      tmps := AnsiReplaceStr(ref,refU.Document,link);
+      link := tmps;
     end;
     U.Free;
     refU.Free;
@@ -397,6 +466,7 @@ begin
   l^.link := link;
   l^.referrer := ref;
   l^.parsed := false;
+  l^.modtime := getDate(header);
   links.Add(l);
   Application.ProcessMessages;
   // Set status caption to show number of links found
@@ -614,6 +684,15 @@ begin
       labelInfo.Caption := 'Saved to ' + SaveDialog1.FileName + '.';
     end;
   end;
+  if PageControl1.ActivePage = tabCSV then
+  begin
+    SaveDialog1.Filter := 'CSV Files (*.csv)|*.csv|All Files (*.*)|*.*';
+    if (SaveDialog1.Execute) and (SaveDialog1.FileName <> '') then
+    begin
+      textCSV.Lines.SaveToFile(SaveDialog1.FileName);
+      labelInfo.Caption := 'Saved to ' + SaveDialog1.FileName + '.';
+    end;
+  end;
 end;
 
 procedure TfrmMain.updatesTimerTimer(Sender: TObject);
@@ -643,7 +722,6 @@ procedure TfrmMain.btnGoClick(Sender: TObject);
 var
   x: integer;
   l: ^TLinkItem;
-  today: String;
   U: TURIParser;
   commentText: TStrings;
   startTime: TDateTime;
@@ -658,7 +736,6 @@ begin
   stop := false;
   labelInfo.Caption := '';
   workPanel.Caption := 'Please wait';
-  DateTimeToString(today,'yyyy-mm-dd',Now);
   // Show and position the status panel
   workPanel.Visible := true;
   workPanel.BringToFront;
@@ -712,6 +789,8 @@ begin
   textXML.Lines.Add('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"');
   textXML.Lines.Add('xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84');
   textXML.Lines.Add('http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">');
+  // Clear the CSV editor
+  textCSV.Lines.Clear;
   // Loops through the links
   for x := 0 to links.Count -1 do
   begin
@@ -725,8 +804,10 @@ begin
     // Add an XML item
     textXML.Lines.Add('  <url>');
     textXML.Lines.Add('    <loc>'+l^.link+'</loc>');
-    textXML.Lines.Add('    <lastmod>'+today+'</lastmod>');
+    textXML.Lines.Add('    <lastmod>'+l^.modtime+'</lastmod>');
     textXML.Lines.Add('  </url>');
+    // Add a CSV item
+    textCSV.Lines.Add('"'+l^.link+'","'+l^.title+'"');
   end;
   // Set info caption
   labelInfo.Caption := IntToStr(links.Count) + ' links found.';
