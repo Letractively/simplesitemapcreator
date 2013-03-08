@@ -6,12 +6,12 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +'ClientHeight'#3#206#1#11'ClientWidth'#3#195#2#8'OnCreate'#7#10'FormCreate'#9
   +'OnDestroy'#7#11'FormDestroy'#7'OnPaint'#7#9'FormPaint'#8'OnResize'#7#10'For'
   +'mResize'#6'OnShow'#7#8'FormShow'#10'LCLVersion'#6#3'1.1'#0#6'TLabel'#9'labe'
-  +'lInfo'#4'Left'#3#184#1#6'Height'#2#15#3'Top'#2#24#5'Width'#2'.'#7'Caption'#6
+  +'lInfo'#4'Left'#3#184#1#6'Height'#2#15#3'Top'#2#24#5'Width'#2'5'#7'Caption'#6
   +#9'labelInfo'#11'ParentColor'#8#0#0#6'TLabel'#8'labelURL'#4'Left'#2#8#6'Heig'
-  +'ht'#2#15#3'Top'#2#0#5'Width'#2'+'#7'Caption'#6#8'Site URL'#11'ParentColor'#8
+  +'ht'#2#15#3'Top'#2#0#5'Width'#2'4'#7'Caption'#6#8'Site URL'#11'ParentColor'#8
   +#0#0#15'TFilterComboBox'#7'textURL'#4'Left'#2#8#6'Height'#2#23#3'Top'#2#24#5
   +'Width'#3#164#1#8'TabOrder'#2#0#0#0#6'TLabel'#11'labelUpdate'#6'Cursor'#7#11
-  +'crHandPoint'#4'Left'#3'@'#2#6'Height'#2#15#3'Top'#2'('#5'Width'#2'?'#7'Capt'
+  +'crHandPoint'#4'Left'#3'@'#2#6'Height'#2#15#3'Top'#2'('#5'Width'#2'J'#7'Capt'
   +'ion'#6#11'labelUpdate'#10'Font.Color'#7#6'clNavy'#10'Font.Style'#11#11'fsUn'
   +'derline'#0#11'ParentColor'#8#10'ParentFont'#8#7'OnClick'#7#16'labelUpdateCl'
   +'ick'#0#0#12'TPageControl'#12'PageControl1'#4'Left'#2#8#6'Height'#3'e'#1#3'T'
@@ -205,12 +205,12 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +'seLinkColor.Background'#7#6'clNone'#25'MouseLinkColor.Foreground'#7#6'clBlu'
   +'e'#29'LineHighlightColor.Background'#7#6'clNone'#29'LineHighlightColor.Fore'
   +'ground'#7#6'clNone'#0#244#18'TSynGutterPartList'#22'SynLeftGutterPartList1'
-  +#0#0#0#0#9'TTabSheet'#6'tabCSV'#7'Caption'#6#3'CSV'#12'ClientHeight'#3'G'#1
+  +#0#0#0#0#9'TTabSheet'#6'tabCSV'#7'Caption'#6#3'CSV'#12'ClientHeight'#3'E'#1
   +#11'ClientWidth'#3#176#2#0#244#8'TSynEdit'#7'textCSV'#4'Left'#2#0#6'Height'#3
-  +'G'#1#3'Top'#2#0#5'Width'#3#176#2#5'Align'#7#8'alClient'#11'Font.Height'#2#13
+  +'E'#1#3'Top'#2#0#5'Width'#3#176#2#5'Align'#7#8'alClient'#11'Font.Height'#2#13
   +#9'Font.Name'#6#16'DejaVu Sans Mono'#10'Font.Pitch'#7#7'fpFixed'#12'Font.Qua'
   +'lity'#7#16'fqNonAntialiased'#11'ParentColor'#8#10'ParentFont'#8#8'TabOrder'
-  +#2#0#14'Gutter.Visible'#8#12'Gutter.Width'#2'7'#19'Gutter.MouseActions'#14#0
+  +#2#0#14'Gutter.Visible'#8#12'Gutter.Width'#2'9'#19'Gutter.MouseActions'#14#0
   +#17'RightGutter.Width'#2#0#24'RightGutter.MouseActions'#14#0#10'Keystrokes'
   +#14#1#7'Command'#7#4'ecUp'#8'ShortCut'#2'&'#0#1#7'Command'#7#7'ecSelUp'#8'Sh'
   +'ortCut'#3'& '#0#1#7'Command'#7#10'ecScrollUp'#8'ShortCut'#3'&@'#0#1#7'Comma'
@@ -299,7 +299,7 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +#29'LineHighlightColor.Foreground'#7#6'clNone'#0#244#18'TSynGutterPartList'
   +#22'SynLeftGutterPartList1'#0#15'TSynGutterMarks'#15'SynGutterMarks1'#5'Widt'
   +'h'#2#24#12'MouseActions'#14#0#0#0#20'TSynGutterLineNumber'#20'SynGutterLine'
-  +'Number1'#5'Width'#2#15#12'MouseActions'#14#0#21'MarkupInfo.Background'#7#9
+  +'Number1'#5'Width'#2#17#12'MouseActions'#14#0#21'MarkupInfo.Background'#7#9
   +'clBtnFace'#21'MarkupInfo.Foreground'#7#6'clNone'#10'DigitCount'#2#2#30'Show'
   +'OnlyLineNumbersMultiplesOf'#2#1#9'ZeroStart'#8#12'LeadingZeros'#8#0#0#17'TS'
   +'ynGutterChanges'#17'SynGutterChanges1'#5'Width'#2#4#12'MouseActions'#14#0#13
@@ -341,4 +341,4 @@ LazarusResources.Add('TfrmMain','FORMDATA',[
   +#23'DocTypeAttri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sf'
   +'eAround'#22'SymbolAttri.FrameEdges'#7#9'sfeAround'#16'WantBracesParsed'#8#4
   +'left'#3'X'#2#3'top'#3'P'#1#0#0#0
-]);
+]);

@@ -135,7 +135,8 @@ end;
 
 function explode(cDelimiter,  sValue : string; iCount : integer) : TArray;
 var
-  s : string; i,p : integer;
+  s : string;
+  i,p : integer;
 begin
   s := sValue; i := 0;
   while length(s) > 0 do
@@ -435,6 +436,7 @@ begin
 
           simple str replace?
       }
+      saveDebug('link='+link+',ref='+ref);
       tmps := AnsiReplaceStr(ref,refU.Document,link);
       link := tmps;
     end;
