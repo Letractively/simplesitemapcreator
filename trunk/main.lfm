@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 604
+  Left = 293
   Height = 462
-  Top = 197
+  Top = 103
   Width = 707
   ActiveControl = textURL
   Caption = 'frmMain'
@@ -12,10 +12,11 @@ object frmMain: TfrmMain
   OnPaint = FormPaint
   OnResize = FormResize
   OnShow = FormShow
+  Position = poDesktopCenter
   LCLVersion = '1.1'
   object labelInfo: TLabel
     Left = 440
-    Height = 15
+    Height = 14
     Top = 24
     Width = 53
     Caption = 'labelInfo'
@@ -23,7 +24,7 @@ object frmMain: TfrmMain
   end
   object labelURL: TLabel
     Left = 8
-    Height = 15
+    Height = 14
     Top = 0
     Width = 52
     Caption = 'Site URL'
@@ -31,7 +32,7 @@ object frmMain: TfrmMain
   end
   object textURL: TFilterComboBox
     Left = 8
-    Height = 23
+    Height = 22
     Top = 24
     Width = 420
     TabOrder = 0
@@ -39,9 +40,9 @@ object frmMain: TfrmMain
   object labelUpdate: TLabel
     Cursor = crHandPoint
     Left = 576
-    Height = 15
+    Height = 14
     Top = 40
-    Width = 74
+    Width = 76
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -54,24 +55,24 @@ object frmMain: TfrmMain
     Height = 357
     Top = 72
     Width = 696
-    ActivePage = tabCSV
+    ActivePage = tabHTML
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.CharSet = ANSI_CHARSET
     Font.Height = -13
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 1
     object tabHTML: TTabSheet
       Caption = 'HTML'
-      ClientHeight = 248
-      ClientWidth = 480
+      ClientHeight = 327
+      ClientWidth = 688
       inline textHTML: TSynEdit
         Left = 0
-        Height = 248
+        Height = 327
         Top = 0
-        Width = 480
+        Width = 688
         Align = alClient
         Font.Height = -13
         Font.Name = 'Courier New'
@@ -1007,11 +1008,11 @@ object frmMain: TfrmMain
     end
     object tabCSV: TTabSheet
       Caption = 'CSV'
-      ClientHeight = 325
+      ClientHeight = 327
       ClientWidth = 688
       inline textCSV: TSynEdit
         Left = 0
-        Height = 325
+        Height = 327
         Top = 0
         Width = 688
         Align = alClient
