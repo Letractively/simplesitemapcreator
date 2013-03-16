@@ -115,7 +115,7 @@ var
 
 const
   APPVER = '0.1.8';
-  CURRVER = 20130224;
+  CURRVER = 20130316;
 
 implementation
 
@@ -417,28 +417,22 @@ begin
   // It doesn't start with http:// or https:// but is a local link
   else
   begin
+    //saveDebug('link='+link+',ref='+ref);
     // TODO: Make more use of this TURIParser class
     U := TURIParser.Create(Nil);
     refU := TURIParser.Create(nil);
     U.ParseURI(textURL.Text);
     refU.ParseURI(ref);
     if U.Document <> '' then
-      tmps := AnsiReplaceStr(textURL.Text,U.Document,'')
-    else tmps := textURL.Text;
-    link := tmps + link;
-    if Pos('/',link) < 1 then
     begin
-      { TODO: Compare path of referrer URL with path of link, rebuild link path
-        if they do not match
-
-          referrer: http://www.melnikovitch.com/en/index.php
-          a href: ikony_so_Skanju.php
-
-          simple str replace?
-      }
-      saveDebug('link='+link+',ref='+ref);
       tmps := AnsiReplaceStr(ref,refU.Document,link);
       link := tmps;
+      //  tmps := AnsiReplaceStr(textURL.Text,U.Document,'')
+    end
+    else
+    begin
+      tmps := textURL.Text;
+      link := tmps + link;
     end;
     U.Free;
     refU.Free;
@@ -510,6 +504,9 @@ begin
   ignoreFiles.Add('.7z');
   ignoreFiles.Add('.arj');
   ignoreFiles.Add('.tar');
+  ignoreFiles.Add('.ogg');
+  ignoreFiles.Add('.avi');
+  ignoreFiles.Add('.mp4');
   // UI tweaks
   btnAbout := TXiButton.Create(Self);
   btnAbout.Parent := frmMain;
