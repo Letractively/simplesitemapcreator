@@ -115,7 +115,7 @@ var
 
 const
   APPVER = '0.1.8';
-  CURRVER = 20130316;
+  CURRVER = 20130329;
 
 implementation
 
@@ -431,8 +431,13 @@ begin
     end
     else
     begin
-      tmps := textURL.Text;
-      link := tmps + link;
+      //saveDebug('link='+link+' ref='+ref);
+      if refU.Document <> '' then
+        tmps := AnsiReplaceStr(ref,refU.Document,link)
+      else
+        tmps := ref + link;
+      link := tmps;
+      //saveDebug('newlink='+link);
     end;
     U.Free;
     refU.Free;
