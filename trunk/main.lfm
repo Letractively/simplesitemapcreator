@@ -16,17 +16,17 @@ object frmMain: TfrmMain
   LCLVersion = '1.1'
   object labelInfo: TLabel
     Left = 440
-    Height = 17
+    Height = 15
     Top = 24
-    Width = 52
+    Width = 46
     Caption = 'labelInfo'
     ParentColor = False
   end
   object labelURL: TLabel
     Left = 8
-    Height = 17
+    Height = 15
     Top = 0
-    Width = 49
+    Width = 46
     Caption = 'Site URL'
     ParentColor = False
   end
@@ -40,9 +40,9 @@ object frmMain: TfrmMain
   object labelUpdate: TLabel
     Cursor = crHandPoint
     Left = 576
-    Height = 17
+    Height = 15
     Top = 40
-    Width = 71
+    Width = 64
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -66,13 +66,13 @@ object frmMain: TfrmMain
     TabOrder = 1
     object tabHTML: TTabSheet
       Caption = 'HTML'
-      ClientHeight = 325
-      ClientWidth = 688
+      ClientHeight = 329
+      ClientWidth = 692
       inline textHTML: TSynEdit
         Left = 0
-        Height = 325
+        Height = 329
         Top = 0
-        Width = 688
+        Width = 692
         Align = alClient
         Font.Height = -13
         Font.Name = 'Courier New'
@@ -537,8 +537,8 @@ object frmMain: TfrmMain
     end
     object tabGoogle: TTabSheet
       Caption = 'Google Sitemap'
-      ClientHeight = 325
-      ClientWidth = 688
+      ClientHeight = 329
+      ClientWidth = 692
       inline textXML: TSynEdit
         Left = 0
         Height = 324
@@ -1008,8 +1008,8 @@ object frmMain: TfrmMain
     end
     object tabCSV: TTabSheet
       Caption = 'CSV'
-      ClientHeight = 327
-      ClientWidth = 688
+      ClientHeight = 329
+      ClientWidth = 692
       inline textCSV: TSynEdit
         Left = 0
         Height = 327

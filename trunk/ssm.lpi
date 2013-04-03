@@ -58,7 +58,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="228"/>
+        <TopLine Value="891"/>
         <CursorPos X="21" Y="118"/>
         <UsageCount Value="92"/>
         <Loaded Value="True"/>
@@ -83,13 +83,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="about"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="71"/>
         <CursorPos X="19" Y="4"/>
         <UsageCount Value="84"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="synapse\source\lib\ssfpc.pas"/>
@@ -144,12 +141,10 @@
       <Unit11>
         <Filename Value="ssmc.pas"/>
         <UnitName Value="ssmc"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="145"/>
         <CursorPos X="21" Y="58"/>
         <UsageCount Value="22"/>
-        <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\lazarus\fpc\2.6.1\source\rtl\objpas\classes\classesh.inc"/>
@@ -161,12 +156,10 @@
       <Unit13>
         <Filename Value="synapse\synautil.pas"/>
         <UnitName Value="synautil"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="2" Y="51"/>
         <UsageCount Value="17"/>
-        <Loaded Value="True"/>
       </Unit13>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
