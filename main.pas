@@ -115,7 +115,7 @@ var
 
 const
   APPVER = '0.1.8';
-  CURRVER = 20130329;
+  CURRVER = 20130403;
 
 implementation
 
