@@ -24,13 +24,20 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
   ComCtrls, SynHighlighterHTML, SynHighlighterXML, XiPanel, XiButton, xmlparser,
-  {$IFDEF MSWINDOWS} Windows,{$ENDIF}resolve;
+  {$IFDEF MSWINDOWS} Windows,{$ENDIF}resolve, IniFiles;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/
   Mythcode XML Parser http://www.mythcode.org
   And XiControls http://www.matthewhipkin.co.uk/codelib/xicontrols/
 }
+
+type
+  TConfigOptions = record
+    editorFont: String;
+    editorFontSize: Integer;
+    disableCustomTheme: Boolean;
+  end;
 
 type
 
@@ -92,9 +99,12 @@ type
     { public declarations }
     inTag: Boolean;
     hrefTemp: String;
+    options: TConfigOptions;
     procedure parseLinks(url: String);
     procedure addURL(url: String);
     procedure setTitle(url: String; title: String);
+    procedure loadConfig;
+    procedure saveConfig;
   end;
 
 { Simple type to store links }
@@ -115,11 +125,11 @@ var
 
 const
   APPVER = '0.1.8';
-  CURRVER = 20130403;
+  CURRVER = 20130407;
 
 implementation
 
-uses about;
+uses about, options;
 
 {$IFDEF MSWINDOWS}
 function getWinVer: String;
@@ -131,7 +141,6 @@ begin
   Result := 'Windows NT '+IntToStr(VerInfo.dwMajorVersion) + '.' + IntToStr(VerInfo.dwMinorVersion)
 end;
 {$ENDIF}
-
 
 function explode(cDelimiter,  sValue : string; iCount : integer) : TArray;
 var
@@ -274,6 +283,23 @@ begin
 end;
 
 { TfrmMain }
+
+procedure TfrmMain.loadConfig;
+var
+  conf: TIniFile;
+begin
+  conf := TIniFile.Create(progdir + 'ssmc.ini');
+  //options.disableCustomTheme := true;
+  conf.Free;
+end;
+
+procedure TfrmMain.saveConfig;
+var
+  conf: TIniFile;
+begin
+  conf := TIniFile.Create(progdir + 'ssmc.ini');
+  conf.Free;
+end;
 
 { Add URL to the drop down list }
 procedure TfrmMain.addURL(url: String);
@@ -512,67 +538,71 @@ begin
   ignoreFiles.Add('.ogg');
   ignoreFiles.Add('.avi');
   ignoreFiles.Add('.mp4');
+  //loadConfig;
   // UI tweaks
-  btnAbout := TXiButton.Create(Self);
-  btnAbout.Parent := frmMain;
-  btnAbout.Left := 8;
-  btnAbout.Width := 75;
-  btnAbout.Height := 25;
-  btnAbout.Top := frmMain.ClientHeight - btnAbout.Height - 5;
-  btnAbout.Caption := 'About';
-  btnAbout.ColorScheme := csNeoSky;
-  btnAbout.Visible := true;
-  btnAbout.BringToFront;
-  btnAbout.Anchors := [akBottom,akLeft];
-  btnAbout.OnClick := btnAboutClick;
-  btnCopy := TXiButton.Create(Self);
-  btnCopy.Parent := frmMain;
-  btnCopy.Left := 178;
-  btnCopy.Width := 75;
-  btnCopy.Height := 25;
-  btnCopy.Top := frmMain.ClientHeight - btnCopy.Height - 5;
-  btnCopy.Caption := 'Copy';
-  btnCopy.ColorScheme := csNeoSky;
-  btnCopy.Visible := true;
-  btnCopy.BringToFront;
-  btnCopy.Anchors:=[akBottom,akRight];
-  btnCopy.OnClick := menuCopyClick;
-  btnClear := TXiButton.Create(Self);
-  btnClear.Parent := frmMain;
-  btnClear.Left := 258;
-  btnClear.Width := 75;
-  btnClear.Height := 25;
-  btnClear.Top := frmMain.ClientHeight - btnClear.Height - 5;
-  btnClear.Caption := 'Clear';
-  btnClear.ColorScheme := csNeoSky;
-  btnClear.Visible := true;
-  btnClear.BringToFront;
-  btnClear.Anchors:=[akBottom,akRight];
-  btnClear.OnClick := menuClearClick;
-  btnSave := TXiButton.Create(Self);
-  btnSave.Parent := frmMain;
-  btnSave.Left := 338;
-  btnSave.Width := 75;
-  btnSave.Height := 25;
-  btnSave.Top := frmMain.ClientHeight - btnSave.Height - 5;
-  btnSave.Caption := 'Save';
-  btnSave.ColorScheme := csNeoSky;
-  btnSave.Visible := true;
-  btnSave.BringToFront;
-  btnSave.Anchors:=[akBottom,akRight];
-  btnSave.OnClick := menuSaveClick;
-  btnGo := TXiButton.Create(Self);
-  btnGo.Parent := frmMain;
-  btnGo.Left := 415;
-  btnGo.Width := 75;
-  btnGo.Height := 25;
-  btnGo.Top := frmMain.ClientHeight - btnGo.Height - 5;
-  btnGo.Caption := 'Go';
-  btnGo.ColorScheme := csNeoGrass;
-  btnGo.Visible := true;
-  btnGo.BringToFront;
-  btnGo.Anchors:=[akBottom,akRight];
-  btnGo.OnClick := btnGoClick;
+  if not options.disableCustomTheme then
+  begin
+    btnAbout := TXiButton.Create(Self);
+    btnAbout.Parent := frmMain;
+    btnAbout.Left := 8;
+    btnAbout.Width := 75;
+    btnAbout.Height := 25;
+    btnAbout.Top := frmMain.ClientHeight - btnAbout.Height - 5;
+    btnAbout.Caption := 'About';
+    btnAbout.ColorScheme := csNeoSky;
+    btnAbout.Visible := true;
+    btnAbout.BringToFront;
+    btnAbout.Anchors := [akBottom,akLeft];
+    btnAbout.OnClick := btnAboutClick;
+    btnCopy := TXiButton.Create(Self);
+    btnCopy.Parent := frmMain;
+    btnCopy.Left := 178;
+    btnCopy.Width := 75;
+    btnCopy.Height := 25;
+    btnCopy.Top := frmMain.ClientHeight - btnCopy.Height - 5;
+    btnCopy.Caption := 'Copy';
+    btnCopy.ColorScheme := csNeoSky;
+    btnCopy.Visible := true;
+    btnCopy.BringToFront;
+    btnCopy.Anchors:=[akBottom,akRight];
+    btnCopy.OnClick := menuCopyClick;
+    btnClear := TXiButton.Create(Self);
+    btnClear.Parent := frmMain;
+    btnClear.Left := 258;
+    btnClear.Width := 75;
+    btnClear.Height := 25;
+    btnClear.Top := frmMain.ClientHeight - btnClear.Height - 5;
+    btnClear.Caption := 'Clear';
+    btnClear.ColorScheme := csNeoSky;
+    btnClear.Visible := true;
+    btnClear.BringToFront;
+    btnClear.Anchors:=[akBottom,akRight];
+    btnClear.OnClick := menuClearClick;
+    btnSave := TXiButton.Create(Self);
+    btnSave.Parent := frmMain;
+    btnSave.Left := 338;
+    btnSave.Width := 75;
+    btnSave.Height := 25;
+    btnSave.Top := frmMain.ClientHeight - btnSave.Height - 5;
+    btnSave.Caption := 'Save';
+    btnSave.ColorScheme := csNeoSky;
+    btnSave.Visible := true;
+    btnSave.BringToFront;
+    btnSave.Anchors:=[akBottom,akRight];
+    btnSave.OnClick := menuSaveClick;
+    btnGo := TXiButton.Create(Self);
+    btnGo.Parent := frmMain;
+    btnGo.Left := 415;
+    btnGo.Width := 75;
+    btnGo.Height := 25;
+    btnGo.Top := frmMain.ClientHeight - btnGo.Height - 5;
+    btnGo.Caption := 'Go';
+    btnGo.ColorScheme := csNeoGrass;
+    btnGo.Visible := true;
+    btnGo.BringToFront;
+    btnGo.Anchors:=[akBottom,akRight];
+    btnGo.OnClick := btnGoClick;
+  end;
   workPanel := TXiPanel.Create(Self);
   workPanel.Parent := frmMain;
   workPanel.Width := 170;
@@ -608,6 +638,7 @@ begin
   updatesTimer.Enabled := true;
   textHTML.Lines.Clear;
   textXML.Lines.Clear;
+  textCSV.Lines.Clear;
   PageControl1.ActivePage := tabHTML;
 end;
 
@@ -621,9 +652,9 @@ end;
 
 procedure TfrmMain.FormPaint(Sender: TObject);
 begin
-  GradientFillRect(frmMain.Canvas,
-                   Classes.Rect(0, 0, frmMain.ClientWidth, frmMain.ClientHeight),
-                   clWhite, $00FFE0C1, fdVertical);
+  if not options.disableCustomTheme then
+    GradientFillRect(frmMain.Canvas, Classes.Rect(0, 0, frmMain.ClientWidth,
+      frmMain.ClientHeight), clWhite, $00FFE0C1, fdVertical);
 end;
 
 { Form resize }
@@ -847,6 +878,7 @@ end;
 procedure TfrmMain.btnAboutClick(Sender: TObject);
 begin
   frmAbout.ShowModal;
+  //frmOptions.ShowModal;
 end;
 
 { Taken from XiPanel.pas
