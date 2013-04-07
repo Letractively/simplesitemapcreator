@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, main, LResources, synacode, httpsend, about;
+  Forms, main, LResources, synacode, httpsend, about, options;
 
 {$IFDEF WINDOWS}{$R ssm.rc}{$ENDIF}
 
@@ -16,6 +16,7 @@ begin
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmAbout, frmAbout);
+  Application.CreateForm(TfrmOptions, frmOptions);
   Application.Run;
 end.
 
