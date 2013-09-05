@@ -24,8 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
   ComCtrls, Buttons, SynHighlighterHTML, SynHighlighterXML, XiPanel, XiButton,
-  xmlparser,
-  {$IFDEF MSWINDOWS} Windows,{$ENDIF}resolve, IniFiles;
+  xmlparser, {$IFDEF MSWINDOWS} Windows,{$ENDIF}resolve, IniFiles;
 
 {
   Makes use of Ararat Synapse http://www.ararat.cz/synapse/
@@ -39,6 +38,7 @@ type
     editorFontSize: Integer;
     ignoreFiles: TStrings;
     disableCustomTheme: Boolean;
+    includeImages: Boolean;
   end;
 
 type
@@ -303,6 +303,10 @@ var
   conf: TIniFile;
 begin
   conf := TIniFile.Create(progdir + 'ssmc.ini');
+  conf.WriteString('program','editorfont',options.editorFont);
+  conf.WriteInteger('program','editorfontsize',options.editorFontSize);
+  conf.WriteBool('program','includeimages',options.includeImages);
+  conf.WriteBool('program','disabletheme',options.disableCustomTheme);
   conf.Free;
 end;
 
@@ -866,7 +870,16 @@ end;
 
 procedure TfrmMain.btnOptionsClick(Sender: TObject);
 begin
-  frmOptions.ShowModal;
+  if frmOptions.ShowModal = mrOK then
+  begin
+    options.disableCustomTheme := frmOptions.checkDisableTheme.Checked;
+    options.editorFont := frmOptions.textEditorFont.Text;
+    options.editorFontSize := frmOptions.textEditorFontSize.Value;
+    options.ignoreFiles.Clear;
+    options.ignoreFiles.AddStrings(frmOptions.listIgores.Items);
+    options.includeImages := frmOptions.checkIncludeImages.Checked;
+    saveConfig;
+  end;
 end;
 
 { Cancel button/menu click event }
@@ -881,7 +894,6 @@ end;
 procedure TfrmMain.btnAboutClick(Sender: TObject);
 begin
   frmAbout.ShowModal;
-  //frmOptions.ShowModal;
 end;
 
 { Taken from XiPanel.pas
