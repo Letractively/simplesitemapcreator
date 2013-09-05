@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 293
+  Left = 437
   Height = 462
-  Top = 103
+  Top = 218
   Width = 707
   ActiveControl = textURL
   Caption = 'frmMain'
@@ -16,23 +16,23 @@ object frmMain: TfrmMain
   LCLVersion = '1.1'
   object labelInfo: TLabel
     Left = 440
-    Height = 14
+    Height = 15
     Top = 24
-    Width = 53
+    Width = 57
     Caption = 'labelInfo'
     ParentColor = False
   end
   object labelURL: TLabel
     Left = 8
-    Height = 14
+    Height = 15
     Top = 0
-    Width = 52
+    Width = 55
     Caption = 'Site URL'
     ParentColor = False
   end
   object textURL: TFilterComboBox
     Left = 8
-    Height = 22
+    Height = 25
     Top = 24
     Width = 420
     TabOrder = 0
@@ -40,9 +40,9 @@ object frmMain: TfrmMain
   object labelUpdate: TLabel
     Cursor = crHandPoint
     Left = 576
-    Height = 14
+    Height = 15
     Top = 40
-    Width = 76
+    Width = 79
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -66,13 +66,13 @@ object frmMain: TfrmMain
     TabOrder = 1
     object tabHTML: TTabSheet
       Caption = 'HTML'
-      ClientHeight = 327
-      ClientWidth = 688
+      ClientHeight = 332
+      ClientWidth = 694
       inline textHTML: TSynEdit
         Left = 0
-        Height = 327
+        Height = 332
         Top = 0
-        Width = 688
+        Width = 694
         Align = alClient
         Font.Height = -13
         Font.Name = 'Courier New'
@@ -514,31 +514,39 @@ object frmMain: TfrmMain
           'textHTML'
         )
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
+        SelectedColor.FrameEdges = sfeAround
         SelectedColor.BackPriority = 50
         SelectedColor.ForePriority = 50
         SelectedColor.FramePriority = 50
         SelectedColor.BoldPriority = 50
         SelectedColor.ItalicPriority = 50
         SelectedColor.UnderlinePriority = 50
+        SelectedColor.StrikeOutPriority = 50
+        IncrementColor.FrameEdges = sfeAround
+        HighlightAllColor.FrameEdges = sfeAround
         BracketHighlightStyle = sbhsBoth
         BracketMatchColor.Background = clNone
         BracketMatchColor.Foreground = clNone
+        BracketMatchColor.FrameEdges = sfeAround
         BracketMatchColor.Style = [fsBold]
         FoldedCodeColor.Background = clNone
         FoldedCodeColor.Foreground = clGray
         FoldedCodeColor.FrameColor = clGray
+        FoldedCodeColor.FrameEdges = sfeAround
         MouseLinkColor.Background = clNone
         MouseLinkColor.Foreground = clBlue
+        MouseLinkColor.FrameEdges = sfeAround
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
+        LineHighlightColor.FrameEdges = sfeAround
         inline SynLeftGutterPartList1: TSynGutterPartList
         end
       end
     end
     object tabGoogle: TTabSheet
       Caption = 'Google Sitemap'
-      ClientHeight = 327
-      ClientWidth = 688
+      ClientHeight = 332
+      ClientWidth = 694
       inline textXML: TSynEdit
         Left = 0
         Height = 327
@@ -985,31 +993,39 @@ object frmMain: TfrmMain
           'textXML'
         )
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
+        SelectedColor.FrameEdges = sfeAround
         SelectedColor.BackPriority = 50
         SelectedColor.ForePriority = 50
         SelectedColor.FramePriority = 50
         SelectedColor.BoldPriority = 50
         SelectedColor.ItalicPriority = 50
         SelectedColor.UnderlinePriority = 50
+        SelectedColor.StrikeOutPriority = 50
+        IncrementColor.FrameEdges = sfeAround
+        HighlightAllColor.FrameEdges = sfeAround
         BracketHighlightStyle = sbhsBoth
         BracketMatchColor.Background = clNone
         BracketMatchColor.Foreground = clNone
+        BracketMatchColor.FrameEdges = sfeAround
         BracketMatchColor.Style = [fsBold]
         FoldedCodeColor.Background = clNone
         FoldedCodeColor.Foreground = clGray
         FoldedCodeColor.FrameColor = clGray
+        FoldedCodeColor.FrameEdges = sfeAround
         MouseLinkColor.Background = clNone
         MouseLinkColor.Foreground = clBlue
+        MouseLinkColor.FrameEdges = sfeAround
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
+        LineHighlightColor.FrameEdges = sfeAround
         inline SynLeftGutterPartList1: TSynGutterPartList
         end
       end
     end
     object tabCSV: TTabSheet
       Caption = 'CSV'
-      ClientHeight = 327
-      ClientWidth = 688
+      ClientHeight = 332
+      ClientWidth = 694
       inline textCSV: TSynEdit
         Left = 0
         Height = 327
@@ -1024,7 +1040,7 @@ object frmMain: TfrmMain
         ParentFont = False
         TabOrder = 0
         Gutter.Visible = False
-        Gutter.Width = 67
+        Gutter.Width = 57
         Gutter.MouseActions = <>
         RightGutter.Width = 0
         RightGutter.MouseActions = <>
@@ -1452,33 +1468,42 @@ object frmMain: TfrmMain
         MouseActions = <>
         MouseSelActions = <>
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
+        SelectedColor.FrameEdges = sfeAround
         SelectedColor.BackPriority = 50
         SelectedColor.ForePriority = 50
         SelectedColor.FramePriority = 50
         SelectedColor.BoldPriority = 50
         SelectedColor.ItalicPriority = 50
         SelectedColor.UnderlinePriority = 50
+        SelectedColor.StrikeOutPriority = 50
+        IncrementColor.FrameEdges = sfeAround
+        HighlightAllColor.FrameEdges = sfeAround
         BracketHighlightStyle = sbhsBoth
         BracketMatchColor.Background = clNone
         BracketMatchColor.Foreground = clNone
+        BracketMatchColor.FrameEdges = sfeAround
         BracketMatchColor.Style = [fsBold]
         FoldedCodeColor.Background = clNone
         FoldedCodeColor.Foreground = clGray
         FoldedCodeColor.FrameColor = clGray
+        FoldedCodeColor.FrameEdges = sfeAround
         MouseLinkColor.Background = clNone
         MouseLinkColor.Foreground = clBlue
+        MouseLinkColor.FrameEdges = sfeAround
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
+        LineHighlightColor.FrameEdges = sfeAround
         inline SynLeftGutterPartList1: TSynGutterPartList
           object SynGutterMarks1: TSynGutterMarks
             Width = 24
             MouseActions = <>
           end
           object SynGutterLineNumber1: TSynGutterLineNumber
-            Width = 27
+            Width = 17
             MouseActions = <>
             MarkupInfo.Background = clBtnFace
             MarkupInfo.Foreground = clNone
+            MarkupInfo.FrameEdges = sfeAround
             DigitCount = 2
             ShowOnlyLineNumbersMultiplesOf = 1
             ZeroStart = False
@@ -1495,11 +1520,13 @@ object frmMain: TfrmMain
             MouseActions = <>
             MarkupInfo.Background = clWhite
             MarkupInfo.Foreground = clGray
+            MarkupInfo.FrameEdges = sfeAround
           end
           object SynGutterCodeFolding1: TSynGutterCodeFolding
             MouseActions = <>
             MarkupInfo.Background = clNone
             MarkupInfo.Foreground = clGray
+            MarkupInfo.FrameEdges = sfeAround
             MouseActionsExpanded = <>
             MouseActionsCollapsed = <>
           end
@@ -1516,6 +1543,36 @@ object frmMain: TfrmMain
     AutoSize = False
     Caption = ' '
     ParentColor = False
+  end
+  object btnOptions: TSpeedButton
+    Left = 680
+    Height = 22
+    Top = 438
+    Width = 23
+    Anchors = [akRight, akBottom]
+    Flat = True
+    Glyph.Data = {
+      42020000424D4202000000000000420000002800000010000000100000000100
+      100003000000000200006400000064000000000000000000000000F80000E007
+      00001F0000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000
+    }
+    OnClick = btnOptionsClick
   end
   object SynHTMLSyn1: TSynHTMLSyn
     DefaultFilter = 'HTML Document (*.htm,*.html)|*.htm;*.html'

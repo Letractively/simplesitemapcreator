@@ -23,7 +23,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Menus, FileCtrl, StrUtils, httpsend, SynEdit, LCLIntF,
-  ComCtrls, SynHighlighterHTML, SynHighlighterXML, XiPanel, XiButton, xmlparser,
+  ComCtrls, Buttons, SynHighlighterHTML, SynHighlighterXML, XiPanel, XiButton,
+  xmlparser,
   {$IFDEF MSWINDOWS} Windows,{$ENDIF}resolve, IniFiles;
 
 {
@@ -36,6 +37,7 @@ type
   TConfigOptions = record
     editorFont: String;
     editorFontSize: Integer;
+    ignoreFiles: TStrings;
     disableCustomTheme: Boolean;
   end;
 
@@ -47,6 +49,7 @@ type
     labelUpdate: TLabel;
     labelURL: TLabel;
     PageControl1: TPageControl;
+    btnOptions: TSpeedButton;
     textCSV: TSynEdit;
     SynXMLSyn1: TSynXMLSyn;
     tabCSV: TTabSheet;
@@ -67,6 +70,7 @@ type
     procedure btnAboutClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnGoClick(Sender: TObject);
+    procedure btnOptionsClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormPaint(Sender: TObject);
@@ -125,7 +129,7 @@ var
 
 const
   APPVER = '0.1.8';
-  CURRVER = 20130407;
+  CURRVER = 20130905;
 
 implementation
 
@@ -381,12 +385,6 @@ begin
       end;
       if Lowercase(Parser.Name) = 'title' then
         title := Parser.ContentSpaceTrimText;
-{      if (Parser.Name = 'img') and (title = '') then
-        title := Parser.Value['alt'];
-      if (Parser.Name = 'img') and (title = '') then
-        title := Parser.Value['title'];
-      if (Parser.Name = 'img') and (title = '') then
-        title := Parser.Value['src'];}
     end;
     add := true;
     setTitle(url,title);
@@ -453,7 +451,6 @@ begin
     begin
       tmps := AnsiReplaceStr(ref,refU.Document,link);
       link := tmps;
-      //  tmps := AnsiReplaceStr(textURL.Text,U.Document,'')
     end
     else
     begin
@@ -864,6 +861,11 @@ begin
   btnCopy.Enabled := true;
   PageControl1.Enabled := true;
   commentText.Free;
+end;
+
+procedure TfrmMain.btnOptionsClick(Sender: TObject);
+begin
+  frmOptions.ShowModal;
 end;
 
 { Cancel button/menu click event }
