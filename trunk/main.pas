@@ -294,6 +294,7 @@ var
 begin
   conf := TIniFile.Create(progdir + 'ssmc.ini');
   //options.disableCustomTheme := true;
+  options.ignoreFiles := TStringList.Create;
   conf.Free;
 end;
 

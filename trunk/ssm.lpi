@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -46,7 +46,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="22"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="95"/>
       </Unit0>
       <Unit1>
         <Filename Value="main.pas"/>
@@ -58,9 +58,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="453"/>
-        <CursorPos X="1" Y="453"/>
-        <UsageCount Value="94"/>
+        <TopLine Value="280"/>
+        <CursorPos X="19" Y="296"/>
+        <UsageCount Value="95"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -68,13 +68,13 @@
         <Filename Value="..\synapse\source\lib\synacode.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="synacode"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="95"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\synapse\source\lib\httpsend.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="httpsend"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="95"/>
       </Unit3>
       <Unit4>
         <Filename Value="about.pas"/>
@@ -86,7 +86,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="71"/>
         <CursorPos X="19" Y="4"/>
-        <UsageCount Value="86"/>
+        <UsageCount Value="87"/>
       </Unit4>
       <Unit5>
         <Filename Value="synapse\source\lib\ssfpc.pas"/>
@@ -172,12 +172,12 @@
         <WindowIndex Value="0"/>
         <TopLine Value="24"/>
         <CursorPos X="23" Y="25"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit14>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="main.pas"/>
         <Caret Line="349" Column="8" TopLine="310"/>
@@ -294,10 +294,6 @@
         <Filename Value="options.pas"/>
         <Caret Line="48" Column="14" TopLine="25"/>
       </Position29>
-      <Position30>
-        <Filename Value="main.pas"/>
-        <Caret Line="451" Column="1" TopLine="887"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

@@ -18,7 +18,7 @@ object frmMain: TfrmMain
     Left = 440
     Height = 15
     Top = 24
-    Width = 57
+    Width = 46
     Caption = 'labelInfo'
     ParentColor = False
   end
@@ -26,13 +26,13 @@ object frmMain: TfrmMain
     Left = 8
     Height = 15
     Top = 0
-    Width = 55
+    Width = 43
     Caption = 'Site URL'
     ParentColor = False
   end
   object textURL: TFilterComboBox
     Left = 8
-    Height = 25
+    Height = 23
     Top = 24
     Width = 420
     TabOrder = 0
@@ -42,7 +42,7 @@ object frmMain: TfrmMain
     Left = 576
     Height = 15
     Top = 40
-    Width = 79
+    Width = 63
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -66,13 +66,13 @@ object frmMain: TfrmMain
     TabOrder = 1
     object tabHTML: TTabSheet
       Caption = 'HTML'
-      ClientHeight = 332
-      ClientWidth = 694
+      ClientHeight = 327
+      ClientWidth = 688
       inline textHTML: TSynEdit
         Left = 0
-        Height = 332
+        Height = 327
         Top = 0
-        Width = 694
+        Width = 688
         Align = alClient
         Font.Height = -13
         Font.Name = 'Courier New'
@@ -514,31 +514,23 @@ object frmMain: TfrmMain
           'textHTML'
         )
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
-        SelectedColor.FrameEdges = sfeAround
         SelectedColor.BackPriority = 50
         SelectedColor.ForePriority = 50
         SelectedColor.FramePriority = 50
         SelectedColor.BoldPriority = 50
         SelectedColor.ItalicPriority = 50
         SelectedColor.UnderlinePriority = 50
-        SelectedColor.StrikeOutPriority = 50
-        IncrementColor.FrameEdges = sfeAround
-        HighlightAllColor.FrameEdges = sfeAround
         BracketHighlightStyle = sbhsBoth
         BracketMatchColor.Background = clNone
         BracketMatchColor.Foreground = clNone
-        BracketMatchColor.FrameEdges = sfeAround
         BracketMatchColor.Style = [fsBold]
         FoldedCodeColor.Background = clNone
         FoldedCodeColor.Foreground = clGray
         FoldedCodeColor.FrameColor = clGray
-        FoldedCodeColor.FrameEdges = sfeAround
         MouseLinkColor.Background = clNone
         MouseLinkColor.Foreground = clBlue
-        MouseLinkColor.FrameEdges = sfeAround
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
-        LineHighlightColor.FrameEdges = sfeAround
         inline SynLeftGutterPartList1: TSynGutterPartList
         end
       end
@@ -993,31 +985,23 @@ object frmMain: TfrmMain
           'textXML'
         )
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
-        SelectedColor.FrameEdges = sfeAround
         SelectedColor.BackPriority = 50
         SelectedColor.ForePriority = 50
         SelectedColor.FramePriority = 50
         SelectedColor.BoldPriority = 50
         SelectedColor.ItalicPriority = 50
         SelectedColor.UnderlinePriority = 50
-        SelectedColor.StrikeOutPriority = 50
-        IncrementColor.FrameEdges = sfeAround
-        HighlightAllColor.FrameEdges = sfeAround
         BracketHighlightStyle = sbhsBoth
         BracketMatchColor.Background = clNone
         BracketMatchColor.Foreground = clNone
-        BracketMatchColor.FrameEdges = sfeAround
         BracketMatchColor.Style = [fsBold]
         FoldedCodeColor.Background = clNone
         FoldedCodeColor.Foreground = clGray
         FoldedCodeColor.FrameColor = clGray
-        FoldedCodeColor.FrameEdges = sfeAround
         MouseLinkColor.Background = clNone
         MouseLinkColor.Foreground = clBlue
-        MouseLinkColor.FrameEdges = sfeAround
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
-        LineHighlightColor.FrameEdges = sfeAround
         inline SynLeftGutterPartList1: TSynGutterPartList
         end
       end
@@ -1040,7 +1024,7 @@ object frmMain: TfrmMain
         ParentFont = False
         TabOrder = 0
         Gutter.Visible = False
-        Gutter.Width = 57
+        Gutter.Width = 55
         Gutter.MouseActions = <>
         RightGutter.Width = 0
         RightGutter.MouseActions = <>
@@ -1468,42 +1452,33 @@ object frmMain: TfrmMain
         MouseActions = <>
         MouseSelActions = <>
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
-        SelectedColor.FrameEdges = sfeAround
         SelectedColor.BackPriority = 50
         SelectedColor.ForePriority = 50
         SelectedColor.FramePriority = 50
         SelectedColor.BoldPriority = 50
         SelectedColor.ItalicPriority = 50
         SelectedColor.UnderlinePriority = 50
-        SelectedColor.StrikeOutPriority = 50
-        IncrementColor.FrameEdges = sfeAround
-        HighlightAllColor.FrameEdges = sfeAround
         BracketHighlightStyle = sbhsBoth
         BracketMatchColor.Background = clNone
         BracketMatchColor.Foreground = clNone
-        BracketMatchColor.FrameEdges = sfeAround
         BracketMatchColor.Style = [fsBold]
         FoldedCodeColor.Background = clNone
         FoldedCodeColor.Foreground = clGray
         FoldedCodeColor.FrameColor = clGray
-        FoldedCodeColor.FrameEdges = sfeAround
         MouseLinkColor.Background = clNone
         MouseLinkColor.Foreground = clBlue
-        MouseLinkColor.FrameEdges = sfeAround
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
-        LineHighlightColor.FrameEdges = sfeAround
         inline SynLeftGutterPartList1: TSynGutterPartList
           object SynGutterMarks1: TSynGutterMarks
             Width = 24
             MouseActions = <>
           end
           object SynGutterLineNumber1: TSynGutterLineNumber
-            Width = 17
+            Width = 15
             MouseActions = <>
             MarkupInfo.Background = clBtnFace
             MarkupInfo.Foreground = clNone
-            MarkupInfo.FrameEdges = sfeAround
             DigitCount = 2
             ShowOnlyLineNumbersMultiplesOf = 1
             ZeroStart = False
@@ -1520,13 +1495,11 @@ object frmMain: TfrmMain
             MouseActions = <>
             MarkupInfo.Background = clWhite
             MarkupInfo.Foreground = clGray
-            MarkupInfo.FrameEdges = sfeAround
           end
           object SynGutterCodeFolding1: TSynGutterCodeFolding
             MouseActions = <>
             MarkupInfo.Background = clNone
             MarkupInfo.Foreground = clGray
-            MarkupInfo.FrameEdges = sfeAround
             MouseActionsExpanded = <>
             MouseActionsCollapsed = <>
           end
@@ -1552,25 +1525,40 @@ object frmMain: TfrmMain
     Anchors = [akRight, akBottom]
     Flat = True
     Glyph.Data = {
-      42020000424D4202000000000000420000002800000010000000100000000100
-      100003000000000200006400000064000000000000000000000000F80000E007
-      00001F0000000000000000000000000000000000000000000000000000000000
+      36040000424D3604000000000000360000002800000010000000100000000100
+      2000000000000004000064000000640000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000001010121010101DD010101DD0101
+      0128000000000000000000000000000000000000000000000000000000000000
+      0000000000000101012201010145000000000101014A010101FF010101FF0101
+      0153000000000101013F01010126000000000000000000000000000000000000
+      000001010122000000FF010101FF0101018F010101E4010101FF010101FF0101
+      01E70101018D010101FF010101FF010101280000000000000000000000000000
+      000001010145010101FF010101FE010101FF010101FF010101FF000000FF0101
+      01FF010101FF010101FE010101FF0000004E0000000000000000000000000000
+      00000000000001010190010101FF010101FF0101015C00000000000000000101
+      0157010101FF010101FF0101019A000000000000000000000000000000000101
+      01210101014A010101E3010101FF0101015C00000023010101D6010101D90000
+      002801010153010101FF010101E90101014A0101012400000000000000000101
+      01DF010101FF010101FF010101FF00000000010101D601010197010101910101
+      01DF00000000010101FF010101FF010101FF010101E800000000000000000000
+      00DF010101FF010101FF010101FF00000000010101D901010190010101890000
+      00E200000000010101FF010101FF010101FF010101E800000000000000000101
+      012801010153010101E6010101FF0101015601010129000000E0010101E20101
+      012E0000004D010101FF010101EC010101530101012B00000000000000000000
+      0000000000000101018F010101FF010101FF0000005200000000000000000101
+      014C010101FD010101FF01010198000000000000000000000000000000000000
+      00000101013F010101FF010101FE010101FF010101FF010101FF010101FF0101
+      01FF010101FF010101FE010101FF000000480000000000000000000000000000
+      000001010127010101FF010101FF0101019A010101EA010101FF010101FF0101
+      01EC01010199010101FF010101FF0101012D0000000000000000000000000000
+      000000000000010101290101014E000000000101014A010101FF010101FF0101
+      015300000000010101490101012E000000000000000000000000000000000000
+      00000000000000000000000000000000000001010124010101E8010101E80101
+      012B000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000
+      0000000000000000000000000000000000000000000000000000
     }
     OnClick = btnOptionsClick
   end
@@ -1646,4 +1634,4 @@ object frmMain: TfrmMain
     left = 600
     top = 336
   end
-end
+end
