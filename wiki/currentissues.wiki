@@ -4,6 +4,7 @@
 = List of current known issues =
 
 == 0.1.7 ==
+ * No HTTPS support
  * Cannot use URLs that start with a filename (a forward slash is automatically added)
  * Relative URLs in subdirectories are not parsed correctly
  * Some title tags are not picked up
