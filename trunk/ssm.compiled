@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="/usr/local/bin/fpc" Date="1360486458"/>
-  <Params Value=" -MObjFPC -Scghi -O3 -g -gl -Xs -vewnhi -Fu/home/matthew/prog/simplesitemapcreator/synapse -Fu/home/matthew/prog/simplesitemapcreator/xicontrols -Fu/home/matthew/lazarus/components/synedit/units/x86_64-freebsd/gtk2 -Fu/usr/home/matthew/lazarus/lcl/units/x86_64-freebsd/gtk2 -Fu/usr/home/matthew/lazarus/lcl/units/x86_64-freebsd -Fu/usr/home/matthew/lazarus/components/lazutils/lib/x86_64-freebsd -Fu/usr/home/matthew/lazarus/packager/units/x86_64-freebsd -Fu/home/matthew/prog/simplesitemapcreator/ -l -dLCL -dLCLgtk2 ssm.lpr"/>
-</CONFIG>
