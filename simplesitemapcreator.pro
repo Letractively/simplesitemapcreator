@@ -13,8 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp\
+        xmlhighlighter.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h\
+        xmlhighlighter.h
 
 FORMS    += mainwindow.ui
+
+unix: CONFIG += link_pkgconfig
+unix: PKGCONFIG += libcurl
+unix: PKGCONFIG += libxml-2.0
