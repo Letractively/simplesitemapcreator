@@ -24,14 +24,74 @@ QString APPNAME("Simple Sitemap Creator");
 int CURRVER = 20131017;
 QString APPVER("0.2");
 
+static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp) {
+    ((std::string*)userp)->append((char*)contents, size * nmemb);
+    return size * nmemb;
+}
+
+char* httpGet(char *url, const char *useragent) {
+    CURL *curl;
+    CURLcode res;
+    char *response;
+    curl = curl_easy_init();
+    if(curl) {
+      curl_easy_setopt(curl, CURLOPT_URL, url);
+      curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+      curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+      curl_easy_setopt(curl, CURLOPT_USERAGENT, useragent);
+      res = curl_easy_perform(curl);
+      curl_easy_cleanup(curl);
+    }
+    return response;
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QFont font("Monospace");
+    font.setStyleHint(QFont::TypeWriter);
+    ui->textHTML->setFont(font);
+    ui->textXML->setFont(font);
+    highlighter = new XmlHighlighter(ui->textHTML->document());
+    highlighter = new XmlHighlighter(ui->textXML->document());
+    this->setWindowTitle(APPNAME+" "+APPVER);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_btnGo_clicked()
+{
+    // Go click event stuff here
+}
+
+void MainWindow::on_btnCopy_clicked()
+{
+    // Copy click event stuff here
+}
+
+void MainWindow::on_btnClear_clicked()
+{
+    // Clear click event stuff here
+}
+
+void MainWindow::on_btnSave_clicked()
+{
+    // Save click event stuff here
+}
+
+void MainWindow::on_btnAbout_clicked()
+{
+    QString html;
+    html = "<p><b style=\"font-size: 14pt\">"+APPNAME+"</b> "+APPVER+"<br>\n";
+    html.append("&copy;2010-2013 Matthew Hipkin<br>\n");
+    html.append("<a href=\"http://www.matthewhipkin.co.uk\" style=\"color: #FF0000\">http://www.matthewhipkin.co.uk</a></p>\n");
+    html.append("<p>A simple tool for creating HTML sitemaps.</p>");
+    html.append("<p>Follow me on twitter <a href=\"http://twitter.com/hippy2094\" style=\"color: #FF0000\">@hippy2094</a></p>");
+    QMessageBox::about(this,"About "+APPNAME,html);
+
 }
