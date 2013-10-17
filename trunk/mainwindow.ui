@@ -47,7 +47,7 @@
         <rect>
          <x>20</x>
          <y>30</y>
-         <width>201</width>
+         <width>281</width>
          <height>23</height>
         </rect>
        </property>
@@ -55,17 +55,17 @@
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="btnGo">
        <property name="geometry">
         <rect>
-         <x>220</x>
+         <x>310</x>
          <y>30</y>
          <width>99</width>
          <height>23</height>
         </rect>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Go</string>
        </property>
       </widget>
      </widget>
@@ -124,7 +124,7 @@
         <string>About</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btnCopy">
        <property name="geometry">
         <rect>
          <x>110</x>
@@ -134,10 +134,10 @@
         </rect>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Copy</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="btnClear">
        <property name="geometry">
         <rect>
          <x>210</x>
@@ -147,10 +147,10 @@
         </rect>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Clear</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="btnSave">
        <property name="geometry">
         <rect>
          <x>310</x>
@@ -160,7 +160,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Save</string>
        </property>
       </widget>
      </widget>
