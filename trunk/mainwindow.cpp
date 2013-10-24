@@ -21,7 +21,7 @@ WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 #include "ui_mainwindow.h"
 
 QString APPNAME("Simple Sitemap Creator");
-int CURRVER = 20131017;
+int CURRVER = 20131024;
 QString APPVER("0.2");
 
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp) {
@@ -29,20 +29,26 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
-char* httpGet(char *url, const char *useragent) {
+char* httpGet(char *url) {
     CURL *curl;
     CURLcode res;
     char *response;
     curl = curl_easy_init();
-    if(curl) {
+    if(curl) {      
       curl_easy_setopt(curl, CURLOPT_URL, url);
       curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
       curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-      curl_easy_setopt(curl, CURLOPT_USERAGENT, useragent);
+      //  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+'; ' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/apps/simplesitemapcreator/)'
+      //curl_easy_setopt(curl, CURLOPT_USERAGENT, useragent);
       res = curl_easy_perform(curl);
       curl_easy_cleanup(curl);
     }
     return response;
+}
+
+void addLink(char *link, char *title, char *ref, char *header) {
+    int x;
+
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -66,22 +72,39 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnGo_clicked()
 {
-    // Go click event stuff here
+    // Clear out bits and bobs first
+    linkCount = 0;
+    links.empty();
+    ui->textHTML->clear();
+    ui->textXML->clear();
 }
 
 void MainWindow::on_btnCopy_clicked()
-{
-    // Copy click event stuff here
+{    
+    QClipboard *cb = QApplication::clipboard();
+    if(ui->tabHTML->isVisible()) cb->setText(ui->textHTML->toPlainText());
+    else cb->setText(ui->textXML->toPlainText());
 }
 
 void MainWindow::on_btnClear_clicked()
 {
-    // Clear click event stuff here
+    ui->textHTML->clear();
+    ui->textXML->clear();
 }
 
 void MainWindow::on_btnSave_clicked()
 {
-    // Save click event stuff here
+    QString ext;
+    if(ui->tabHTML->isVisible()) ext = ".html";
+    else ext = ".xml";
+    QString filename = QFileDialog::getSaveFileName(this, "Save file", "", ext);
+    QFile f(filename);
+    if(f.open(QIODevice::WriteOnly)) {
+        QTextStream outstream(&f);
+        if(ui->tabHTML->isVisible()) outstream << ui->textHTML->document()->toPlainText();
+        else outstream << ui->textXML->document()->toPlainText();
+        f.close();
+    }
 }
 
 void MainWindow::on_btnAbout_clicked()
