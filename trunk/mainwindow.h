@@ -7,8 +7,10 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QList>
+#include <QStringList>
 #include <libxml2/libxml/HTMLparser.h>
 #include <curl/curl.h>
+#include <cstring>
 #include "xmlhighlighter.h"
 
 struct linkItem {
