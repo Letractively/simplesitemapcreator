@@ -21,7 +21,7 @@ WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 #include "ui_mainwindow.h"
 
 QString APPNAME("Simple Sitemap Creator");
-int CURRVER = 20131024;
+int CURRVER = 20150310;
 QString APPVER("0.2");
 
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp) {
@@ -29,16 +29,58 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
-char* httpGet(char *url) {
+htmlDocPtr gethtml(char *doclocation,char *encoding) {
+  htmlDocPtr doc;
+  doc = htmlReadMemory(doclocation, strlen(doclocation),"http://www.matthewhipkin.co.uk", encoding, HTML_PARSE_NOBLANKS | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING | HTML_PARSE_NONET);
+
+  return doc;
+}
+
+void getlinks(xmlNode * a_node, QStringList list) {
+  xmlNode *cur_node = NULL;
+
+  for(cur_node = a_node; cur_node; cur_node = cur_node->next) {
+    if(cur_node->type == XML_ELEMENT_NODE) {
+      if(std::strcmp(reinterpret_cast<const char*>(cur_node->name),"a") == 0) {
+        xmlAttr *attr = cur_node->properties;
+        while(attr) {
+              if(std::strcmp(reinterpret_cast<const char*>(attr->name),"href") == 0) {
+                //printf("%s val: %s\n",attr->name,attr->children->content);
+                list.append(QString(reinterpret_cast<const char*>(attr->children->content)));
+              }
+              attr = attr->next;
+            }
+          }
+        }
+        getlinks(cur_node->children, list);
+    }
+}
+
+QStringList parsedoc(htmlDocPtr doc) {
+    xmlNode *cur = NULL;
+    QStringList pagelinks;
+
+    cur = xmlDocGetRootElement(doc);
+
+    if (cur == NULL) {
+        fprintf(stderr, "empty document\n");
+        xmlFreeDoc(doc);
+    }
+
+    getlinks(cur,pagelinks);
+    return pagelinks;
+}
+
+std::string httpGet(char *url) {
     CURL *curl;
     CURLcode res;
-    char *response;
+    std::string response;
     curl = curl_easy_init();
-    if(curl) {      
+    if(curl) {
       curl_easy_setopt(curl, CURLOPT_URL, url);
       curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
       curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-      //  http.UserAgent := 'Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+'; ' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/apps/simplesitemapcreator/)'
+      //char * useragent = "Mozilla/4.0 (compatible; Simple Sitemap Creator '+APPVER+'; ' + OS + '; '+IntToStr(CURRVER)+'; +http://www.matthewhipkin.co.uk/apps/simplesitemapcreator/)";
       //curl_easy_setopt(curl, CURLOPT_USERAGENT, useragent);
       res = curl_easy_perform(curl);
       curl_easy_cleanup(curl);
@@ -77,6 +119,24 @@ void MainWindow::on_btnGo_clicked()
     links.empty();
     ui->textHTML->clear();
     ui->textXML->clear();
+
+    std::string content = "";
+    content = httpGet("http://www.matthewhipkin.co.uk");
+    //ui->textHTML->append(QString(content.c_str()));
+
+    QStringList tmpList;
+
+    htmlDocPtr doc;
+    char *encoding = "UTF-8";
+    char *arse = content.c_str();
+
+    doc = gethtml(arse, encoding);
+
+    tmpList = parsedoc(doc);
+
+    ui->textHTML->append(tmpList.join("\n"));
+
+QMessageBox::information(this,"Done","Done");
 }
 
 void MainWindow::on_btnCopy_clicked()
