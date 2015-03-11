@@ -20,6 +20,21 @@ WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+/*
+  Instead of using curl and libxml2, might be a good idea to look at Qt's own parsing abilities, for example:
+
+QWebPage page;
+QWebFrame * frame = page.mainFrame();
+
+QUrl fileUrl("myEBook.html");
+frame->setUrl(fileUrl);
+
+QWebElement document = frame->documentElement();
+QWebElementCollection elements = document.findAll("p");
+
+(http://developer.nokia.com/community/discussion/showthread.php/226320-Problem-using-QXmlStreamReader-to-parse-html-tag)
+*/
+
 QString APPNAME("Simple Sitemap Creator");
 int CURRVER = 20150310;
 QString APPVER("0.2");
