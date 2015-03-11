@@ -41,12 +41,13 @@ void getlinks(xmlNode * a_node, QStringList list) {
 
   for(cur_node = a_node; cur_node; cur_node = cur_node->next) {
     if(cur_node->type == XML_ELEMENT_NODE) {
-      if(std::strcmp(reinterpret_cast<const char*>(cur_node->name),"a") == 0) {
+      //printf("%s\n",cur_node->name);
+      if(std::strcmp((char*)cur_node->name,"a") == 0) {
         xmlAttr *attr = cur_node->properties;
         while(attr) {
-              if(std::strcmp(reinterpret_cast<const char*>(attr->name),"href") == 0) {
+              if(std::strcmp((char*)attr->name,"href") == 0) {
                 //printf("%s val: %s\n",attr->name,attr->children->content);
-                list.append(QString(reinterpret_cast<const char*>(attr->children->content)));
+                list.append(QString((char*)attr->children->content));
               }
               attr = attr->next;
             }
@@ -128,15 +129,14 @@ void MainWindow::on_btnGo_clicked()
 
     htmlDocPtr doc;
     char *encoding = "UTF-8";
-    char *arse = content.c_str();
 
-    doc = gethtml(arse, encoding);
+    doc = gethtml((char*)content.c_str(), encoding);
 
     tmpList = parsedoc(doc);
 
-    ui->textHTML->append(tmpList.join("\n"));
+    ui->textHTML->setText(tmpList.join("\n"));
 
-QMessageBox::information(this,"Done","Done");
+    QMessageBox::information(this,"Done","Done");
 }
 
 void MainWindow::on_btnCopy_clicked()
