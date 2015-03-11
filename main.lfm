@@ -13,12 +13,12 @@ object frmMain: TfrmMain
   OnResize = FormResize
   OnShow = FormShow
   Position = poDesktopCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.5'
   object labelInfo: TLabel
     Left = 440
     Height = 15
     Top = 24
-    Width = 57
+    Width = 53
     Caption = 'labelInfo'
     ParentColor = False
   end
@@ -26,13 +26,13 @@ object frmMain: TfrmMain
     Left = 8
     Height = 15
     Top = 0
-    Width = 55
+    Width = 54
     Caption = 'Site URL'
     ParentColor = False
   end
   object textURL: TFilterComboBox
     Left = 8
-    Height = 25
+    Height = 27
     Top = 24
     Width = 420
     TabOrder = 0
@@ -42,7 +42,7 @@ object frmMain: TfrmMain
     Left = 576
     Height = 15
     Top = 40
-    Width = 79
+    Width = 77
     Caption = 'labelUpdate'
     Font.Color = clNavy
     Font.Style = [fsUnderline]
@@ -66,13 +66,13 @@ object frmMain: TfrmMain
     TabOrder = 1
     object tabHTML: TTabSheet
       Caption = 'HTML'
-      ClientHeight = 332
-      ClientWidth = 694
+      ClientHeight = 324
+      ClientWidth = 690
       inline textHTML: TSynEdit
         Left = 0
-        Height = 332
+        Height = 324
         Top = 0
-        Width = 694
+        Width = 690
         Align = alClient
         Font.Height = -13
         Font.Name = 'Courier New'
@@ -509,6 +509,7 @@ object frmMain: TfrmMain
             ShortCut = 57379
           end>
         MouseActions = <>
+        MouseTextActions = <>
         MouseSelActions = <>
         Lines.Strings = (
           'textHTML'
@@ -545,8 +546,8 @@ object frmMain: TfrmMain
     end
     object tabGoogle: TTabSheet
       Caption = 'Google Sitemap'
-      ClientHeight = 332
-      ClientWidth = 694
+      ClientHeight = 324
+      ClientWidth = 690
       inline textXML: TSynEdit
         Left = 0
         Height = 332
@@ -988,6 +989,7 @@ object frmMain: TfrmMain
             ShortCut = 57379
           end>
         MouseActions = <>
+        MouseTextActions = <>
         MouseSelActions = <>
         Lines.Strings = (
           'textXML'
@@ -1024,8 +1026,8 @@ object frmMain: TfrmMain
     end
     object tabCSV: TTabSheet
       Caption = 'CSV'
-      ClientHeight = 332
-      ClientWidth = 694
+      ClientHeight = 324
+      ClientWidth = 690
       inline textCSV: TSynEdit
         Left = 0
         Height = 332
@@ -1466,6 +1468,7 @@ object frmMain: TfrmMain
             ShortCut = 57379
           end>
         MouseActions = <>
+        MouseTextActions = <>
         MouseSelActions = <>
         VisibleSpecialChars = [vscSpace, vscTabAtLast]
         SelectedColor.FrameEdges = sfeAround
