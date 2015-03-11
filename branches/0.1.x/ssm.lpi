@@ -7,7 +7,6 @@
       <MainUnit Value="0"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
-      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <VersionInfo>
       <Language Value=""/>
@@ -42,11 +41,11 @@
       <Unit0>
         <Filename Value="ssm.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ssm"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="22"/>
-        <UsageCount Value="95"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="23"/>
+        <CursorPos X="3"/>
+        <UsageCount Value="96"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="main.pas"/>
@@ -56,25 +55,21 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="main"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="286"/>
-        <CursorPos X="74" Y="310"/>
-        <UsageCount Value="95"/>
+        <TopLine Value="938"/>
+        <CursorPos X="52" Y="296"/>
+        <UsageCount Value="96"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\synapse\source\lib\synacode.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="synacode"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="96"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\synapse\source\lib\httpsend.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="httpsend"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="96"/>
       </Unit3>
       <Unit4>
         <Filename Value="about.pas"/>
@@ -83,40 +78,30 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="about"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="71"/>
-        <CursorPos X="19" Y="4"/>
-        <UsageCount Value="87"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="43" Y="32"/>
+        <UsageCount Value="88"/>
+        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="synapse\source\lib\ssfpc.pas"/>
-        <UnitName Value="ssfpc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
         <CursorPos X="6" Y="517"/>
         <UsageCount Value="8"/>
       </Unit5>
       <Unit6>
         <Filename Value="FastHTMLParser.pas"/>
-        <UnitName Value="FastHTMLParser"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="471"/>
         <CursorPos X="34" Y="100"/>
         <UsageCount Value="8"/>
       </Unit6>
       <Unit7>
         <Filename Value="xmlparser.pas"/>
-        <UnitName Value="XMLParser"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="223"/>
-        <CursorPos X="1" Y="24"/>
+        <CursorPos Y="24"/>
         <UsageCount Value="9"/>
       </Unit7>
       <Unit8>
         <Filename Value="xicontrols\XiPanel.pas"/>
-        <UnitName Value="XiPanel"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
         <CursorPos X="58" Y="17"/>
         <UsageCount Value="11"/>
       </Unit8>
@@ -124,15 +109,12 @@
         <Filename Value="alphaw.pas"/>
         <ComponentName Value="frmAlphaWarning"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="alphaw"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="40"/>
         <CursorPos X="19" Y="4"/>
         <UsageCount Value="47"/>
       </Unit9>
       <Unit10>
         <Filename Value="main.lfm"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="1072"/>
         <CursorPos X="38" Y="1085"/>
         <UsageCount Value="10"/>
@@ -140,23 +122,18 @@
       </Unit10>
       <Unit11>
         <Filename Value="ssmc.pas"/>
-        <UnitName Value="ssmc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="145"/>
         <CursorPos X="21" Y="58"/>
         <UsageCount Value="22"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\lazarus\fpc\2.6.1\source\rtl\objpas\classes\classesh.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="634"/>
         <CursorPos X="15" Y="633"/>
         <UsageCount Value="10"/>
       </Unit12>
       <Unit13>
         <Filename Value="synapse\synautil.pas"/>
-        <UnitName Value="synautil"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="2" Y="51"/>
         <UsageCount Value="17"/>
@@ -168,11 +145,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="options"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="30"/>
-        <CursorPos X="32" Y="18"/>
-        <UsageCount Value="23"/>
+        <EditorIndex Value="3"/>
+        <CursorPos Y="3"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit14>
@@ -180,123 +155,122 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="main.pas"/>
-        <Caret Line="351" Column="8" TopLine="312"/>
+        <Caret Line="350" Column="8" TopLine="311"/>
       </Position1>
       <Position2>
         <Filename Value="main.pas"/>
-        <Caret Line="350" Column="8" TopLine="311"/>
+        <Caret Line="23" Column="5" TopLine="23"/>
       </Position2>
       <Position3>
         <Filename Value="main.pas"/>
-        <Caret Line="23" Column="5" TopLine="23"/>
+        <Caret Line="691" Column="36" TopLine="666"/>
       </Position3>
       <Position4>
         <Filename Value="main.pas"/>
-        <Caret Line="691" Column="36" TopLine="666"/>
+        <Caret Line="176" Column="12" TopLine="115"/>
       </Position4>
       <Position5>
         <Filename Value="main.pas"/>
-        <Caret Line="176" Column="12" TopLine="115"/>
+        <Caret Line="173" Column="8" TopLine="161"/>
       </Position5>
       <Position6>
         <Filename Value="main.pas"/>
-        <Caret Line="173" Column="8" TopLine="161"/>
+        <Caret Line="241" Column="30" TopLine="220"/>
       </Position6>
       <Position7>
         <Filename Value="main.pas"/>
-        <Caret Line="241" Column="30" TopLine="220"/>
+        <Caret Line="436" Column="40" TopLine="416"/>
       </Position7>
       <Position8>
-        <Filename Value="main.pas"/>
-        <Caret Line="436" Column="40" TopLine="416"/>
+        <Filename Value="options.pas"/>
       </Position8>
       <Position9>
         <Filename Value="options.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="29" Column="14" TopLine="9"/>
       </Position9>
       <Position10>
         <Filename Value="options.pas"/>
-        <Caret Line="29" Column="14" TopLine="9"/>
+        <Caret Line="30" Column="14" TopLine="9"/>
       </Position10>
       <Position11>
         <Filename Value="options.pas"/>
-        <Caret Line="30" Column="14" TopLine="9"/>
+        <Caret Line="31" Column="14" TopLine="9"/>
       </Position11>
       <Position12>
         <Filename Value="options.pas"/>
-        <Caret Line="31" Column="14" TopLine="9"/>
+        <Caret Line="30" Column="14" TopLine="9"/>
       </Position12>
       <Position13>
         <Filename Value="options.pas"/>
-        <Caret Line="30" Column="14" TopLine="9"/>
+        <Caret Line="29" Column="14" TopLine="9"/>
       </Position13>
       <Position14>
         <Filename Value="options.pas"/>
-        <Caret Line="29" Column="14" TopLine="9"/>
+        <Caret Line="28" Column="14" TopLine="8"/>
       </Position14>
       <Position15>
         <Filename Value="options.pas"/>
-        <Caret Line="28" Column="14" TopLine="8"/>
+        <Caret Line="29" Column="14" TopLine="8"/>
       </Position15>
       <Position16>
         <Filename Value="options.pas"/>
-        <Caret Line="29" Column="14" TopLine="8"/>
+        <Caret Line="30" Column="14" TopLine="8"/>
       </Position16>
       <Position17>
         <Filename Value="options.pas"/>
-        <Caret Line="30" Column="14" TopLine="8"/>
+        <Caret Line="31" Column="14" TopLine="8"/>
       </Position17>
       <Position18>
         <Filename Value="options.pas"/>
-        <Caret Line="31" Column="14" TopLine="8"/>
+        <Caret Line="32" Column="14" TopLine="9"/>
       </Position18>
       <Position19>
         <Filename Value="options.pas"/>
-        <Caret Line="32" Column="14" TopLine="9"/>
+        <Caret Line="33" Column="14" TopLine="10"/>
       </Position19>
       <Position20>
         <Filename Value="options.pas"/>
-        <Caret Line="33" Column="14" TopLine="10"/>
+        <Caret Line="34" Column="14" TopLine="11"/>
       </Position20>
       <Position21>
         <Filename Value="options.pas"/>
-        <Caret Line="34" Column="14" TopLine="11"/>
+        <Caret Line="35" Column="14" TopLine="12"/>
       </Position21>
       <Position22>
         <Filename Value="options.pas"/>
-        <Caret Line="35" Column="14" TopLine="12"/>
+        <Caret Line="36" Column="14" TopLine="13"/>
       </Position22>
       <Position23>
         <Filename Value="options.pas"/>
-        <Caret Line="36" Column="14" TopLine="13"/>
+        <Caret Line="37" Column="14" TopLine="14"/>
       </Position23>
       <Position24>
         <Filename Value="options.pas"/>
-        <Caret Line="37" Column="14" TopLine="14"/>
+        <Caret Line="38" Column="14" TopLine="15"/>
       </Position24>
       <Position25>
         <Filename Value="options.pas"/>
-        <Caret Line="38" Column="14" TopLine="15"/>
+        <Caret Line="39" Column="14" TopLine="16"/>
       </Position25>
       <Position26>
         <Filename Value="options.pas"/>
-        <Caret Line="39" Column="14" TopLine="16"/>
+        <Caret Line="48" Column="14" TopLine="25"/>
       </Position26>
       <Position27>
-        <Filename Value="options.pas"/>
-        <Caret Line="48" Column="14" TopLine="25"/>
+        <Filename Value="main.pas"/>
+        <Caret Line="875" TopLine="850"/>
       </Position27>
       <Position28>
         <Filename Value="main.pas"/>
-        <Caret Line="305" Column="33" TopLine="337"/>
+        <Caret Line="472" TopLine="446"/>
       </Position28>
       <Position29>
-        <Filename Value="main.pas"/>
-        <Caret Line="875" Column="1" TopLine="850"/>
+        <Filename Value="ssm.lpr"/>
+        <Caret Line="30" Column="43"/>
       </Position29>
       <Position30>
-        <Filename Value="main.pas"/>
-        <Caret Line="42" Column="28" TopLine="70"/>
+        <Filename Value="ssm.lpr"/>
+        <Caret Line="33" Column="3" TopLine="13"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -322,12 +296,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
@@ -342,5 +310,4 @@
       </Item3>
     </Exceptions>
   </Debugging>
-  <EditorMacros Count="0"/>
 </CONFIG>

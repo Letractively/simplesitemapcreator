@@ -9,7 +9,7 @@ object frmOptions: TfrmOptions
   ClientWidth = 320
   ParentBiDiMode = False
   Position = poMainFormCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.5'
   object GroupBox1: TGroupBox
     Left = 0
     Height = 112
@@ -22,9 +22,9 @@ object frmOptions: TfrmOptions
     TabOrder = 0
     object checkDisableTheme: TCheckBox
       Left = 5
-      Height = 18
+      Height = 22
       Top = 5
-      Width = 190
+      Width = 189
       Caption = 'Disable UI customisations'
       TabOrder = 0
     end
@@ -32,7 +32,7 @@ object frmOptions: TfrmOptions
       Left = 5
       Height = 15
       Top = 37
-      Width = 68
+      Width = 66
       Caption = 'Editor font'
       ParentColor = False
     end
@@ -42,10 +42,10 @@ object frmOptions: TfrmOptions
       Top = 53
       Width = 80
       ButtonWidth = 23
-      CharCase = ecNormal
       MaxLength = 0
       NumGlyphs = 1
       OnButtonClick = textEditorFontButtonClick
+      PasswordChar = #0
       TabOrder = 1
     end
     object textEditorFontSize: TSpinEdit
@@ -72,7 +72,7 @@ object frmOptions: TfrmOptions
       Top = 20
       Width = 100
       ItemHeight = 0
-      ScrollWidth = 96
+      ScrollWidth = 98
       TabOrder = 0
       TopIndex = -1
     end
@@ -80,15 +80,15 @@ object frmOptions: TfrmOptions
       Left = 5
       Height = 15
       Top = 4
-      Width = 101
+      Width = 97
       Caption = 'Ignore filetypes'
       ParentColor = False
     end
     object checkIncludeImages: TCheckBox
       Left = 117
-      Height = 18
+      Height = 22
       Top = 20
-      Width = 166
+      Width = 165
       Caption = 'Include images in XML'
       TabOrder = 1
     end
