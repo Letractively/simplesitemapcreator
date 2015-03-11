@@ -99,6 +99,7 @@ object frmOptions: TfrmOptions
     Top = 296
     Width = 75
     Caption = 'OK'
+    OnClick = btnOKClick
     TabOrder = 2
   end
   object btnCancel: TButton
@@ -107,6 +108,7 @@ object frmOptions: TfrmOptions
     Top = 296
     Width = 75
     Caption = 'Cancel'
+    OnClick = btnCancelClick
     TabOrder = 3
   end
   object FontDialog1: TFontDialog

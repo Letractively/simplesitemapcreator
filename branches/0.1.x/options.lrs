@@ -25,8 +25,9 @@ LazarusResources.Add('TfrmOptions','FORMDATA',[
   +#0#9'TCheckBox'#18'checkIncludeImages'#4'Left'#2'u'#6'Height'#2#22#3'Top'#2
   +#20#5'Width'#3#165#0#7'Caption'#6#21'Include images in XML'#8'TabOrder'#2#1#0
   +#0#0#7'TButton'#5'btnOK'#4'Left'#3#152#0#6'Height'#2#25#3'Top'#3'('#1#5'Widt'
-  +'h'#2'K'#7'Caption'#6#2'OK'#8'TabOrder'#2#2#0#0#7'TButton'#9'btnCancel'#4'Le'
-  +'ft'#3#232#0#6'Height'#2#25#3'Top'#3'('#1#5'Width'#2'K'#7'Caption'#6#6'Cance'
-  +'l'#8'TabOrder'#2#3#0#0#11'TFontDialog'#11'FontDialog1'#11'MinFontSize'#2#0
-  +#11'MaxFontSize'#2#0#4'left'#3#216#0#3'top'#2'@'#0#0#0
+  +'h'#2'K'#7'Caption'#6#2'OK'#7'OnClick'#7#10'btnOKClick'#8'TabOrder'#2#2#0#0#7
+  +'TButton'#9'btnCancel'#4'Left'#3#232#0#6'Height'#2#25#3'Top'#3'('#1#5'Width'
+  +#2'K'#7'Caption'#6#6'Cancel'#7'OnClick'#7#14'btnCancelClick'#8'TabOrder'#2#3
+  +#0#0#11'TFontDialog'#11'FontDialog1'#11'MinFontSize'#2#0#11'MaxFontSize'#2#0
+  +#4'left'#3#216#0#3'top'#2'@'#0#0#0
 ]);

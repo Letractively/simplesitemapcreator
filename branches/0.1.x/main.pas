@@ -110,10 +110,18 @@ type
     btnCancel: TXiButton;
     updatePanel: TXiPanel;
     workPanel: TXiPanel;
+    btnAboutS: TButton;
+    btnCopyS: TButton;
+    btnClearS: TButton;
+    btnSaveS: TButton;
+    btnGoS: TButton;
+    btnCancelS: TButton;
+    workPanelS: TPanel;
     procedure addLink(link: String; title: String; ref: String; header: String);
     procedure positionPanel;
     procedure GradientFillRect(Canvas: TCanvas; Rect: TRect;
                     StartColor, EndColor: TColor; Direction: TFillDirection);
+    procedure SetControls;
   public
     { public declarations }
     inTag: Boolean;
@@ -305,10 +313,13 @@ procedure TfrmMain.loadConfig;
 var
   conf: TIniFile;
 begin
-  conf := TIniFile.Create(progdir + 'ssmc.ini');
-  //options.disableCustomTheme := true;
-  options.ignoreFiles := TStringList.Create;
-  conf.Free;
+//  options.ignoreFiles := TStringList.Create;
+  options.disableCustomTheme := true;
+{  if FileExists(progdir + 'ssmc.ini') then
+  begin
+    conf := TIniFile.Create(progdir + 'ssmc.ini');
+    conf.Free;
+  end;}
 end;
 
 procedure TfrmMain.saveConfig;
@@ -344,10 +355,196 @@ procedure TfrmMain.positionPanel;
 begin
   if updatePanel.Visible then
     updatePanel.Left := (frmMain.ClientWidth - updatePanel.Width) - 5;
-  with workPanel do
+  if not options.disableCustomTheme then
+    with workPanel do
+    begin
+      Left := (frmMain.Width div 2) - (Width div 2);
+      Top := (frmMain.Height div 2) - (Height div 2);
+    end;
+  if options.disableCustomTheme then
+    with workPanelS do
+    begin
+      Left := (frmMain.Width div 2) - (Width div 2);
+      Top := (frmMain.Height div 2) - (Height div 2);
+    end;
+end;
+
+procedure TfrmMain.SetControls;
+begin
+  // Clean up
+  if Assigned(btnAbout) then btnAbout.Free;
+  if Assigned(btnCopy) then btnCopy.Free;
+  if Assigned(btnClear) then btnClear.Free;
+  if Assigned(btnSave) then btnSave.Free;
+  if Assigned(btnGo) then btnGo.Free;
+  if Assigned(btnCancel) then btnCancel.Free;
+  if Assigned(workPanel) then workPanel.Free;
+  if Assigned(btnAboutS) then btnAbout.Free;
+  if Assigned(btnCopyS) then btnCopy.Free;
+  if Assigned(btnClearS) then btnClear.Free;
+  if Assigned(btnSaveS) then btnSave.Free;
+  if Assigned(btnGoS) then btnGo.Free;
+  if Assigned(btnCancelS) then btnCancel.Free;
+  if Assigned(workPanelS) then workPanel.Free;
+  // Reset
+  if not options.disableCustomTheme then
   begin
-    Left := (frmMain.Width div 2) - (Width div 2);
-    Top := (frmMain.Height div 2) - (Height div 2);
+    btnAbout := TXiButton.Create(Self);
+    btnAbout.Parent := frmMain;
+    btnAbout.Left := 8;
+    btnAbout.Width := 75;
+    btnAbout.Height := 25;
+    btnAbout.Top := frmMain.ClientHeight - btnAbout.Height - 5;
+    btnAbout.Caption := 'About';
+    btnAbout.ColorScheme := csNeoSky;
+    btnAbout.Visible := true;
+    btnAbout.BringToFront;
+    btnAbout.Anchors := [akBottom,akLeft];
+    btnAbout.OnClick := btnAboutClick;
+    btnCopy := TXiButton.Create(Self);
+    btnCopy.Parent := frmMain;
+    btnCopy.Left := 178;
+    btnCopy.Width := 75;
+    btnCopy.Height := 25;
+    btnCopy.Top := frmMain.ClientHeight - btnCopy.Height - 5;
+    btnCopy.Caption := 'Copy';
+    btnCopy.ColorScheme := csNeoSky;
+    btnCopy.Visible := true;
+    btnCopy.BringToFront;
+    btnCopy.Anchors:=[akBottom,akRight];
+    btnCopy.OnClick := menuCopyClick;
+    btnClear := TXiButton.Create(Self);
+    btnClear.Parent := frmMain;
+    btnClear.Left := 258;
+    btnClear.Width := 75;
+    btnClear.Height := 25;
+    btnClear.Top := frmMain.ClientHeight - btnClear.Height - 5;
+    btnClear.Caption := 'Clear';
+    btnClear.ColorScheme := csNeoSky;
+    btnClear.Visible := true;
+    btnClear.BringToFront;
+    btnClear.Anchors:=[akBottom,akRight];
+    btnClear.OnClick := menuClearClick;
+    btnSave := TXiButton.Create(Self);
+    btnSave.Parent := frmMain;
+    btnSave.Left := 338;
+    btnSave.Width := 75;
+    btnSave.Height := 25;
+    btnSave.Top := frmMain.ClientHeight - btnSave.Height - 5;
+    btnSave.Caption := 'Save';
+    btnSave.ColorScheme := csNeoSky;
+    btnSave.Visible := true;
+    btnSave.BringToFront;
+    btnSave.Anchors:=[akBottom,akRight];
+    btnSave.OnClick := menuSaveClick;
+    btnGo := TXiButton.Create(Self);
+    btnGo.Parent := frmMain;
+    btnGo.Left := 415;
+    btnGo.Width := 75;
+    btnGo.Height := 25;
+    btnGo.Top := frmMain.ClientHeight - btnGo.Height - 5;
+    btnGo.Caption := 'Go';
+    btnGo.ColorScheme := csNeoGrass;
+    btnGo.Visible := true;
+    btnGo.BringToFront;
+    btnGo.Anchors:=[akBottom,akRight];
+    btnGo.OnClick := btnGoClick;
+    workPanel := TXiPanel.Create(Self);
+    workPanel.Parent := frmMain;
+    workPanel.Width := 170;
+    workPanel.Height := 96;
+    workPanel.Top := 0;
+    workPanel.Left := 0;
+    workPanel.ColorScheme := XiPanel.csGrass;
+    workPanel.Visible := false;
+    labelCount.Parent := workPanel;
+    btnCancel := TXiButton.Create(Self);
+    btnCancel.Parent := workPanel;
+    btnCancel.Top := 64;
+    btnCancel.Left := 48;
+    btnCancel.Width := 75;
+    btnCancel.Height := 25;
+    btnCancel.Caption := 'Cancel';
+    btnCancel.ColorScheme := csNeoRose;
+    btnCancel.Visible := true;
+    btnCancel.BringToFront;
+    btnCancel.OnClick := btnCancelClick;
+  end
+  else
+  begin
+    btnAboutS := TButton.Create(Self);
+    btnAboutS.Parent := frmMain;
+    btnAboutS.Left := 8;
+    btnAboutS.Width := 75;
+    btnAboutS.Height := 25;
+    btnAboutS.Top := frmMain.ClientHeight - btnAboutS.Height - 5;
+    btnAboutS.Caption := 'About';
+    btnAboutS.Visible := true;
+    btnAboutS.BringToFront;
+    btnAboutS.Anchors := [akBottom,akLeft];
+    btnAboutS.OnClick := btnAboutClick;
+    btnCopyS := TButton.Create(Self);
+    btnCopyS.Parent := frmMain;
+    btnCopyS.Left := 178;
+    btnCopyS.Width := 75;
+    btnCopyS.Height := 25;
+    btnCopyS.Top := frmMain.ClientHeight - btnCopyS.Height - 5;
+    btnCopyS.Caption := 'Copy';
+    btnCopyS.Visible := true;
+    btnCopyS.BringToFront;
+    btnCopyS.Anchors:=[akBottom,akRight];
+    btnCopyS.OnClick := menuCopyClick;
+    btnClearS := TButton.Create(Self);
+    btnClearS.Parent := frmMain;
+    btnClearS.Left := 258;
+    btnClearS.Width := 75;
+    btnClearS.Height := 25;
+    btnClearS.Top := frmMain.ClientHeight - btnClearS.Height - 5;
+    btnClearS.Caption := 'Clear';
+    btnClearS.Visible := true;
+    btnClearS.BringToFront;
+    btnClearS.Anchors:=[akBottom,akRight];
+    btnClearS.OnClick := menuClearClick;
+    btnSaveS := TButton.Create(Self);
+    btnSaveS.Parent := frmMain;
+    btnSaveS.Left := 338;
+    btnSaveS.Width := 75;
+    btnSaveS.Height := 25;
+    btnSaveS.Top := frmMain.ClientHeight - btnSaveS.Height - 5;
+    btnSaveS.Caption := 'Save';
+    btnSaveS.Visible := true;
+    btnSaveS.BringToFront;
+    btnSaveS.Anchors:=[akBottom,akRight];
+    btnSaveS.OnClick := menuSaveClick;
+    btnGoS := TButton.Create(Self);
+    btnGoS.Parent := frmMain;
+    btnGoS.Left := 415;
+    btnGoS.Width := 75;
+    btnGoS.Height := 25;
+    btnGoS.Top := frmMain.ClientHeight - btnGoS.Height - 5;
+    btnGoS.Caption := 'Go';
+    btnGoS.Visible := true;
+    btnGoS.BringToFront;
+    btnGoS.Anchors:=[akBottom,akRight];
+    btnGoS.OnClick := btnGoClick;
+    workPanelS := TPanel.Create(Self);
+    workPanelS.Parent := frmMain;
+    workPanelS.Width := 170;
+    workPanelS.Height := 96;
+    workPanelS.Top := 0;
+    workPanelS.Left := 0;
+    workPanelS.Visible := false;
+    labelCount.Parent := workPanelS;
+    btnCancelS := TButton.Create(Self);
+    btnCancelS.Parent := workPanel;
+    btnCancelS.Top := 64;
+    btnCancelS.Left := 48;
+    btnCancelS.Width := 75;
+    btnCancelS.Height := 25;
+    btnCancelS.Caption := 'Cancel';
+    btnCancelS.Visible := true;
+    btnCancelS.BringToFront;
+    btnCancelS.OnClick := btnCancelClick;
   end;
 end;
 
@@ -553,91 +750,8 @@ begin
   ignoreFiles.Add('.ogg');
   ignoreFiles.Add('.avi');
   ignoreFiles.Add('.mp4');
-  //loadConfig;
-  // UI tweaks
-  if not options.disableCustomTheme then
-  begin
-    btnAbout := TXiButton.Create(Self);
-    btnAbout.Parent := frmMain;
-    btnAbout.Left := 8;
-    btnAbout.Width := 75;
-    btnAbout.Height := 25;
-    btnAbout.Top := frmMain.ClientHeight - btnAbout.Height - 5;
-    btnAbout.Caption := 'About';
-    btnAbout.ColorScheme := csNeoSky;
-    btnAbout.Visible := true;
-    btnAbout.BringToFront;
-    btnAbout.Anchors := [akBottom,akLeft];
-    btnAbout.OnClick := btnAboutClick;
-    btnCopy := TXiButton.Create(Self);
-    btnCopy.Parent := frmMain;
-    btnCopy.Left := 178;
-    btnCopy.Width := 75;
-    btnCopy.Height := 25;
-    btnCopy.Top := frmMain.ClientHeight - btnCopy.Height - 5;
-    btnCopy.Caption := 'Copy';
-    btnCopy.ColorScheme := csNeoSky;
-    btnCopy.Visible := true;
-    btnCopy.BringToFront;
-    btnCopy.Anchors:=[akBottom,akRight];
-    btnCopy.OnClick := menuCopyClick;
-    btnClear := TXiButton.Create(Self);
-    btnClear.Parent := frmMain;
-    btnClear.Left := 258;
-    btnClear.Width := 75;
-    btnClear.Height := 25;
-    btnClear.Top := frmMain.ClientHeight - btnClear.Height - 5;
-    btnClear.Caption := 'Clear';
-    btnClear.ColorScheme := csNeoSky;
-    btnClear.Visible := true;
-    btnClear.BringToFront;
-    btnClear.Anchors:=[akBottom,akRight];
-    btnClear.OnClick := menuClearClick;
-    btnSave := TXiButton.Create(Self);
-    btnSave.Parent := frmMain;
-    btnSave.Left := 338;
-    btnSave.Width := 75;
-    btnSave.Height := 25;
-    btnSave.Top := frmMain.ClientHeight - btnSave.Height - 5;
-    btnSave.Caption := 'Save';
-    btnSave.ColorScheme := csNeoSky;
-    btnSave.Visible := true;
-    btnSave.BringToFront;
-    btnSave.Anchors:=[akBottom,akRight];
-    btnSave.OnClick := menuSaveClick;
-    btnGo := TXiButton.Create(Self);
-    btnGo.Parent := frmMain;
-    btnGo.Left := 415;
-    btnGo.Width := 75;
-    btnGo.Height := 25;
-    btnGo.Top := frmMain.ClientHeight - btnGo.Height - 5;
-    btnGo.Caption := 'Go';
-    btnGo.ColorScheme := csNeoGrass;
-    btnGo.Visible := true;
-    btnGo.BringToFront;
-    btnGo.Anchors:=[akBottom,akRight];
-    btnGo.OnClick := btnGoClick;
-  end;
-  workPanel := TXiPanel.Create(Self);
-  workPanel.Parent := frmMain;
-  workPanel.Width := 170;
-  workPanel.Height := 96;
-  workPanel.Top := 0;
-  workPanel.Left := 0;
-  workPanel.ColorScheme := XiPanel.csGrass;
-  workPanel.Visible := false;
-  labelCount.Parent := workPanel;
-  btnCancel := TXiButton.Create(Self);
-  btnCancel.Parent := workPanel;
-  btnCancel.Top := 64;
-  btnCancel.Left := 48;
-  btnCancel.Width := 75;
-  btnCancel.Height := 25;
-  btnCancel.Caption := 'Cancel';
-  btnCancel.ColorScheme := csNeoRose;
-  btnCancel.Visible := true;
-  btnCancel.BringToFront;
-  btnCancel.OnClick := btnCancelClick;
+  loadConfig;
+  SetControls;
   updatePanel := TXiPanel.Create(self);
   updatePanel.Top := 8;
   updatePanel.Height := 50;
@@ -654,6 +768,11 @@ begin
   textHTML.Lines.Clear;
   textXML.Lines.Clear;
   textCSV.Lines.Clear;
+  {$IFNDEF Windows}
+  textHTML.Font.Name := 'Mono';
+  textXML.Font.Name := 'Mono';
+  textCSV.Font.Name := 'Mono';
+  {$ENDIF}
   PageControl1.ActivePage := tabHTML;
 end;
 
@@ -785,18 +904,30 @@ begin
   commentText := TStringList.Create;
   stop := false;
   labelInfo.Caption := '';
-  workPanel.Caption := 'Please wait';
-  // Show and position the status panel
-  workPanel.Visible := true;
-  workPanel.BringToFront;
-  positionPanel;
   // Disable all but the Cancel button
   textURL.Enabled := false;
   textHTML.Enabled := false;
-  btnGo.Enabled := false;
-  btnSave.Enabled := false;
-  btnClear.Enabled := false;
-  btnCopy.Enabled := false;
+  if not options.disableCustomTheme then
+  begin
+    workPanel.Caption := 'Please wait';
+    workPanel.Visible := true;
+    workPanel.BringToFront;
+    btnGo.Enabled := false;
+    btnSave.Enabled := false;
+    btnClear.Enabled := false;
+    btnCopy.Enabled := false;
+  end
+  else
+  begin
+    workPanelS.Caption := 'Please wait';
+    workPanelS.Visible := true;
+    workPanelS.BringToFront;
+    btnGoS.Enabled := false;
+    btnSaveS.Enabled := false;
+    btnClearS.Enabled := false;
+    btnCopyS.Enabled := false;
+  end;
+  positionPanel;
   PageControl1.Enabled := false;
   // If the entered URL doesn't have a trailing / add one
   if (AnsiRightStr(textURL.Text,1) <> '/') then
@@ -868,15 +999,25 @@ begin
   textXML.Lines.Add('</urlset>');
   // Clear list of links
   links.Clear;
-  // Hide the status panel
-  workPanel.Visible := false;
   // Re-enable the standard controls
   textURL.Enabled := true;
   textHTML.Enabled := true;
-  btnGo.Enabled := true;
-  btnSave.Enabled := true;
-  btnClear.Enabled := true;
-  btnCopy.Enabled := true;
+  if not options.disableCustomTheme then
+  begin
+    workPanel.Visible := false;
+    btnGo.Enabled := true;
+    btnSave.Enabled := true;
+    btnClear.Enabled := true;
+    btnCopy.Enabled := true;
+  end
+  else
+  begin
+    workPanelS.Visible := false;
+    btnGoS.Enabled := true;
+    btnSaveS.Enabled := true;
+    btnClearS.Enabled := true;
+    btnCopyS.Enabled := true;
+  end;
   PageControl1.Enabled := true;
   commentText.Free;
 end;
@@ -892,6 +1033,7 @@ begin
     options.ignoreFiles.AddStrings(frmOptions.listIgores.Items);
     options.includeImages := frmOptions.checkIncludeImages.Checked;
     saveConfig;
+    SetControls;
   end;
 end;
 

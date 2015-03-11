@@ -550,9 +550,9 @@ object frmMain: TfrmMain
       ClientWidth = 690
       inline textXML: TSynEdit
         Left = 0
-        Height = 332
+        Height = 324
         Top = 0
-        Width = 694
+        Width = 690
         Align = alClient
         Font.Height = -13
         Font.Name = 'Courier New'
@@ -1030,9 +1030,9 @@ object frmMain: TfrmMain
       ClientWidth = 690
       inline textCSV: TSynEdit
         Left = 0
-        Height = 332
+        Height = 324
         Top = 0
-        Width = 694
+        Width = 690
         Align = alClient
         Font.Height = 13
         Font.Name = 'DejaVu Sans Mono'

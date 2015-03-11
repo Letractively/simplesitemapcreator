@@ -56,6 +56,8 @@ type
     Label2: TLabel;
     listIgores: TListBox;
     textEditorFontSize: TSpinEdit;
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnOKClick(Sender: TObject);
     procedure textEditorFontButtonClick(Sender: TObject);
   private
     { private declarations }
@@ -78,6 +80,16 @@ begin
     if textEditorFontSize.Value <> FontDialog1.Font.Size then
       textEditorFontSize.Value := FontDialog1.Font.Size;
   end;
+end;
+
+procedure TfrmOptions.btnOKClick(Sender: TObject);
+begin
+  ModalResult := mrOK;
+end;
+
+procedure TfrmOptions.btnCancelClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
 end;
 
 initialization

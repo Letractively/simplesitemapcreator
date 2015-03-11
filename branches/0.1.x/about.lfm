@@ -10,7 +10,7 @@ object frmAbout: TfrmAbout
   ClientWidth = 275
   OnCreate = FormCreate
   Position = poMainFormCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.5'
   object Label1: TLabel
     Left = 0
     Height = 38
@@ -40,7 +40,7 @@ object frmAbout: TfrmAbout
     Width = 275
     Alignment = taCenter
     AutoSize = False
-    Caption = '©2010-2013 Matthew Hipkin'
+    Caption = '©2010-2015 Matthew Hipkin'
     ParentColor = False
   end
   object Label4: TLabel
