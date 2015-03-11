@@ -12,6 +12,7 @@
 #include <curl/curl.h>
 #include <cstring>
 #include "xmlhighlighter.h"
+#include <QDebug>
 
 struct linkItem {
     QString title;
@@ -45,6 +46,9 @@ private:
     XmlHighlighter *highlighter;
     int linkCount;
     QList<linkItem> links;
+    QStringList linkList;
+    void getlinks(xmlNode *a_node);
+    void addLink(char *link, char *title, char *ref, char *header);
 };
 
 #endif // MAINWINDOW_H
