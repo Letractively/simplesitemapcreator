@@ -29,47 +29,11 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
-htmlDocPtr gethtml(char *doclocation,char *encoding) {
+htmlDocPtr gethtml(char *doclocation,char *encoding,char *baseurl) {
   htmlDocPtr doc;
-  doc = htmlReadMemory(doclocation, strlen(doclocation),"http://www.matthewhipkin.co.uk", encoding, HTML_PARSE_NOBLANKS | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING | HTML_PARSE_NONET);
+  doc = htmlReadMemory(doclocation, strlen(doclocation),baseurl, encoding, HTML_PARSE_NOBLANKS | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING | HTML_PARSE_NONET);
 
   return doc;
-}
-
-void getlinks(xmlNode * a_node, QStringList list) {
-  xmlNode *cur_node = NULL;
-
-  for(cur_node = a_node; cur_node; cur_node = cur_node->next) {
-    if(cur_node->type == XML_ELEMENT_NODE) {
-      //printf("%s\n",cur_node->name);
-      if(std::strcmp((char*)cur_node->name,"a") == 0) {
-        xmlAttr *attr = cur_node->properties;
-        while(attr) {
-              if(std::strcmp((char*)attr->name,"href") == 0) {
-                //printf("%s val: %s\n",attr->name,attr->children->content);
-                list.append(QString((char*)attr->children->content));
-              }
-              attr = attr->next;
-            }
-          }
-        }
-        getlinks(cur_node->children, list);
-    }
-}
-
-QStringList parsedoc(htmlDocPtr doc) {
-    xmlNode *cur = NULL;
-    QStringList pagelinks;
-
-    cur = xmlDocGetRootElement(doc);
-
-    if (cur == NULL) {
-        fprintf(stderr, "empty document\n");
-        xmlFreeDoc(doc);
-    }
-
-    getlinks(cur,pagelinks);
-    return pagelinks;
 }
 
 std::string httpGet(char *url) {
@@ -87,11 +51,6 @@ std::string httpGet(char *url) {
       curl_easy_cleanup(curl);
     }
     return response;
-}
-
-void addLink(char *link, char *title, char *ref, char *header) {
-    int x;
-
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -113,47 +72,68 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_btnGo_clicked()
-{
+void MainWindow::getlinks(xmlNode *a_node) {
+  xmlNode *cur_node = NULL;
+
+  for(cur_node = a_node; cur_node; cur_node = cur_node->next) {
+    if(cur_node->type == XML_ELEMENT_NODE) {
+      if(std::strcmp((char*)cur_node->name,"a") == 0) {
+        xmlAttr *attr = cur_node->properties;
+        while(attr) {
+              if(std::strcmp((char*)attr->name,"href") == 0) {
+                linkList.append(QString((char*)attr->children->content));
+                //qDebug() << "link: " << QString((char*)attr->children->content);
+              }
+              attr = attr->next;
+            }
+          }
+        }
+        getlinks(cur_node->children);
+    }
+}
+
+void MainWindow::addLink(char *link, char *title, char *ref, char *header) {
+    int x;
+
+}
+
+void MainWindow::on_btnGo_clicked() {
     // Clear out bits and bobs first
     linkCount = 0;
     links.empty();
+    linkList.empty();
     ui->textHTML->clear();
     ui->textXML->clear();
 
     std::string content = "";
     content = httpGet("http://www.matthewhipkin.co.uk");
-    //ui->textHTML->append(QString(content.c_str()));
-
-    QStringList tmpList;
 
     htmlDocPtr doc;
     char *encoding = "UTF-8";
-
-    doc = gethtml((char*)content.c_str(), encoding);
-
-    tmpList = parsedoc(doc);
-
-    ui->textHTML->setText(tmpList.join("\n"));
-
+    doc = gethtml((char*)content.c_str(), encoding, (char*)ui->textURL->currentText().toStdString().c_str());
+    xmlNode *cur = NULL;
+    cur = xmlDocGetRootElement(doc);
+    if (cur == NULL) {
+        fprintf(stderr, "empty document\n");
+        xmlFreeDoc(doc);
+    }
+    getlinks(cur);
+    ui->textHTML->setText(linkList.join("\n"));
     QMessageBox::information(this,"Done","Done");
 }
 
-void MainWindow::on_btnCopy_clicked()
-{    
+void MainWindow::on_btnCopy_clicked() {
     QClipboard *cb = QApplication::clipboard();
     if(ui->tabHTML->isVisible()) cb->setText(ui->textHTML->toPlainText());
     else cb->setText(ui->textXML->toPlainText());
 }
 
-void MainWindow::on_btnClear_clicked()
-{
+void MainWindow::on_btnClear_clicked() {
     ui->textHTML->clear();
     ui->textXML->clear();
 }
 
-void MainWindow::on_btnSave_clicked()
-{
+void MainWindow::on_btnSave_clicked() {
     QString ext;
     if(ui->tabHTML->isVisible()) ext = ".html";
     else ext = ".xml";
@@ -167,8 +147,7 @@ void MainWindow::on_btnSave_clicked()
     }
 }
 
-void MainWindow::on_btnAbout_clicked()
-{
+void MainWindow::on_btnAbout_clicked() {
     QString html;
     html = "<p><b style=\"font-size: 14pt\">"+APPNAME+"</b> "+APPVER+"<br>\n";
     html.append("&copy;2010-2013 Matthew Hipkin<br>\n");
