@@ -372,20 +372,20 @@ end;
 procedure TfrmMain.SetControls;
 begin
   // Clean up
-  if Assigned(btnAbout) then btnAbout.Free;
-  if Assigned(btnCopy) then btnCopy.Free;
-  if Assigned(btnClear) then btnClear.Free;
-  if Assigned(btnSave) then btnSave.Free;
-  if Assigned(btnGo) then btnGo.Free;
-  if Assigned(btnCancel) then btnCancel.Free;
-  if Assigned(workPanel) then workPanel.Free;
-  if Assigned(btnAboutS) then btnAbout.Free;
-  if Assigned(btnCopyS) then btnCopy.Free;
-  if Assigned(btnClearS) then btnClear.Free;
-  if Assigned(btnSaveS) then btnSave.Free;
-  if Assigned(btnGoS) then btnGo.Free;
-  if Assigned(btnCancelS) then btnCancel.Free;
-  if Assigned(workPanelS) then workPanel.Free;
+  if Assigned(btnAbout) then FreeAndNil(btnAbout);
+  if Assigned(btnCopy) then FreeAndNil(btnCopy);
+  if Assigned(btnClear) then FreeAndNil(btnClear);
+  if Assigned(btnSave) then FreeAndNil(btnSave);
+  if Assigned(btnGo) then FreeAndNil(btnGo);
+  if Assigned(btnCancel) then FreeAndNil(btnCancel);
+  if Assigned(workPanel) then FreeAndNil(workPanel);
+  if Assigned(btnAboutS) then FreeAndNil(btnAboutS);
+  if Assigned(btnCopyS) then FreeAndNil(btnCopyS);
+  if Assigned(btnClearS) then FreeAndNil(btnClearS);
+  if Assigned(btnSaveS) then FreeAndNil(btnSaveS);
+  if Assigned(btnGoS) then FreeAndNil(btnGoS);
+  if Assigned(btnCancelS) then FreeAndNil(btnCancelS);
+  if Assigned(workPanelS) then FreeAndNil(workPanelS);
   // Reset
   if not options.disableCustomTheme then
   begin
@@ -1029,8 +1029,8 @@ begin
     options.disableCustomTheme := frmOptions.checkDisableTheme.Checked;
     options.editorFont := frmOptions.textEditorFont.Text;
     options.editorFontSize := frmOptions.textEditorFontSize.Value;
-    options.ignoreFiles.Clear;
-    options.ignoreFiles.AddStrings(frmOptions.listIgores.Items);
+//    options.ignoreFiles.Clear;
+//    options.ignoreFiles.AddStrings(frmOptions.listIgores.Items);
     options.includeImages := frmOptions.checkIncludeImages.Checked;
     saveConfig;
     SetControls;
