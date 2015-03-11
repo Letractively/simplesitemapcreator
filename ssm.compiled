@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Compiler Value="/usr/local/bin/fpc" Date="1415268010"/>
-  <Params Value=" -MObjFPC -Scghi -O3 -g -gl -Xs -l -vewnhibq -Fu/usr/home/matthew/prog/simplesitemapcreator-laz/synapse -Fu/usr/home/matthew/prog/simplesitemapcreator-laz/xicontrols -Fu/usr/home/matthew/lazarus/components/synedit/units/i386-freebsd/gtk2 -Fu/usr/home/matthew/lazarus/lcl/units/i386-freebsd/gtk2 -Fu/usr/home/matthew/lazarus/lcl/units/i386-freebsd -Fu/usr/home/matthew/lazarus/components/lazutils/lib/i386-freebsd -Fu/usr/home/matthew/lazarus/packager/units/i386-freebsd -Fu/usr/home/matthew/prog/simplesitemapcreator-laz/ -dLCL -dLCLgtk2 ssm.lpr"/>
+  <Params Value=" -MObjFPC -Scghi -O3 -g -gl -Xs -l -vewnhibq -Fu/usr/home/matthew/prog/simplesitemapcreator-laz/synapse -Fu/usr/home/matthew/prog/simplesitemapcreator-laz/xicontrols -Fu/usr/home/matthew/lazarus/components/synedit/units/i386-freebsd/qt -Fu/usr/home/matthew/lazarus/lcl/units/i386-freebsd/qt -Fu/usr/home/matthew/lazarus/lcl/units/i386-freebsd -Fu/usr/home/matthew/lazarus/components/lazutils/lib/i386-freebsd -Fu/usr/home/matthew/lazarus/packager/units/i386-freebsd -Fu/usr/home/matthew/prog/simplesitemapcreator-laz/ -dLCL -dLCLqt ssm.lpr"/>
 </CONFIG>
